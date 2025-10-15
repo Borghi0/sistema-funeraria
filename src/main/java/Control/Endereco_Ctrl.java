@@ -1,6 +1,5 @@
 package Control;
 
-import Model.Ofertavel;
 import Model.Endereco;
 
 public class Endereco_Ctrl {
