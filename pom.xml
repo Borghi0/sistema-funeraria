@@ -5,6 +5,39 @@
     <artifactId>UTFuneral</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <!-- FlatLaf "no-natives" JAR -->
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.4</version>
+            <classifier>no-natives</classifier>
+        </dependency>
+
+        <!-- if using other FlatLaf libraries, it is required to exclude "com.formdev:flatlaf" -->
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-extras</artifactId>
+            <version>3.4</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.formdev</groupId>
+                    <artifactId>flatlaf</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>       
+        <dependency>
+            <groupId>com.github.weisj</groupId>
+            <artifactId>darklaf-core</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+    </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
