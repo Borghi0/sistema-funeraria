@@ -7,13 +7,18 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 
 public final class JLogin extends javax.swing.JFrame {
-
-    public JLogin() {
+    private static JLogin instancia;
+    
+    private JLogin() {
         initComponents();
-        rtErro.setVisible(false);
-        mnOpcoes.requestFocus();
+        rtErro.setVisible(false);                
         placeholder(true);
         setLocationRelativeTo(null);
+    }
+    
+    public static JLogin getInstancia(){
+        if(instancia==null) instancia = new JLogin();
+        return instancia;
     }
 
     
@@ -31,10 +36,11 @@ public final class JLogin extends javax.swing.JFrame {
         mnBar = new javax.swing.JMenuBar();
         mnOpcoes = new javax.swing.JMenu();
         mniCad = new javax.swing.JMenuItem();
+        mniCon = new javax.swing.JMenuItem();
         mniSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Menu Inicial");
+        setTitle("Menu login");
 
         rtUser.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtUser.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -62,11 +68,6 @@ public final class JLogin extends javax.swing.JFrame {
 
         csSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         csSenha.setToolTipText("");
-        csSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                csSenhaActionPerformed(evt);
-            }
-        });
         csSenha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 csSenhaKeyPressed(evt);
@@ -109,6 +110,7 @@ public final class JLogin extends javax.swing.JFrame {
 
         mniCad.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mniCad.setText("Cadastrar-se...");
+        mniCad.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         mniCad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniCadActionPerformed(evt);
@@ -116,8 +118,20 @@ public final class JLogin extends javax.swing.JFrame {
         });
         mnOpcoes.add(mniCad);
 
+        mniCon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mniCon.setText("Conectar-se...");
+        mniCon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        mniCon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniConActionPerformed(evt);
+            }
+        });
+        mnOpcoes.add(mniCon);
+
         mniSair.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mniSair.setText("Fechar aplicação");
+        mniSair.setAlignmentX(0.6F);
+        mniSair.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         mniSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniSairActionPerformed(evt);
@@ -146,7 +160,6 @@ public final class JLogin extends javax.swing.JFrame {
                             .addComponent(csSenha)
                             .addComponent(cxUser)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
                         .addComponent(btCad)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btEnt, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -212,12 +225,12 @@ public final class JLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btEntKeyPressed
 
     private void btCadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btCadKeyPressed
-        jCad();
+        jCad(evt);
     }//GEN-LAST:event_btCadKeyPressed
 
-    private void csSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_csSenhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_csSenhaActionPerformed
+    private void mniConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniConActionPerformed
+        jCon();
+    }//GEN-LAST:event_mniConActionPerformed
 
     public void entrar(){
         /*if(MenuControle.entrar(cxUser.getText(), csSenha.getPassword())){
@@ -234,12 +247,17 @@ public final class JLogin extends javax.swing.JFrame {
     }
     
     public void jCad(){
-        //MenuControle.menuCadastro.setVisible(true);
+        JCadastro.getInstancia().setVisible(true);
         setVisible(false);
         rtErro.setVisible(false);
     }
     public void jCad(java.awt.event.KeyEvent evt){
         if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) jCad();
+    }
+    
+    public void jCon(){
+        dispose();
+        JConexaoBD.getInstancia().setVisible(true);        
     }
     
     public void placeholder(boolean add){
@@ -254,9 +272,7 @@ public final class JLogin extends javax.swing.JFrame {
     }
     
     
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -264,17 +280,12 @@ public final class JLogin extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         LafManager.install(new com.github.weisj.darklaf.theme.OneDarkTheme());
-        try {        
-            //UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatDarculaLaf());
-            UIManager.setLookAndFeel(new DarkLaf());
-        }
-        catch (UnsupportedLookAndFeelException e) {}
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JLogin().setVisible(true);
+                getInstancia().setVisible(true);
             }
         });
     }
@@ -287,6 +298,7 @@ public final class JLogin extends javax.swing.JFrame {
     private javax.swing.JMenuBar mnBar;
     private javax.swing.JMenu mnOpcoes;
     private javax.swing.JMenuItem mniCad;
+    private javax.swing.JMenuItem mniCon;
     private javax.swing.JMenuItem mniSair;
     private javax.swing.JLabel rtErro;
     private javax.swing.JLabel rtSenha;

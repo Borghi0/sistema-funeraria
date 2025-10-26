@@ -1,8 +1,13 @@
 package View;
 
 
+import Control.Usuario_Ctrl;
+import Model.Usuario;
 import com.github.weisj.darklaf.*;
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.DocumentEvent;
@@ -10,9 +15,9 @@ import javax.swing.event.DocumentListener;
 
 
 public class JCadastro extends javax.swing.JFrame {
-    static JCadastro cadUnic;
+    private static JCadastro instancia;
     
-    public JCadastro() {
+    private JCadastro() {
         initComponents();
         rtCadInfo.setVisible(false);
         setLocationRelativeTo(null);
@@ -48,12 +53,12 @@ public class JCadastro extends javax.swing.JFrame {
             public void changedUpdate(DocumentEvent e) {
                 throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
-        });
+        });        
     }
 
-    public static JCadastro getMenuCadastro(){
-        if(cadUnic == null) cadUnic = new JCadastro();
-        return cadUnic;
+    public static JCadastro getInstancia(){
+        if(instancia == null) instancia = new JCadastro();
+        return instancia;
     }
     
     @SuppressWarnings("unchecked")
@@ -77,8 +82,6 @@ public class JCadastro extends javax.swing.JFrame {
         rtErroUser = new javax.swing.JLabel();
         rtErroEmail = new javax.swing.JLabel();
         rtCadInfo = new javax.swing.JLabel();
-        cxEndereco = new javax.swing.JTextField();
-        rtEndereco = new javax.swing.JLabel();
         rtCPF = new javax.swing.JLabel();
         cxCPF = new javax.swing.JTextField();
 
@@ -210,22 +213,6 @@ public class JCadastro extends javax.swing.JFrame {
         rtCadInfo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         rtCadInfo.setText("Preencha todos os campos");
 
-        cxEndereco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cxEndereco.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cxEnderecoFocusLost(evt);
-            }
-        });
-        cxEndereco.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cxEnderecoKeyPressed(evt);
-            }
-        });
-
-        rtEndereco.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtEndereco.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtEndereco.setText("Endereço:");
-
         rtCPF.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtCPF.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         rtCPF.setText("CPF:");
@@ -268,14 +255,12 @@ public class JCadastro extends javax.swing.JFrame {
                                     .addComponent(rtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(rtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(rtUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(rtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(rtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(cxEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
                                     .addComponent(cxNome, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cxTelefone, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cxEndereco, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cxCPF, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cxUser))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
@@ -309,28 +294,24 @@ public class JCadastro extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cxTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cxEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cxCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(csSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rtCSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(csCSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rtCadInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btComf, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                            .addComponent(cxTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cxCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(csSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rtCSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(csCSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rtCadInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btComf, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -375,7 +356,7 @@ public class JCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_btVoltarKeyPressed
 
     private void cxTelefoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cxTelefoneFocusLost
-        cxCPF.setText(cxCPF.getText().replaceAll("[^0-9]", ""));
+        cxTelefone.setText(cxTelefone.getText().replaceAll("[^0-9]", ""));
     }//GEN-LAST:event_cxTelefoneFocusLost
 
     private void cxUserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cxUserFocusLost
@@ -390,20 +371,12 @@ public class JCadastro extends javax.swing.JFrame {
         cxNome.setText(cxNome.getText().trim());
     }//GEN-LAST:event_cxNomeFocusLost
 
-    private void cxEnderecoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cxEnderecoFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cxEnderecoFocusLost
-
-    private void cxEnderecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cxEnderecoKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cxEnderecoKeyPressed
-
     private void cxCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cxCPFFocusLost
-        // TODO add your handling code here:
+        cxCPF.setText(cxCPF.getText().replaceAll("[^0-9]", ""));
     }//GEN-LAST:event_cxCPFFocusLost
 
     private void cxCPFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cxCPFKeyPressed
-        // TODO add your handling code here:
+        cadastrar(evt);
     }//GEN-LAST:event_cxCPFKeyPressed
 
     private void csSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_csSenhaKeyPressed
@@ -412,28 +385,61 @@ public class JCadastro extends javax.swing.JFrame {
 
     public void voltar(){
         dispose();
-        //MenuControle.menuInicial.setVisible(true);
+        JLogin.getInstancia().setVisible(true);
     }
     public void voltar(java.awt.event.KeyEvent evt){
-        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER){
-            dispose();
-        //    MenuControle.menuInicial.setVisible(true);   
-        }
+        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) voltar();
     }
     
     public void cadastrar(){
+                
+        // ver se segue boas praticas (claramente n):
         cxUser.setText(cxUser.getText().replaceAll("\\s+", ""));
         cxEmail.setText(cxEmail.getText().replaceAll("\\s+", ""));
         cxNome.setText(cxNome.getText().trim());
+        cxTelefone.setText(cxTelefone.getText().replaceAll("[^0-9]", ""));        
         cxCPF.setText(cxCPF.getText().replaceAll("[^0-9]", ""));
         
-        boolean c = false;
-/*        try{
-            UsuarioControle.cadastrar(cxNome.getText(), cxCPF.getText(), cxEmail.getText(),
-                    String.valueOf(csSenha.getPassword()), String.valueOf(csCSenha.getPassword()), 
-                    cxUser.getText(), false, false);
+        // criar classes de verificação para usar aqui ou no metodo cad_User,
+        // por exemplo: senha = confirma senha; CPF é válido...
+        
+        Usuario usuario = new Usuario(
+            cxUser.getText(),
+            String.valueOf(csSenha.getPassword()),
+            cxTelefone.getText(),
+            false,
+            null, // acrescentar caixas de texto para endereco
+            null,
+            cxNome.getText(),
+            cxCPF.getText(),
+            null // acrescentar caixa de texto para data de natalidade
+        );
+        
+        try {
+            Usuario_Ctrl.getInstancia().cad_User(usuario);
+            JOptionPane.showMessageDialog(
+                null,
+                "Usuário cadastrado com sucesso!",
+                "Sucesso",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                null,
+                "Erro ao cadastrar usuário:\n" + e,
+                "Erro",
+                JOptionPane.ERROR_MESSAGE
+            );
         }
-        catch(IllegalArgumentException iae){
+            /*       Codigo de referencia
+            
+            boolean c = false;
+            try{
+            UsuarioControle.cadastrar(cxNome.getText(), cxCPF.getText(), cxEmail.getText(),
+            String.valueOf(csSenha.getPassword()), String.valueOf(csCSenha.getPassword()),
+            cxUser.getText(), false, false);
+            }
+            catch(IllegalArgumentException iae){
             c = true;
             rtCadInfo.setForeground(Color.red);
             rtCadInfo.setVisible(true);
@@ -441,18 +447,20 @@ public class JCadastro extends javax.swing.JFrame {
             if(iae.getMessage().equals("Email")) rtErro(1);
             else if(iae.getMessage().equals("User")) rtErro(2);
             else if(iae.getMessage().equals("UserEmail")) rtErro(3);
-        }
-        if(!c){
-            limpa();
+            }
+            if(!c){
+            limpar();
             rtCadInfo.setForeground(UIManager.getColor("TextField.foreground"));
             rtCadInfo.setText("Cadastrado com sucesso!");
             rtCadInfo.setVisible(true);
-        }*/
+            }
+            */        
     }
     public void cadastrar(java.awt.event.KeyEvent evt){
         if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) cadastrar();
     }
-    public void limpa(){
+    
+    public void limpar(){
         cxUser.setText("");
         cxEmail.setText("");
         cxNome.setText("");
@@ -488,9 +496,7 @@ public class JCadastro extends javax.swing.JFrame {
     }
     
     
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -505,8 +511,7 @@ public class JCadastro extends javax.swing.JFrame {
         catch (UnsupportedLookAndFeelException e) {}
         //catch (ClassNotFoundException e) {}
         //catch (InstantiationException e) {}
-        //catch (IllegalAccessException e) {}
-        //</editor-fold>
+        //catch (IllegalAccessException e) {}        
         //</editor-fold>
 
         /* Create and display the form */
@@ -524,7 +529,6 @@ public class JCadastro extends javax.swing.JFrame {
     private javax.swing.JPasswordField csSenha;
     private javax.swing.JTextField cxCPF;
     private javax.swing.JTextField cxEmail;
-    private javax.swing.JTextField cxEndereco;
     private javax.swing.JTextField cxNome;
     private javax.swing.JTextField cxTelefone;
     private javax.swing.JTextField cxUser;
@@ -532,7 +536,6 @@ public class JCadastro extends javax.swing.JFrame {
     private javax.swing.JLabel rtCSenha;
     private javax.swing.JLabel rtCadInfo;
     private javax.swing.JLabel rtEmail;
-    private javax.swing.JLabel rtEndereco;
     private javax.swing.JLabel rtErroEmail;
     private javax.swing.JLabel rtErroUser;
     private javax.swing.JLabel rtNome;
