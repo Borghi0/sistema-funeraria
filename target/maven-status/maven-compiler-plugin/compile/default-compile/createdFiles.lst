@@ -1,6 +1,7 @@
 Model\Endereco.class
 View\JConexaoBD$4.class
 com\mycompany\utfuneral\UTFuneral.class
+com\mycompany\utfuneral\newJavaFile$Banco_Ctrl.class
 View\JLogin$7.class
 Config\MySQLInicializadorBD.class
 View\JCadastro$15.class
@@ -17,9 +18,11 @@ View\JCadastro$16.class
 View\JCadastro$19.class
 View\JLogin$8.class
 Control\Sala_Ctrl.class
+Interfaces\I_InicializadorBD.class
 Control\Usuario_Ctrl.class
 View\JLogin$10.class
 View\JLogin$4.class
+com\mycompany\utfuneral\newJavaFile$PostgreSQLInicializadorBD.class
 View\JCadastro$13.class
 View\JCadastro$5.class
 Model\Plano.class
@@ -30,6 +33,7 @@ View\JConexaoBD$5.class
 View\JLogin$1.class
 Control\Defunto_Ctrl.class
 View\JCadastro$7.class
+com\mycompany\utfuneral\newJavaFile$MySQLInicializadorBD.class
 View\JCadastro$10.class
 View\JConexaoBD$2.class
 Model\Produto.class
@@ -46,11 +50,12 @@ View\JCadastro$17.class
 View\JLogin$5.class
 View\JCadastro$4.class
 View\JLogin$6.class
-Config\I_InicializadorBD.class
 View\JCadastro$14.class
 View\JCadastro$6.class
 View\JConexaoBD$3.class
 View\JCadastro$11.class
+com\mycompany\utfuneral\newJavaFile.class
+com\mycompany\utfuneral\newJavaFile$I_InicializadorBD.class
 View\JLogin$9.class
 View\JLogin.class
 View\JCadastro$18.class
