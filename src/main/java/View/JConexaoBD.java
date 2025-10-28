@@ -6,8 +6,6 @@ import com.github.weisj.darklaf.LafManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import Model.Banco;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -172,15 +170,13 @@ public class JConexaoBD extends javax.swing.JFrame {
         
         try {
             Banco_Ctrl.getInstancia().testarConexao();
-            Config.MySQLInicializadorBD.getInstancia().criarTabelas();
+            Banco_Ctrl.getInstancia().criarTabelas();
             JOptionPane.showMessageDialog(
                 null,
                 "Conexão bem-sucedida!",
                 "Sucesso",
                 JOptionPane.INFORMATION_MESSAGE
-            );
-            dispose();
-            JLogin.getInstancia().setVisible(true);
+            );            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                 null,
@@ -188,6 +184,21 @@ public class JConexaoBD extends javax.swing.JFrame {
                 "Erro de Conexão",
                 JOptionPane.ERROR_MESSAGE
             );
+            return;
+        }
+        
+        Banco_Ctrl.getInstancia().setInicializadorBD(Config.MySQLInicializadorBD.getInstancia());
+        try {            
+            Banco_Ctrl.getInstancia().criarTabelas();            
+            dispose();
+            JLogin.getInstancia().setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                null,
+                "Erro ao criar o banco de dados:\n" + e,
+                "Erro de inicialização",
+                JOptionPane.ERROR_MESSAGE
+            );            
         }
     }
     private void conectar(java.awt.event.KeyEvent evt){
