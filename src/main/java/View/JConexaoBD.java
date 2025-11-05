@@ -29,13 +29,13 @@ public class JConexaoBD extends javax.swing.JFrame {
     private void initComponents() {
 
         rtUser = new javax.swing.JLabel();
-        cxUser = new javax.swing.JTextField();
         rtSenha = new javax.swing.JLabel();
-        csSenha = new javax.swing.JPasswordField();
         rtURL = new javax.swing.JLabel();
+        rtBd = new javax.swing.JLabel();
         cxURL = new javax.swing.JTextField();
+        cxUser = new javax.swing.JTextField();
+        csSenha = new javax.swing.JPasswordField();
         btConectar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Conexão");
@@ -44,29 +44,16 @@ public class JConexaoBD extends javax.swing.JFrame {
         rtUser.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         rtUser.setText("Usuário:");
 
-        cxUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cxUser.setToolTipText("");
-        cxUser.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cxUserKeyPressed(evt);
-            }
-        });
-
         rtSenha.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         rtSenha.setText("Senha:");
 
-        csSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        csSenha.setToolTipText("");
-        csSenha.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                csSenhaKeyPressed(evt);
-            }
-        });
-
         rtURL.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtURL.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         rtURL.setText("URL:");
+
+        rtBd.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        rtBd.setText("Conecte-se ao BD");
 
         cxURL.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cxURL.setToolTipText("");
@@ -76,8 +63,24 @@ public class JConexaoBD extends javax.swing.JFrame {
             }
         });
 
+        cxUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cxUser.setToolTipText("");
+        cxUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cxUserKeyPressed(evt);
+            }
+        });
+
+        csSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        csSenha.setToolTipText("");
+        csSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                csSenhaKeyPressed(evt);
+            }
+        });
+
         btConectar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btConectar.setText("Comfirmar");
+        btConectar.setText("Confirmar");
         btConectar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btConectarActionPerformed(evt);
@@ -89,38 +92,33 @@ public class JConexaoBD extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        jLabel1.setText("Conecte-se ao BD");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btConectar)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(rtURL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rtUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cxURL, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                            .addComponent(cxUser)
-                            .addComponent(csSenha))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btConectar)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(rtURL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(rtUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(rtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cxURL, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                                .addComponent(cxUser)
+                                .addComponent(csSenha))))
+                    .addComponent(rtBd))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(240, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap(225, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(80, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(rtBd)
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rtURL, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -223,7 +221,7 @@ public class JConexaoBD extends javax.swing.JFrame {
     private javax.swing.JPasswordField csSenha;
     private javax.swing.JTextField cxURL;
     private javax.swing.JTextField cxUser;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel rtBd;
     private javax.swing.JLabel rtSenha;
     private javax.swing.JLabel rtURL;
     private javax.swing.JLabel rtUser;

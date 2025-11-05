@@ -27,12 +27,12 @@ public final class JLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         rtUser = new javax.swing.JLabel();
-        cxUser = new javax.swing.JTextField();
         rtSenha = new javax.swing.JLabel();
+        rtErro = new javax.swing.JLabel();
+        cxUser = new javax.swing.JTextField();
         csSenha = new javax.swing.JPasswordField();
         btCad = new javax.swing.JButton();
         btEnt = new javax.swing.JButton();
-        rtErro = new javax.swing.JLabel();
         mnBar = new javax.swing.JMenuBar();
         mnOpcoes = new javax.swing.JMenu();
         mniCad = new javax.swing.JMenuItem();
@@ -45,6 +45,15 @@ public final class JLogin extends javax.swing.JFrame {
         rtUser.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtUser.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         rtUser.setText("Usuário:");
+
+        rtSenha.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtSenha.setText("Senha:");
+
+        rtErro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rtErro.setForeground(new java.awt.Color(255, 0, 0));
+        rtErro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtErro.setText("usuário ou senha incorretos");
 
         cxUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cxUser.setToolTipText("");
@@ -61,10 +70,6 @@ public final class JLogin extends javax.swing.JFrame {
                 cxUserKeyPressed(evt);
             }
         });
-
-        rtSenha.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtSenha.setText("Senha:");
 
         csSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         csSenha.setToolTipText("");
@@ -99,11 +104,6 @@ public final class JLogin extends javax.swing.JFrame {
                 btEntKeyPressed(evt);
             }
         });
-
-        rtErro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        rtErro.setForeground(new java.awt.Color(255, 0, 0));
-        rtErro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtErro.setText("usuário ou senha incorretos");
 
         mnOpcoes.setText("Opções");
         mnOpcoes.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N

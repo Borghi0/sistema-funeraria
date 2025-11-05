@@ -65,28 +65,80 @@ public class JCadastro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cxNome = new javax.swing.JTextField();
+        rtUser = new javax.swing.JLabel();
+        rtEmail = new javax.swing.JLabel();
+        rtNome = new javax.swing.JLabel();
         rtTelefone = new javax.swing.JLabel();
-        cxTelefone = new javax.swing.JTextField();
-        rtCSenha = new javax.swing.JLabel();
+        rtCPF = new javax.swing.JLabel();
         rtSenha = new javax.swing.JLabel();
+        rtCSenha = new javax.swing.JLabel();
+        cxUser = new javax.swing.JTextField();
+        cxEmail = new javax.swing.JTextField();
+        cxNome = new javax.swing.JTextField();
+        cxTelefone = new javax.swing.JTextField();
+        cxCPF = new javax.swing.JTextField();
         csSenha = new javax.swing.JPasswordField();
         csCSenha = new javax.swing.JPasswordField();
-        rtEmail = new javax.swing.JLabel();
-        cxEmail = new javax.swing.JTextField();
-        rtUser = new javax.swing.JLabel();
-        cxUser = new javax.swing.JTextField();
-        rtNome = new javax.swing.JLabel();
         btVoltar = new javax.swing.JButton();
-        btComf = new javax.swing.JButton();
+        btConfirmar = new javax.swing.JButton();
         rtErroUser = new javax.swing.JLabel();
         rtErroEmail = new javax.swing.JLabel();
         rtCadInfo = new javax.swing.JLabel();
-        rtCPF = new javax.swing.JLabel();
-        cxCPF = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro");
+
+        rtUser.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtUser.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtUser.setText("Nome de Usuario:");
+
+        rtEmail.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtEmail.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtEmail.setText("Email:");
+
+        rtNome.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtNome.setText("Nome:");
+
+        rtTelefone.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtTelefone.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtTelefone.setText("Telefone:");
+
+        rtCPF.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtCPF.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtCPF.setText("CPF:");
+
+        rtSenha.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtSenha.setText("Senha:");
+
+        rtCSenha.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtCSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtCSenha.setText("Confirmar senha:");
+
+        cxUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cxUser.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cxUserFocusLost(evt);
+            }
+        });
+        cxUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cxUserKeyPressed(evt);
+            }
+        });
+
+        cxEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cxEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cxEmailFocusLost(evt);
+            }
+        });
+        cxEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cxEmailKeyPressed(evt);
+            }
+        });
 
         cxNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cxNome.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -100,10 +152,6 @@ public class JCadastro extends javax.swing.JFrame {
             }
         });
 
-        rtTelefone.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtTelefone.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtTelefone.setText("Telefone:");
-
         cxTelefone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cxTelefone.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -116,13 +164,17 @@ public class JCadastro extends javax.swing.JFrame {
             }
         });
 
-        rtCSenha.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtCSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtCSenha.setText("Comfirmar senha:");
-
-        rtSenha.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtSenha.setText("Senha:");
+        cxCPF.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cxCPF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cxCPFFocusLost(evt);
+            }
+        });
+        cxCPF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cxCPFKeyPressed(evt);
+            }
+        });
 
         csSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         csSenha.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -138,42 +190,6 @@ public class JCadastro extends javax.swing.JFrame {
             }
         });
 
-        rtEmail.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtEmail.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtEmail.setText("Email:");
-
-        cxEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cxEmail.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cxEmailFocusLost(evt);
-            }
-        });
-        cxEmail.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cxEmailKeyPressed(evt);
-            }
-        });
-
-        rtUser.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtUser.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtUser.setText("Nome de Usuario:");
-
-        cxUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cxUser.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cxUserFocusLost(evt);
-            }
-        });
-        cxUser.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cxUserKeyPressed(evt);
-            }
-        });
-
-        rtNome.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtNome.setText("Nome:");
-
         btVoltar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         btVoltar.setText("Voltar");
         btVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -187,16 +203,16 @@ public class JCadastro extends javax.swing.JFrame {
             }
         });
 
-        btComf.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btComf.setText("Comfirmar");
-        btComf.addActionListener(new java.awt.event.ActionListener() {
+        btConfirmar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btConfirmar.setText("Confirmar");
+        btConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btComfActionPerformed(evt);
+                btConfirmarActionPerformed(evt);
             }
         });
-        btComf.addKeyListener(new java.awt.event.KeyAdapter() {
+        btConfirmar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                btComfKeyPressed(evt);
+                btConfirmarKeyPressed(evt);
             }
         });
 
@@ -212,22 +228,6 @@ public class JCadastro extends javax.swing.JFrame {
         rtCadInfo.setForeground(new java.awt.Color(255, 0, 0));
         rtCadInfo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         rtCadInfo.setText("Preencha todos os campos");
-
-        rtCPF.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtCPF.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtCPF.setText("CPF:");
-
-        cxCPF.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cxCPF.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cxCPFFocusLost(evt);
-            }
-        });
-        cxCPF.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cxCPFKeyPressed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -248,7 +248,7 @@ public class JCadastro extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(csCSenha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
                                         .addComponent(csSenha, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(btComf)))
+                                    .addComponent(btConfirmar)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(rtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -310,7 +310,7 @@ public class JCadastro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rtCadInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btComf, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -323,13 +323,13 @@ public class JCadastro extends javax.swing.JFrame {
         voltar();
     }//GEN-LAST:event_btVoltarActionPerformed
 
-    private void btComfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btComfActionPerformed
+    private void btConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarActionPerformed
         cadastrar();        
-    }//GEN-LAST:event_btComfActionPerformed
+    }//GEN-LAST:event_btConfirmarActionPerformed
 
-    private void btComfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btComfKeyPressed
+    private void btConfirmarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btConfirmarKeyPressed
         cadastrar(evt);
-    }//GEN-LAST:event_btComfKeyPressed
+    }//GEN-LAST:event_btConfirmarKeyPressed
 
     private void cxUserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cxUserKeyPressed
         cadastrar(evt);
@@ -523,7 +523,7 @@ public class JCadastro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btComf;
+    private javax.swing.JButton btConfirmar;
     private javax.swing.JButton btVoltar;
     private javax.swing.JPasswordField csCSenha;
     private javax.swing.JPasswordField csSenha;
