@@ -1,5 +1,6 @@
 package Config;
 
+import Interfaces.I_InicializadorBD;
 import Control.Banco_Ctrl;
 import java.sql.*;
 
