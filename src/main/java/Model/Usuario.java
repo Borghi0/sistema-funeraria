@@ -9,6 +9,7 @@ public class Usuario extends Pessoa{
     private boolean admin;
     private Endereco endereco;
     private Plano plano;
+    private String cpf;
 
     
     public Usuario() {
@@ -19,6 +20,7 @@ public class Usuario extends Pessoa{
         this.admin = false;
         this.endereco = null;
         this.plano = null;
+        this.cpf = "";
     }
     
     public Usuario(String login, String senha, String numero_Telefone, boolean admin, Endereco endereco, Plano plano, String nome, String cpf, Date data_natalidade) {
@@ -29,6 +31,7 @@ public class Usuario extends Pessoa{
         this.admin = admin;
         this.endereco = endereco;
         this.plano = plano;
+        this.cpf = cpf;
     }
 
     public String getLogin() {
@@ -53,6 +56,10 @@ public class Usuario extends Pessoa{
 
     public Plano getPlano() {
         return plano;
+    }
+    
+    public String getCpf() {
+        return cpf;
     }
 
     public void setLogin(String login) {
@@ -79,5 +86,8 @@ public class Usuario extends Pessoa{
         this.plano = plano;
     }
     
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }    
     
 }
