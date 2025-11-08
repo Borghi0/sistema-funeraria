@@ -95,7 +95,7 @@ public class JConexaoBD extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(131, Short.MAX_VALUE)
+                .addContainerGap(132, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btConectar)
                     .addGroup(layout.createSequentialGroup()
@@ -104,12 +104,13 @@ public class JConexaoBD extends javax.swing.JFrame {
                             .addComponent(rtUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(rtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rtBd)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(cxURL, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                                .addComponent(cxUser)
-                                .addComponent(csSenha)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cxURL, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                            .addComponent(cxUser)
+                            .addComponent(csSenha)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(rtBd)))))
                 .addContainerGap(132, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -167,8 +168,7 @@ public class JConexaoBD extends javax.swing.JFrame {
         Banco_Ctrl.getInstancia().setBanco(banco);
         
         try {
-            Banco_Ctrl.getInstancia().testarConexao();
-            Banco_Ctrl.getInstancia().criarTabelas();
+            Banco_Ctrl.getInstancia().testarConexao();            
             JOptionPane.showMessageDialog(
                 null,
                 "Conexão bem-sucedida!",
