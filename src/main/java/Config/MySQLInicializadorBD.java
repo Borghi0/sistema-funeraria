@@ -21,7 +21,8 @@ public class MySQLInicializadorBD implements I_InicializadorBD{
     public void criarTabelas() throws Exception{
         Connection con = Banco_Ctrl.getInstancia().getConexao();
         Statement st = con.createStatement();
-        File script = new File("UTFuneral.sql");
+        
+        File script = new File("src\\main\\java\\Config\\UTFuneral.sql");        
         String linha = new String();
         StringBuilder texto_script = new StringBuilder();
         
@@ -39,7 +40,7 @@ public class MySQLInicializadorBD implements I_InicializadorBD{
             }
             
         } catch(FileNotFoundException fnfe){
-            System.out.println("Arquivo inexistente no diretório ou corrompido");
+            System.out.println("Arquivo inexistente no diretório ou corrompido"+fnfe);
         } finally{
             st.close();
             con.close();
