@@ -1,11 +1,11 @@
 package Model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 public class Servico extends Ofertavel{
     private String nome;
-    private Date prestacao;
+    private LocalDate prestacao;
     private String tipo;
     
     public Servico(){
@@ -13,7 +13,7 @@ public class Servico extends Ofertavel{
         this.prestacao = null;
         this.tipo = "";
     }
-    public Servico(String nome, Date prestacao, String tipo, int preco, boolean ativo) {
+    public Servico(String nome, LocalDate prestacao, String tipo, int preco, boolean ativo) {
         super(preco, ativo);
         this.nome = nome;
         this.prestacao = prestacao;
@@ -24,7 +24,7 @@ public class Servico extends Ofertavel{
         return nome;
     }
 
-    public Date getPrestacao() {
+    public LocalDate getPrestacao() {
         return prestacao;
     }
 
@@ -36,7 +36,7 @@ public class Servico extends Ofertavel{
         this.nome = nome;
     }
 
-    public void setPrestacao(Date prestacao) {
+    public void setPrestacao(LocalDate prestacao) {
         this.prestacao = prestacao;
     }
 
