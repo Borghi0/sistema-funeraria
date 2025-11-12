@@ -1,8 +1,7 @@
 package Control;
 
-import Model.Pessoa;
+import Model.Ofertavel;
 import Model.Defunto;
-import java.sql.*;
 
 public class Defunto_Ctrl {
     private static Defunto_Ctrl instancia;
