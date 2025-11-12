@@ -1,11 +1,11 @@
 package Model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 
 public class Velorio {
     private Sala sala;
-    private Date data;
+    private LocalDateTime data;
     private Defunto defunto;
 
     public Velorio() {
@@ -13,7 +13,7 @@ public class Velorio {
         this.data = null;
         this.defunto = null;
     }
-    public Velorio(Sala sala, Date data, Defunto defunto) {
+    public Velorio(Sala sala, LocalDateTime data, Defunto defunto) {
         this.sala = sala;
         this.data = data;
         this.defunto = defunto;
@@ -23,7 +23,7 @@ public class Velorio {
         return sala;
     }
 
-    public Date getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
@@ -35,7 +35,7 @@ public class Velorio {
         this.sala = sala;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 

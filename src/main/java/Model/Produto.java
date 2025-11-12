@@ -11,13 +11,11 @@ public class Produto extends Ofertavel{
         this.perecivel = false;
         this.quant_Estoque = 0;
     }
-
-    public Produto(boolean perecivel, int quant_Estoque, int preco, String tipo) {
-        super(preco, tipo);
+    public Produto(boolean perecivel, int quant_Estoque, int preco, boolean ativo) {
+        super(preco, ativo);
         this.perecivel = perecivel;
         this.quant_Estoque = quant_Estoque;
-    }
-    
+    }        
 
     public boolean isPerecivel() {
         return perecivel;
