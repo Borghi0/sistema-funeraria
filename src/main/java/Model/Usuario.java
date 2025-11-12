@@ -1,9 +1,10 @@
 package Model;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class Usuario extends Pessoa{
-    private String login;
+    private String email;
     private String senha;
     private String numero_Telefone;
     private boolean admin;
@@ -14,7 +15,7 @@ public class Usuario extends Pessoa{
     
     public Usuario() {
         super();
-        this.login = "";
+        this.email = "";
         this.senha = "";
         this.numero_Telefone = "";
         this.admin = false;
@@ -23,9 +24,9 @@ public class Usuario extends Pessoa{
         this.cpf = "";
     }
     
-    public Usuario(String login, String senha, String numero_Telefone, boolean admin, Endereco endereco, Plano plano, String nome, String cpf, Date data_natalidade) {
+    public Usuario(String email, String senha, String numero_Telefone, boolean admin, Endereco endereco, Plano plano, String nome, String cpf, LocalDate data_natalidade) {
         super(nome, cpf, data_natalidade);
-        this.login = login;
+        this.email = email;
         this.senha = senha;
         this.numero_Telefone = numero_Telefone;
         this.admin = admin;
@@ -34,8 +35,8 @@ public class Usuario extends Pessoa{
         this.cpf = cpf;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
     public String getSenha() {
@@ -62,8 +63,8 @@ public class Usuario extends Pessoa{
         return cpf;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setSenha(String senha) {

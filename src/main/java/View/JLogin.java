@@ -1,9 +1,10 @@
 package View;
 
-import com.github.weisj.darklaf.DarkLaf;
+import Control.Usuario_Ctrl;
+import Model.Usuario;
 import com.github.weisj.darklaf.LafManager;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 
 public final class JLogin extends javax.swing.JFrame {
@@ -26,10 +27,10 @@ public final class JLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        rtUser = new javax.swing.JLabel();
+        rtEmail = new javax.swing.JLabel();
         rtSenha = new javax.swing.JLabel();
         rtErro = new javax.swing.JLabel();
-        cxUser = new javax.swing.JTextField();
+        cxEmail = new javax.swing.JTextField();
         csSenha = new javax.swing.JPasswordField();
         btCad = new javax.swing.JButton();
         btEnt = new javax.swing.JButton();
@@ -42,9 +43,9 @@ public final class JLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu login");
 
-        rtUser.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtUser.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtUser.setText("Usuário:");
+        rtEmail.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtEmail.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtEmail.setText("Email:");
 
         rtSenha.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -53,21 +54,21 @@ public final class JLogin extends javax.swing.JFrame {
         rtErro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         rtErro.setForeground(new java.awt.Color(255, 0, 0));
         rtErro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtErro.setText("usuário ou senha incorretos");
+        rtErro.setText("Email ou senha incorretos");
 
-        cxUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cxUser.setToolTipText("");
-        cxUser.addFocusListener(new java.awt.event.FocusAdapter() {
+        cxEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cxEmail.setToolTipText("");
+        cxEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                cxUserFocusGained(evt);
+                cxEmailFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                cxUserFocusLost(evt);
+                cxEmailFocusLost(evt);
             }
         });
-        cxUser.addKeyListener(new java.awt.event.KeyAdapter() {
+        cxEmail.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                cxUserKeyPressed(evt);
+                cxEmailKeyPressed(evt);
             }
         });
 
@@ -152,13 +153,13 @@ public final class JLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(rtUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(rtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rtErro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                             .addComponent(csSenha)
-                            .addComponent(cxUser)))
+                            .addComponent(cxEmail)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btCad)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -170,8 +171,8 @@ public final class JLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(150, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cxUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cxEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -200,21 +201,21 @@ public final class JLogin extends javax.swing.JFrame {
         jCad();
     }//GEN-LAST:event_mniCadActionPerformed
 
-    private void cxUserFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cxUserFocusGained
+    private void cxEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cxEmailFocusGained
         placeholder(false);
-    }//GEN-LAST:event_cxUserFocusGained
+    }//GEN-LAST:event_cxEmailFocusGained
 
-    private void cxUserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cxUserFocusLost
+    private void cxEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cxEmailFocusLost
         placeholder(true);
-    }//GEN-LAST:event_cxUserFocusLost
+    }//GEN-LAST:event_cxEmailFocusLost
 
     private void mniSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_mniSairActionPerformed
 
-    private void cxUserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cxUserKeyPressed
+    private void cxEmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cxEmailKeyPressed
         entrar(evt);
-    }//GEN-LAST:event_cxUserKeyPressed
+    }//GEN-LAST:event_cxEmailKeyPressed
 
     private void csSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_csSenhaKeyPressed
         entrar(evt);
@@ -233,14 +234,32 @@ public final class JLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_mniConActionPerformed
 
     public void entrar(){
-        /*if(MenuControle.entrar(cxUser.getText(), csSenha.getPassword())){
-            dispose();
-            csSenha.setText("");
-            rtErro.setVisible(false);
+        cxEmail.setText(cxEmail.getText().replaceAll("\\s+", ""));
+        try {
+            Usuario usuario = Usuario_Ctrl.getInstancia().ler_User(cxEmail.getText());            
+            
+            if(usuario!=null && usuario.getSenha().equals(String.valueOf(csSenha.getPassword()))){
+                //dispose();
+                csSenha.setText("");
+                rtErro.setVisible(false);
+                JOptionPane.showMessageDialog(
+                    null,
+                    "sucesso",
+                    "sucesso",
+                    JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+            else{
+                rtErro.setVisible(true);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(
+                null,
+                ex,
+                "Erro",
+                JOptionPane.ERROR_MESSAGE
+            );
         }
-        else{
-            rtErro.setVisible(true);
-        }*/
     }
     public void entrar(java.awt.event.KeyEvent evt){
         if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) entrar();
@@ -261,13 +280,13 @@ public final class JLogin extends javax.swing.JFrame {
     }
     
     public void placeholder(boolean add){
-        if(cxUser.getText().isBlank() && add){
-            cxUser.setText("user/email");
-            cxUser.setForeground(UIManager.getColor("Label.disabledForeground"));
+        if(cxEmail.getText().isBlank() && add){
+            cxEmail.setText("email");
+            cxEmail.setForeground(UIManager.getColor("Label.disabledForeground"));
         }
-        else if(cxUser.getForeground().equals(UIManager.getColor("Label.disabledForeground")) && !add){
-            cxUser.setText("");
-            cxUser.setForeground(UIManager.getColor("TextField.foreground"));
+        else if(cxEmail.getForeground().equals(UIManager.getColor("Label.disabledForeground")) && !add){
+            cxEmail.setText("");
+            cxEmail.setForeground(UIManager.getColor("TextField.foreground"));
         }
     }
     
@@ -294,15 +313,15 @@ public final class JLogin extends javax.swing.JFrame {
     private javax.swing.JButton btCad;
     private javax.swing.JButton btEnt;
     private javax.swing.JPasswordField csSenha;
-    private javax.swing.JTextField cxUser;
+    private javax.swing.JTextField cxEmail;
     private javax.swing.JMenuBar mnBar;
     private javax.swing.JMenu mnOpcoes;
     private javax.swing.JMenuItem mniCad;
     private javax.swing.JMenuItem mniCon;
     private javax.swing.JMenuItem mniSair;
+    private javax.swing.JLabel rtEmail;
     private javax.swing.JLabel rtErro;
     private javax.swing.JLabel rtSenha;
-    private javax.swing.JLabel rtUser;
     // End of variables declaration//GEN-END:variables
 
     

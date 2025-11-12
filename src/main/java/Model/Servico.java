@@ -1,40 +1,49 @@
 package Model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 public class Servico extends Ofertavel{
     private String nome;
-    private Date prestacao;
-
+    private LocalDate prestacao;
+    private String tipo;
     
     public Servico(){
-        super();
-        this.nome = null;
+        super();        
         this.prestacao = null;
+        this.tipo = "";
     }
-
-    public Servico(String nome, Date prestacao, int preco, String tipo) {
-        super(preco, tipo);
+    public Servico(String nome, LocalDate prestacao, String tipo, int preco, boolean ativo) {
+        super(preco, ativo);
         this.nome = nome;
         this.prestacao = prestacao;
+        this.tipo = tipo;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public Date getPrestacao() {
+    public LocalDate getPrestacao() {
         return prestacao;
+    }
+
+    public String getTipo() {
+        return tipo;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public void setPrestacao(Date prestacao) {
+    public void setPrestacao(LocalDate prestacao) {
         this.prestacao = prestacao;
     }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     
     
 }

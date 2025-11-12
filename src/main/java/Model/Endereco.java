@@ -1,19 +1,19 @@
 package Model;
 
 public class Endereco {
-    private String rua;
-    private String bairro;
+    private int numero;
+    private String rua;    
     private String cep;
 
     
     public Endereco() {
-        this.rua = "";
-        this.bairro = "";
+        this.numero = 0;
+        this.rua = "";        
         this.cep = "";
     }
-    public Endereco(String rua, String bairro, String cep) {
-        this.rua = rua;
-        this.bairro = bairro;
+    public Endereco(int numero, String rua, String cep) {
+        this.numero = numero;
+        this.rua = rua;        
         this.cep = cep;
     }
 
@@ -21,8 +21,8 @@ public class Endereco {
         return rua;
     }
 
-    public String getBairro() {
-        return bairro;
+    public int getNumero() {
+        return numero;
     }
 
     public String getCep() {
@@ -33,8 +33,8 @@ public class Endereco {
         this.rua = rua;
     }
 
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 
     public void setCep(String cep) {

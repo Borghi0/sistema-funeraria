@@ -12,12 +12,12 @@ public class Plano extends Ofertavel{
         this.lista_Servico = null;
         this.lista_Produto = null;
     }
-
-    public Plano(ArrayList<Servico> lista_Servico, ArrayList<Produto> lista_Produto, int preco, String tipo) {
-        super(preco, tipo);
+    public Plano(ArrayList<Servico> lista_Servico, ArrayList<Produto> lista_Produto, int preco, boolean ativo) {
+        super(preco, ativo);
         this.lista_Servico = lista_Servico;
         this.lista_Produto = lista_Produto;
     }
+
 
     public ArrayList<Servico> getLista_Servico() {
         return lista_Servico;
