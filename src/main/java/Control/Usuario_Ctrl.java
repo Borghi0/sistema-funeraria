@@ -1,20 +1,22 @@
 package Control;
 
+import Model.Pessoa;
 import Model.Usuario;
 import Model.Endereco;
 import java.sql.*;
 
-
 public class Usuario_Ctrl {
     private static Usuario_Ctrl instancia;
     private static Connection con;
-    private static PreparedStatement ps;
+    private static Statement st;
     private static ResultSet rs;
+    private static PreparedStatement ps;
     
     private Usuario_Ctrl(){
         con = null;
-        ps = null;
+        st = null;
         rs = null;
+        ps = null;
     }
     
     public static Usuario_Ctrl getInstancia(){
@@ -24,33 +26,60 @@ public class Usuario_Ctrl {
     }
     
     public void cad_User(Usuario user) throws Exception{
-        String sql = "INSERT INTO usuario VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL)";
+        String sql = "INSERT INTO usuario VALUES("
+                + "'" + user.getCpf() + "',"
+                + "'" + user.getNome() + "',"
+                + "NULL" + ","  // data de natalidade
+                + "'" + user.getEmail() + "',"
+                + "'" + user.getSenha() + "',"
+                + "'" + user.getNumero_Telefone() + "',"
+                + user.isAdmin() + ","
+                + "NULL" + ","  // id do endereco
+                + "NULL"       // id do plano
+                + ");";
+        
+        con = Banco_Ctrl.getInstancia().getConexao();
+        st = con.createStatement();
+        st.executeUpdate(sql);
+        st.close();
+        con.close();
+    }
+    
+    public Usuario[] ler_User() throws Exception{
+        int num_lin = 0;
+        String sql = "SELECT * FROM usuario";
+        Usuario[] us = null;
         
         try{
             con = Banco_Ctrl.getInstancia().getConexao();
             ps = con.prepareStatement(sql);
-
-            ps.setString(1, user.getCpf());
-            ps.setString(2, user.getNome());
-            ps.setDate(3, Date.valueOf(user.getData_natalidade()));
-            ps.setString(4, user.getEmail());
-            ps.setString(5, user.getSenha());
-            ps.setString(6, user.getNumero_Telefone());
-            ps.setBoolean(7, user.isAdmin());
-            ps.setInt(8, user.getEndereco().getNumero());
-            ps.setString(9, user.getEndereco().getRua());
-            ps.setString(10, user.getEndereco().getCep());
+            rs = ps.executeQuery();
+            rs.last();
+            num_lin = rs.getRow();
+            rs.beforeFirst();
+            us = new Usuario[num_lin];
             
-            ps.executeUpdate();
-        }
-        finally{
+            for(int i = 0; i < num_lin; i++){
+                rs.next();
+                us[i] = new Usuario(
+                                rs.getString("usu_login"),
+                                rs.getString("usu_senha"),
+                                rs.getString("usu_numero_telefone"),
+                                rs.getBoolean("usu_admin"),
+                                new Endereco(rs.getInt("end_numero"), rs.getString("end_rua"), rs.getString("end_cep")),
+                                null, // usar metodo de busca de plano por id
+                                rs.getString("usu_nome"),
+                                rs.getString("usu_cpf"),
+                                rs.getDate("usu_data_natalidade").toLocalDate()
+                            );
+            }
+            
+            return us;
+        } finally{
+            rs.close();
             ps.close();
             con.close();
         }
-    }
-    
-    public void ler_User(Usuario user){
-        //Ainda não implementado
     }
     
     public Usuario ler_User(String email) throws Exception{
@@ -61,7 +90,7 @@ public class Usuario_Ctrl {
             ps = con.prepareStatement(sql);
             ps.setString(1, email);
             rs = ps.executeQuery();
-
+            
             while(rs.next()){
                 if(rs.getString("usu_login").equals(email)) 
                     return new Usuario(
@@ -85,11 +114,66 @@ public class Usuario_Ctrl {
         }
     }
     
-    public void alt_User(Usuario user){
-        //Ainda não implementado
+    public void alt_User(Usuario user) throws Exception{
+        String cpf = user.getCpf(),
+               sql = "UPDATE usuario SET usu_nome = ?,"
+                     + "usu_data_natalidade = ?,"
+                     + "usu_login = ?,"
+                     + "usu_senha = ?,"
+                     + "usu_numero_telefone = ?,"
+                     + "usu_admin = ?,"
+                     + "end_numero = ?,"
+                     + "end_rua = ?,"
+                     + "end_cep = ?,"
+                     + "pla_id = ?,"
+                     + "WHERE usu_cpf = ?";
+        
+        try{
+            con = Banco_Ctrl.getInstancia().getConexao();
+            ps = con.prepareStatement(sql);
+
+            ps.setString(1, user.getNome());
+            ps.setDate(2, Date.valueOf(user.getData_natalidade()));
+            ps.setString(3, user.getEmail());
+            ps.setString(4, user.getSenha());
+            ps.setString(5, user.getNumero_Telefone());
+            ps.setBoolean(6, user.isAdmin());
+            ps.setInt(7, user.getEndereco().getNumero());
+            ps.setString(8, user.getEndereco().getRua());
+            ps.setString(9, user.getEndereco().getCep());
+            ps.setString(10, cpf);
+            
+            ps.executeUpdate();
+        }
+        finally{
+            ps.close();
+            con.close();
+        }
     }
-    
-    public void del_User(Usuario user){
-        //Ainda não implementado
+
+    public boolean del_User(Usuario user) throws Exception{
+        String cpf = user.getCpf(),
+               sql_del = "DELETE FROM user WHERE usu_cpf = ?",
+               sql_busca = "SELECT usu_nome, usu_cpf FROM usuario WHERE ?",
+               nome = "";
+        
+        try{
+            con = Banco_Ctrl.getInstancia().getConexao();
+            ps = con.prepareStatement(sql_busca);
+            ps.setString(1, cpf);
+            rs = ps.executeQuery();
+            
+            if(!rs.next()) return false;
+            else{
+                ps = con.prepareStatement(sql_del);
+                ps.setString(1, cpf);
+                ps.executeUpdate();
+                
+                return true;
+            }
+        } finally{
+            ps.close();
+            con.close();
+        }
     }
 }
