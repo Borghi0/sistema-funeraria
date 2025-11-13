@@ -130,7 +130,7 @@ public class Usuario_Ctrl {
                      + "end_numero = ?,"
                      + "end_rua = ?,"
                      + "end_cep = ?,"
-                     + "pla_id = ?,"
+                     + "pla_id = ? "
                      + "WHERE usu_cpf = ?";
         
         try{
@@ -146,7 +146,8 @@ public class Usuario_Ctrl {
             ps.setInt(7, user.getEndereco().getNumero());
             ps.setString(8, user.getEndereco().getRua());
             ps.setString(9, user.getEndereco().getCep());
-            ps.setString(10, cpf);
+            ps.setString(10, null); // usar metodo de busca de plano por id
+            ps.setString(11, cpf);
             
             ps.executeUpdate();
         }
@@ -158,8 +159,8 @@ public class Usuario_Ctrl {
 
     public boolean del_User(Usuario user) throws Exception{
         String cpf = user.getCpf(),
-               sql_del = "DELETE FROM user WHERE usu_cpf = ?",
-               sql_busca = "SELECT usu_nome, usu_cpf FROM usuario WHERE ?";
+               sql_del = "DELETE FROM usuario WHERE usu_cpf = ?",
+               sql_busca = "SELECT usu_nome, usu_cpf FROM usuario WHERE usu_cpf = ?";
         
         try{
             con = Banco_Ctrl.getInstancia().getConexao();
