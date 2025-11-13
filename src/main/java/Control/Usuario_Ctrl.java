@@ -1,6 +1,5 @@
 package Control;
 
-import Model.Pessoa;
 import Model.Usuario;
 import Model.Endereco;
 import java.sql.*;
@@ -154,8 +153,7 @@ public class Usuario_Ctrl {
     public boolean del_User(Usuario user) throws Exception{
         String cpf = user.getCpf(),
                sql_del = "DELETE FROM user WHERE usu_cpf = ?",
-               sql_busca = "SELECT usu_nome, usu_cpf FROM usuario WHERE ?",
-               nome = "";
+               sql_busca = "SELECT usu_nome, usu_cpf FROM usuario WHERE ?";
         
         try{
             con = Banco_Ctrl.getInstancia().getConexao();
