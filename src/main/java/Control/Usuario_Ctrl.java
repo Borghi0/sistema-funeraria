@@ -25,23 +25,29 @@ public class Usuario_Ctrl {
     }
     
     public void cad_User(Usuario user) throws Exception{
-        String sql = "INSERT INTO usuario VALUES("
-                + "'" + user.getCpf() + "',"
-                + "'" + user.getNome() + "',"
-                + "NULL" + ","  // data de natalidade
-                + "'" + user.getEmail() + "',"
-                + "'" + user.getSenha() + "',"
-                + "'" + user.getNumero_Telefone() + "',"
-                + user.isAdmin() + ","
-                + "NULL" + ","  // id do endereco
-                + "NULL"       // id do plano
-                + ");";
+        String sql = "INSERT INTO usuario VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL)";
         
-        con = Banco_Ctrl.getInstancia().getConexao();
-        st = con.createStatement();
-        st.executeUpdate(sql);
-        st.close();
-        con.close();
+        try{
+            con = Banco_Ctrl.getInstancia().getConexao();
+            ps = con.prepareStatement(sql);
+
+            ps.setString(1, user.getCpf());
+            ps.setString(2, user.getNome());
+            ps.setDate(3, Date.valueOf(user.getData_natalidade()));
+            ps.setString(4, user.getEmail());
+            ps.setString(5, user.getSenha());
+            ps.setString(6, user.getNumero_Telefone());
+            ps.setBoolean(7, user.isAdmin());
+            ps.setInt(8, user.getEndereco().getNumero());
+            ps.setString(9, user.getEndereco().getRua());
+            ps.setString(10, user.getEndereco().getCep());
+            
+            ps.executeUpdate();
+        }
+        finally{
+            ps.close();
+            con.close();
+        }
     }
     
     public Usuario[] ler_User() throws Exception{
