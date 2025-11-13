@@ -13,22 +13,19 @@ CREATE TABLE IF NOT EXISTS servico(
                 ser_nome VARCHAR(255),
                 ser_prestacao DATE,
                 ser_preco INT NOT NULL DEFAULT 0,
-                ser_tipo VARCHAR(100),
-                ser_ativo BOOLEAN NOT NULL DEFAULT true
+                ser_tipo VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS produto(
                 pro_id INT AUTO_INCREMENT PRIMARY KEY,              
                 pro_perecivel BOOLEAN NOT NULL DEFAULT false,
                 pro_quant_estoque INT NOT NULL DEFAULT 0,
-                pro_preco INT NOT NULL DEFAULT 0,
-                pro_ativo BOOLEAN NOT NULL DEFAULT true
+                pro_preco INT NOT NULL DEFAULT 0
 );
                 
 CREATE TABLE IF NOT EXISTS plano(
                 pla_id INT AUTO_INCREMENT PRIMARY KEY,
-                pla_preco INT NOT NULL DEFAULT 0,
-                pla_ativo BOOLEAN NOT NULL DEFAULT true
+                pla_preco INT NOT NULL DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS plano_produto(
@@ -42,7 +39,7 @@ CREATE TABLE IF NOT EXISTS plano_produto(
 CREATE TABLE IF NOT EXISTS plano_servico(
 				pla_ser_id INT PRIMARY KEY AUTO_INCREMENT,
 				pla_id INT NOT NULL,
-                SER_id INT NOT NULL,
+                ser_id INT NOT NULL,
                 FOREIGN KEY (pla_id) REFERENCES plano(pla_id),
                 FOREIGN KEY (ser_id) REFERENCES servico(ser_id)
 );
