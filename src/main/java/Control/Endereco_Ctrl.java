@@ -20,11 +20,10 @@ public class Endereco_Ctrl {
         return instancia;
     }
     
-    public void cad_Endereco(Endereco endereco) throws Exception{
+    public void cad_Endereco(Endereco endereco, Connection con) throws Exception{
         String sql = "INSERT INTO endereco VALUES (?, ?, ?)";
         
-        try{
-            con = Banco_Ctrl.getInstancia().getConexao();
+        try{            
             ps = con.prepareStatement(sql);
 
             ps.setInt(1, endereco.getNumero());
