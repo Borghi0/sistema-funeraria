@@ -362,11 +362,12 @@ public class JCadastro extends javax.swing.JFrame {
                     .addComponent(rtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cxCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rtCPF1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbDia, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbAno, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbDia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(rtCPF1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbAno, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -486,22 +487,8 @@ public class JCadastro extends javax.swing.JFrame {
         cxNumero.setText(cxNumero.getText().replaceAll("[^0-9]", ""));
         cxCep.setText(cxCep.getText().replaceAll("[^0-9]", ""));
         
-        LocalDate data_natalidade;
-        try{
-            data_natalidade = LocalDate.of(
-                    Integer.parseInt(cbAno.getSelectedItem().toString()),
-                    Integer.parseInt(cbMes.getSelectedItem().toString()),
-                    Integer.parseInt(cbDia.getSelectedItem().toString())
-            );
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(
-                null,
-                "Data inválida:\n" + e,
-                "Erro",
-                JOptionPane.ERROR_MESSAGE
-            );
-            return;
-        }
+        LocalDate data_natalidade = validarData();
+        if(data_natalidade == null) return;
         
         // criar classes de verificação para usar aqui ou no metodo cad_User,
         // por exemplo: senha = confirma senha; CPF é válido...
@@ -531,6 +518,7 @@ public class JCadastro extends javax.swing.JFrame {
                 "Sucesso",
                 JOptionPane.INFORMATION_MESSAGE
             );
+            limpar();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                 null,
@@ -568,12 +556,39 @@ public class JCadastro extends javax.swing.JFrame {
         if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) cadastrar();
     }  
     
+    private LocalDate validarData(){
+        LocalDate data_natalidade;
+        try{
+            data_natalidade = LocalDate.of(
+                    Integer.parseInt(cbAno.getSelectedItem().toString()),
+                    Integer.parseInt(cbMes.getSelectedItem().toString()),
+                    Integer.parseInt(cbDia.getSelectedItem().toString())
+            );
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(
+                null,
+                "Data inválida:\n" + e,
+                "Erro",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return null;
+        }
+        return data_natalidade;
+    }
+    
     public void limpar(){        
         cxEmail.setText("");
         cxNome.setText("");
         cxCpf.setText("");
         csSenha.setText("");
         csCSenha.setText("");
+        cxTelefone.setText("");
+        cxNumero.setText("");
+        cxRua.setText("");
+        cxCep.setText("");
+        cbDia.setSelectedIndex(0);
+        cbMes.setSelectedIndex(0);
+        cbAno.setSelectedIndex(0);
         cxEmail.requestFocus();
     }
     
