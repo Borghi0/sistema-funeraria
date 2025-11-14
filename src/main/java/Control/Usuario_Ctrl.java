@@ -24,11 +24,10 @@ public class Usuario_Ctrl {
         return instancia;
     }
     
-    public void cad_User(Usuario user) throws Exception{
+    private void cad_User(Usuario user, Connection con) throws Exception{
         String sql = "INSERT INTO usuario VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL)";
         
-        try{
-            con = Banco_Ctrl.getInstancia().getConexao();
+        try{            
             ps = con.prepareStatement(sql);
 
             ps.setString(1, user.getCpf());
@@ -45,7 +44,23 @@ public class Usuario_Ctrl {
             ps.executeUpdate();
         }
         finally{
-            ps.close();
+            ps.close();            
+        }        
+    }
+    
+    public void cad_User(Usuario user, Endereco ender) throws Exception{
+        try{
+            con = Banco_Ctrl.getInstancia().getConexao();
+            con.setAutoCommit(false);
+            
+            Endereco_Ctrl.getInstancia().cad_Endereco(ender, con);
+            cad_User(user, con);
+            
+            con.commit();
+        }catch(Exception e){
+            con.rollback();
+            throw e;
+        }finally{
             con.close();
         }
     }

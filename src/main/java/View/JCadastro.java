@@ -523,9 +523,8 @@ public class JCadastro extends javax.swing.JFrame {
                 data_natalidade
         );
         
-        try {
-            Endereco_Ctrl.getInstancia().cad_Endereco(endereco);
-            Usuario_Ctrl.getInstancia().cad_User(usuario);
+        try {            
+            Usuario_Ctrl.getInstancia().cad_User(usuario, endereco);
             JOptionPane.showMessageDialog(
                 null,
                 "Usuário cadastrado com sucesso!",
