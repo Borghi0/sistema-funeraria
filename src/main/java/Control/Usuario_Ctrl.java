@@ -44,8 +44,7 @@ public class Usuario_Ctrl {
             ps.executeUpdate();
         }
         finally{
-            ps.close();
-            con.close();
+            ps.close();            
         }        
     }
     
