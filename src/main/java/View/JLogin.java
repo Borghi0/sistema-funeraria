@@ -12,7 +12,7 @@ public final class JLogin extends javax.swing.JFrame {
     
     private JLogin() {
         initComponents();
-        rtErro.setVisible(false);                
+        rtErro.setVisible(false);
         placeholder(true);
         setLocationRelativeTo(null);
     }
@@ -239,19 +239,16 @@ public final class JLogin extends javax.swing.JFrame {
             Usuario usuario = Usuario_Ctrl.getInstancia().ler_User(cxEmail.getText());            
             
             if(usuario!=null && usuario.getSenha().equals(String.valueOf(csSenha.getPassword()))){
-                //dispose();
+                dispose();
+                JMenuUsuario.getInstancia().setUsuario(usuario);                
+                JMenuUsuario.getInstancia().setVisible(true);                
                 csSenha.setText("");
                 rtErro.setVisible(false);
-                JOptionPane.showMessageDialog(
-                    null,
-                    "sucesso",
-                    "sucesso",
-                    JOptionPane.INFORMATION_MESSAGE
-                );
             }
             else{
                 rtErro.setVisible(true);
             }
+            
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(
                 null,
