@@ -1,21 +1,21 @@
 package View;
 
 import Control.Usuario_Ctrl;
-import Interfaces.I_Navegador;
 import Model.Endereco;
 import Model.Usuario;
 import java.time.LocalDate;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import Interfaces.I_JanelaRaiz;
 
 
 public class JAlterarUsuario extends javax.swing.JFrame {    
-    private final I_Navegador navegador;
+    private final I_JanelaRaiz janelaRaiz;
     private Usuario usuario;
 
-    public JAlterarUsuario(I_Navegador navegador, Usuario usuario) {
-        if(navegador==null||usuario==null) throw new IllegalArgumentException("Args não podem ser null");
-        this.navegador = navegador;
+    public JAlterarUsuario(I_JanelaRaiz janelaRaiz, Usuario usuario) {
+        if(janelaRaiz==null||usuario==null) throw new IllegalArgumentException("Args não podem ser null");
+        this.janelaRaiz = janelaRaiz;
         this.usuario = usuario;
         initComponents();
         setLocationRelativeTo(null);
@@ -388,7 +388,7 @@ public class JAlterarUsuario extends javax.swing.JFrame {
 
     private void cancelar(){
         dispose();
-        navegador.voltar(usuario);
+        janelaRaiz.voltar(usuario);
     }
     private void cancelar(java.awt.event.KeyEvent evt){
         if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) cancelar();

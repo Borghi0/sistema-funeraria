@@ -1,11 +1,11 @@
 package View;
 
-import Interfaces.I_Navegador;
 import Model.Usuario;
 import javax.swing.JOptionPane;
+import Interfaces.I_JanelaRaiz;
 
 
-public class JMenuUsuario extends javax.swing.JFrame implements I_Navegador{
+public class JMenuUsuario extends javax.swing.JFrame implements I_JanelaRaiz{
     private static JMenuUsuario instancia;
     private Usuario usuario;
     
