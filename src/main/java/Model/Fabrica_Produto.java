@@ -16,7 +16,7 @@ public class Fabrica_Produto extends Fabrica_Ofertavel{
         return new Produto();
     }
     
-    public Produto criar_Ofertavel(boolean perecivel, int quant_Estoque, int preco, boolean ativo){
-        return new Produto(perecivel, quant_Estoque, preco, ativo);
+    public Produto criar_Ofertavel(boolean perecivel, int quant_Estoque, int preco, String nome, int id){
+        return new Produto(perecivel, quant_Estoque, preco, nome, id);
     }
 }

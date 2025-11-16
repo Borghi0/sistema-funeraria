@@ -25,32 +25,32 @@ public class JMenuUsuario extends javax.swing.JFrame implements I_JanelaRaiz{
 
         mnBar = new javax.swing.JMenuBar();
         mnOpcoes = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        mniCad = new javax.swing.JMenuItem();
+        miAltInfo = new javax.swing.JMenuItem();
+        miSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         mnOpcoes.setText("Opções");
         mnOpcoes.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem1.setText("Atualizar informações...");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        miAltInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        miAltInfo.setText("Atualizar informações...");
+        miAltInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                miAltInfoActionPerformed(evt);
             }
         });
-        mnOpcoes.add(jMenuItem1);
+        mnOpcoes.add(miAltInfo);
 
-        mniCad.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        mniCad.setText("Sair...");
-        mniCad.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        mniCad.addActionListener(new java.awt.event.ActionListener() {
+        miSair.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        miSair.setText("Sair...");
+        miSair.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        miSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniCadActionPerformed(evt);
+                miSairActionPerformed(evt);
             }
         });
-        mnOpcoes.add(mniCad);
+        mnOpcoes.add(miSair);
 
         mnBar.add(mnOpcoes);
 
@@ -70,13 +70,13 @@ public class JMenuUsuario extends javax.swing.JFrame implements I_JanelaRaiz{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mniCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadActionPerformed
+    private void miSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSairActionPerformed
         sair();
-    }//GEN-LAST:event_mniCadActionPerformed
+    }//GEN-LAST:event_miSairActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void miAltInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAltInfoActionPerformed
         jAlterarUsuario();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_miAltInfoActionPerformed
 
     private void jAlterarUsuario(){        
         setVisible(false);
@@ -99,14 +99,14 @@ public class JMenuUsuario extends javax.swing.JFrame implements I_JanelaRaiz{
             dispose();
             JLogin.getInstancia().setVisible(true);
         }
-    }        
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem miAltInfo;
+    private javax.swing.JMenuItem miSair;
     private javax.swing.JMenuBar mnBar;
     private javax.swing.JMenu mnOpcoes;
-    private javax.swing.JMenuItem mniCad;
     // End of variables declaration//GEN-END:variables
         
     public Usuario getUsuario(){

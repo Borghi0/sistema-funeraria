@@ -1,33 +1,44 @@
 package Model;
 
 
-public abstract class Ofertavel{
+public abstract class Ofertavel{    
     private int preco;    
-    private boolean ativo;
+    private String nome;
+    private int id;
 
-    public Ofertavel(){
+    public Ofertavel(){        
         this.preco = 0;
-        this.ativo = true;
+        this.nome = "";
+        this.id = 0;
     }
-    public Ofertavel(int preco, boolean ativo) {
+    public Ofertavel(int preco, String nome, int id) {
         this.preco = preco;
-        this.ativo = ativo;
+        this.nome = nome;
+        this.id = id;
     }
 
     public int getPreco() {
         return preco;
     }
 
-    public boolean isAtivo() {
-        return ativo;
+    public String getNome() {
+        return nome;
+    }
+    
+    public int getId() {
+        return id;
     }
 
     public void setPreco(int preco) {
         this.preco = preco;
     }
 
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
     }
     
     
