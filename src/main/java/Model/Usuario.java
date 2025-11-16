@@ -24,8 +24,8 @@ public class Usuario extends Pessoa{
         this.cpf = "";
     }
     
-    public Usuario(String email, String senha, String numero_Telefone, boolean admin, Endereco endereco, Plano plano, String nome, String cpf, LocalDate data_natalidade) {
-        super(nome, cpf, data_natalidade);
+    public Usuario(String email, String senha, String numero_Telefone, boolean admin, Endereco endereco, Plano plano, String cpf, String nome, LocalDate data_natalidade) {
+        super(nome, data_natalidade);
         this.email = email;
         this.senha = senha;
         this.numero_Telefone = numero_Telefone;

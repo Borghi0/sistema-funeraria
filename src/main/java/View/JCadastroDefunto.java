@@ -365,11 +365,10 @@ public class JCadastroDefunto extends javax.swing.JFrame {
         Defunto defunto = new Defunto(
                 data_Obito,
                 (String) cbTipoObito.getSelectedItem(),
-                cxCemiterio.getText(),
-                cxIdDefunto.getText(),
+                cxCemiterio.getText(),                
                 cxNomeDefunto.getText(),
-                null,
-                data_natalidade
+                data_natalidade,
+                0
         );
         
         try {

@@ -22,16 +22,16 @@ public class Defunto_Ctrl {
     }
     
     public void cad_Defunto(Defunto defunto) throws Exception{
-        String sql = "INSERT INTO defunto VALUES (?, ?, ?, ?, ?, NULL)";
+        String sql = "INSERT INTO defunto VALUES (NULL, ?, ?, ?, ?, ?)";
         
         try{
             con = Banco_Ctrl.getInstancia().getConexao();
             ps = con.prepareStatement(sql);
 
-            ps.setString(1, defunto.getNome());
-            ps.setString(2, defunto.getId());
-            ps.setDate(3, Date.valueOf(defunto.getData_natalidade()));
-            ps.setDate(4, Date.valueOf(defunto.getData_Obito()));
+            ps.setString(1, defunto.getNome());            
+            ps.setDate(2, Date.valueOf(defunto.getData_natalidade()));
+            ps.setDate(3, Date.valueOf(defunto.getData_Obito()));
+            ps.setString(4, defunto.getTipo_Obito());
             ps.setString(5, defunto.getCemiterio());
             
             ps.executeUpdate();
