@@ -260,10 +260,10 @@ public class JRelatorioPlano extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rtProdutos)
-                    .addComponent(rtServicos)
-                    .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rtProdutos, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(filler1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rtServicos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
@@ -309,10 +309,12 @@ public class JRelatorioPlano extends javax.swing.JFrame {
     }//GEN-LAST:event_btConsultarActionPerformed
 
     public void restaurar(){
+        ((DefaultTableModel) tbServicos.getModel()).setRowCount(0);
+        ((DefaultTableModel) tbProdutos.getModel()).setRowCount(0);
         try {
             if(!listarTabPlanos())
                 JOptionPane.showMessageDialog(
-                        null, "Sem produtos cadastrados",
+                        null, "Sem planos cadastrados",
                         "Atenção!", JOptionPane.WARNING_MESSAGE
                 );
         } catch (Exception e) {
@@ -448,7 +450,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
             Plano plano = Plano_Ctrl.getInstancia().ler_Plano(cod);
             if(plano==null)
                 JOptionPane.showMessageDialog(
-                    null, "Produto não encontrado",
+                    null, "Plano não encontrado",
                     "Código: "+cxCodigo.getText(), JOptionPane.INFORMATION_MESSAGE
                 );
             return plano;

@@ -54,7 +54,7 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
         miSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Relatório");
+        setTitle("Admin");
 
         mnOpcoes.setText("Opções");
         mnOpcoes.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N

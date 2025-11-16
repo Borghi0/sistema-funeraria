@@ -25,7 +25,7 @@ public class Plano_Ctrl {
     public Plano[] ler_Plano() throws Exception{
         int num_lin = 0;
         String sql = "SELECT * FROM usuario";
-        Plano[] us = null;
+        Plano[] planos = null;
         
         
         Connection con = Banco_Ctrl.getInstancia().getConexao();
@@ -34,10 +34,10 @@ public class Plano_Ctrl {
         rs.last();
         num_lin = rs.getRow();
         rs.beforeFirst();
-        us = new Plano[num_lin];
+        planos = new Plano[num_lin];
 
         for(int i = 0; rs.next(); i++){
-            us[i] = new Plano(
+            planos[i] = new Plano(
                             getServicos(rs.getInt("pla_id")),
                             getProdutos(rs.getInt("pla_id")),
                             rs.getInt("pla_preco"),
@@ -50,7 +50,7 @@ public class Plano_Ctrl {
         ps.close();
         con.close();
 
-        return us;        
+        return planos;        
     }
     public Plano ler_Plano(int id) throws Exception{
         String sql = "SELECT * FROM plano WHERE ser_id = ?";

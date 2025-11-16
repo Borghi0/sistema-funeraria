@@ -19,6 +19,37 @@ public class Servico_Ctrl {
         //Ainda não implementado
     }
     
+    public Servico[] ler_Servico() throws Exception{
+        int num_lin = 0;
+        String sql = "SELECT * FROM usuario";
+        Servico[] servicos = null;
+        
+        
+        Connection con = Banco_Ctrl.getInstancia().getConexao();
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        rs.last();
+        num_lin = rs.getRow();
+        rs.beforeFirst();
+        servicos = new Servico[num_lin];
+
+        for(int i = 0; rs.next(); i++){                
+            servicos[i] = new Servico(
+                            rs.getDate("ser_prestacao").toLocalDate(),
+                            rs.getString("usu_tipo"),
+                            rs.getInt("usu_preco"),
+                            rs.getString("usu_nome"),
+                            rs.getInt("usu_id")                                
+                        );
+        }
+
+        rs.close();
+        ps.close();
+        con.close();
+
+        return servicos;                            
+    }
+    
     public Servico ler_Servico(int id) throws Exception{
         String sql = "SELECT * FROM servico WHERE ser_id = ?";
                 
