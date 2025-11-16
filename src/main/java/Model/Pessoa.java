@@ -12,7 +12,7 @@ public abstract class Pessoa {
         this.data_natalidade = null;
     }
     
-    public Pessoa(String nome, String cpf, LocalDate data_natalidade) {
+    public Pessoa(String nome, LocalDate data_natalidade) {
         this.nome = nome;        
         this.data_natalidade = data_natalidade;
     }

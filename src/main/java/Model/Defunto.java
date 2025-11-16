@@ -7,18 +7,21 @@ public class Defunto extends Pessoa{
     private LocalDate data_Obito;
     private String tipo_Obito;
     private String cemiterio;
+    private int id;
 
     public Defunto() {
         super();
         this.data_Obito = null;
         this.tipo_Obito = "";
         this.cemiterio = "";
+        this.id = 0;
     }
-    public Defunto(LocalDate data_Obito, String tipo_Obito, String cemiterio, String nome, String cpf, LocalDate data_natalidade) {
-        super(nome, cpf, data_natalidade);
+    public Defunto(LocalDate data_Obito, String tipo_Obito, String cemiterio, String nome, LocalDate data_natalidade, int id) {
+        super(nome, data_natalidade);
         this.data_Obito = data_Obito;
         this.tipo_Obito = tipo_Obito;
         this.cemiterio = cemiterio;
+        this.id = id;
     }
 
     public LocalDate getData_Obito() {
@@ -31,6 +34,10 @@ public class Defunto extends Pessoa{
 
     public String getCemiterio() {
         return cemiterio;
+    }
+    
+    public int getId(){
+        return id;
     }
 
     public void setData_Obito(LocalDate data_Obito) {
@@ -45,5 +52,8 @@ public class Defunto extends Pessoa{
         this.cemiterio = cemiterio;
     }
     
+    public void setId(int id) {
+        this.id = id;
+    }
     
 }
