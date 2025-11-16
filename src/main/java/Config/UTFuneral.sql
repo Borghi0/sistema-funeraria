@@ -2,14 +2,14 @@ CREATE DATABASE IF NOT EXISTS UTFuneral;
 USE UTFuneral;
 
 CREATE TABLE IF NOT EXISTS endereco(
-                 end_numero INT,
-                 end_rua VARCHAR(255),
-				 end_cep VARCHAR(20),
-                 PRIMARY KEY (end_numero, end_rua, end_cep)
+                end_numero INT,
+                end_rua VARCHAR(255),
+                end_cep VARCHAR(20),
+                PRIMARY KEY (end_numero, end_rua, end_cep)
 );
 
 CREATE TABLE IF NOT EXISTS servico(
-				ser_id INT AUTO_INCREMENT PRIMARY KEY,
+                ser_id INT AUTO_INCREMENT PRIMARY KEY,
                 ser_nome VARCHAR(255),
                 ser_prestacao DATE,
                 ser_preco INT NOT NULL DEFAULT 0,
@@ -17,7 +17,8 @@ CREATE TABLE IF NOT EXISTS servico(
 );
 
 CREATE TABLE IF NOT EXISTS produto(
-                pro_id INT AUTO_INCREMENT PRIMARY KEY,              
+                pro_id INT AUTO_INCREMENT PRIMARY KEY,
+                pro_nome VARCHAR(255),
                 pro_perecivel BOOLEAN NOT NULL DEFAULT false,
                 pro_quant_estoque INT NOT NULL DEFAULT 0,
                 pro_preco INT NOT NULL DEFAULT 0
@@ -25,20 +26,21 @@ CREATE TABLE IF NOT EXISTS produto(
                 
 CREATE TABLE IF NOT EXISTS plano(
                 pla_id INT AUTO_INCREMENT PRIMARY KEY,
+                pro_nome VARCHAR(255),
                 pla_preco INT NOT NULL DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS plano_produto(
-				pla_pro_id INT PRIMARY KEY AUTO_INCREMENT,
-				pla_id INT NOT NULL,
+                pla_pro_id INT PRIMARY KEY AUTO_INCREMENT,
+                pla_id INT NOT NULL,
                 pro_id INT NOT NULL,
                 FOREIGN KEY (pla_id) REFERENCES plano(pla_id),
                 FOREIGN KEY (pro_id) REFERENCES produto(pro_id)
 );
 
 CREATE TABLE IF NOT EXISTS plano_servico(
-				pla_ser_id INT PRIMARY KEY AUTO_INCREMENT,
-				pla_id INT NOT NULL,
+                pla_ser_id INT PRIMARY KEY AUTO_INCREMENT,
+                pla_id INT NOT NULL,
                 ser_id INT NOT NULL,
                 FOREIGN KEY (pla_id) REFERENCES plano(pla_id),
                 FOREIGN KEY (ser_id) REFERENCES servico(ser_id)
