@@ -1,6 +1,7 @@
 package View;
 
 import Control.Banco_Ctrl;
+import Control.NavegadorUI;
 import com.github.weisj.darklaf.DarkLaf;
 import com.github.weisj.darklaf.LafManager;
 import javax.swing.UIManager;
@@ -10,17 +11,15 @@ import javax.swing.JOptionPane;
 
 
 public class JConexaoBD extends javax.swing.JFrame {
-    private static JConexaoBD instancia;
+    private NavegadorUI navegador;
     
-    private JConexaoBD() {
+    
+    public JConexaoBD(NavegadorUI navegador) {
+        this.navegador = navegador;
         initComponents();
         setLocationRelativeTo(null);
     }
-
-    public static JConexaoBD getInstancia(){
-        if(instancia==null) instancia = new JConexaoBD();
-        return instancia;
-    }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -189,7 +188,7 @@ public class JConexaoBD extends javax.swing.JFrame {
         try {            
             Banco_Ctrl.getInstancia().criarTabelas();            
             dispose();
-            JLogin.getInstancia().setVisible(true);
+            navegador.mostrarJLogin();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                 null,
@@ -222,7 +221,7 @@ public class JConexaoBD extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                getInstancia().setVisible(true);
+                new JConexaoBD(new NavegadorUI()).setVisible(true);
             }
         });
     }
