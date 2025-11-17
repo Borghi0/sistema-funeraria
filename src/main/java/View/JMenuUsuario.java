@@ -1,23 +1,22 @@
 package View;
 
+import Control.NavegadorUI;
 import Model.Usuario;
 import javax.swing.JOptionPane;
 import Interfaces.I_JanelaRaiz;
 
 
 public class JMenuUsuario extends javax.swing.JFrame implements I_JanelaRaiz{
-    private static JMenuUsuario instancia;
+    private NavegadorUI navegador;
     private Usuario usuario;
     
-    public JMenuUsuario() {
+    public JMenuUsuario(NavegadorUI navegador, Usuario usuario) {
+        this.navegador = navegador;
+        this.usuario = usuario;
         initComponents();        
         setLocationRelativeTo(null);
     }
     
-    public static JMenuUsuario getInstancia(){
-        if(instancia==null) instancia = new JMenuUsuario();
-        return instancia;
-    }        
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -94,10 +93,8 @@ public class JMenuUsuario extends javax.swing.JFrame implements I_JanelaRaiz{
                 new Object[] {"Sim", "Não"},
                 "Não"
         );
-        if(o==0){
-            usuario = null;
-            dispose();
-            JLogin.getInstancia().setVisible(true);
+        if(o==0){            
+            navegador.deslogar();
         }
     }
     

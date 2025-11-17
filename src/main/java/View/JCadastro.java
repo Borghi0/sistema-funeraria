@@ -1,6 +1,7 @@
 package View;
 
 
+import Control.NavegadorUI;
 import Control.Usuario_Ctrl;
 import Model.Usuario;
 import Model.Endereco;
@@ -16,9 +17,11 @@ import javax.swing.event.DocumentListener;
 
 
 public class JCadastro extends javax.swing.JFrame {
-    private static JCadastro instancia;    
+    private NavegadorUI navegador;
     
-    private JCadastro() {        
+    
+    public JCadastro(NavegadorUI navegador) {       
+        this.navegador = navegador;
         initComponents();
         
         DefaultComboBoxModel<String> modelDia = new DefaultComboBoxModel<>();
@@ -53,11 +56,7 @@ public class JCadastro extends javax.swing.JFrame {
             }
         });                
     }
-
-    public static JCadastro getInstancia(){
-        if(instancia == null) instancia = new JCadastro();
-        return instancia;
-    }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -469,7 +468,7 @@ public class JCadastro extends javax.swing.JFrame {
 
     public void voltar(){
         dispose();
-        JLogin.getInstancia().setVisible(true);
+        navegador.mostrarJLogin();
     }
     public void voltar(java.awt.event.KeyEvent evt){
         if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) voltar();
@@ -625,7 +624,7 @@ public class JCadastro extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JCadastro().setVisible(true);
+                new JCadastro(new NavegadorUI()).setVisible(true);
             }
         });
     }

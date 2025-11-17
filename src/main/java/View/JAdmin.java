@@ -1,6 +1,7 @@
 package View;
 
 
+import Control.NavegadorUI;
 import Interfaces.I_JanelaRaiz;
 import Model.Usuario;
 import java.awt.Font;
@@ -10,21 +11,18 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 
-public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
-    private static JAdmin instancia;
+public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{    
+    private NavegadorUI navegador;
     private Usuario usuario;
     
         
-    private JAdmin() {
+    public JAdmin(NavegadorUI navegador, Usuario usuario) {
+        this.navegador = navegador;
+        this.usuario = usuario;
         initComponents();        
         setLocationRelativeTo(null);
         setExtendedState(MAXIMIZED_BOTH);
-    }
-    
-    public static JAdmin getInstancia(){
-        if(instancia==null) instancia = new JAdmin();        
-        return instancia;
-    }
+    }        
     
     
     @SuppressWarnings("unchecked")
@@ -125,6 +123,11 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
 
         miCadPlano.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         miCadPlano.setText("Plano...");
+        miCadPlano.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCadPlanoActionPerformed(evt);
+            }
+        });
         mnCadOfertavel.add(miCadPlano);
 
         miCadServico.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -218,8 +221,12 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
     }//GEN-LAST:event_miCadSalaActionPerformed
 
     private void miRelatPlanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatPlanosActionPerformed
-        JRelatorioPlano.getInstancia().setVisible(true);
+        navegador.mostrarJRelatorioPlano();
     }//GEN-LAST:event_miRelatPlanosActionPerformed
+
+    private void miCadPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadPlanoActionPerformed
+        navegador.mostrarJCadPlano();
+    }//GEN-LAST:event_miCadPlanoActionPerformed
     
     private void jAlterarUsuario(){        
         setVisible(false);
@@ -237,18 +244,11 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
                 new Object[] {"Sim", "Não"},
                 "Não"
         );
-        if(o==0){
-            usuario = null;
-            fecharJanelasAssociadas();
-            dispose();
-            JLogin.getInstancia().setVisible(true);
+        if(o==0){            
+            navegador.deslogar();
         }
     }
     
-    private void fecharJanelasAssociadas(){
-        JRelatorioPlano.getInstancia().dispose();
-        //...
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
