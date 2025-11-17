@@ -1,8 +1,7 @@
 package View;
 
-// João Pedro Trevisan Borghi - 2564424
 
-
+import Control.NavegadorUI;
 import Control.Plano_Ctrl;
 import Model.Plano;
 import Model.Servico;
@@ -15,19 +14,14 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class JRelatorioPlano extends javax.swing.JFrame {
-    private static JRelatorioPlano instancia;
+    private NavegadorUI navegador;    
     
-    
-    private JRelatorioPlano() {
+    public JRelatorioPlano(NavegadorUI navegador) {
+        this.navegador = navegador;
         initComponents();        
         setLocationRelativeTo(null);
         setExtendedState(MAXIMIZED_BOTH);
-    }
-    
-    public static JRelatorioPlano getInstancia(){
-        if(instancia==null) instancia = new JRelatorioPlano();        
-        return instancia;
-    }
+    }        
     
     
     @SuppressWarnings("unchecked")
@@ -501,7 +495,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
     
     private void atualizar(Plano plano){
         if(plano==null) return;
-        //implementar        
+        navegador.mostrarJAltPlano(plano);
     }
     
     
@@ -533,7 +527,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JRelatorioPlano().setVisible(true);
+                new JRelatorioPlano(new NavegadorUI()).setVisible(true);
             }
         });
     }

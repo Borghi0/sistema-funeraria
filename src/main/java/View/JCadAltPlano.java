@@ -1,6 +1,7 @@
 package View;
 
 
+import Control.NavegadorUI;
 import Control.Plano_Ctrl;
 import Control.Produto_Ctrl;
 import Control.Servico_Ctrl;
@@ -14,24 +15,24 @@ import javax.swing.table.DefaultTableModel;
 
 public class JCadAltPlano extends javax.swing.JFrame {
     private Plano plano;
-    private final boolean operacao; //false -> alterar; true -> cadastrar
+    private final boolean modoCadastro; //false -> alterar; true -> cadastrar
     
-    public JCadAltPlano(Plano plano) {
-        initComponents();
-        setLocationRelativeTo(null);                
-        tbSerProIn.getColumnModel().removeColumn(tbSerProIn.getColumnModel().getColumn(3));
-        
+    public JCadAltPlano(Plano plano, boolean modoCadastro) {        
+        this.modoCadastro = modoCadastro;        
         this.plano = plano;
-        if(plano!=null){            
-            initInfo();
-            operacao = false;
-            rtTitulo.setText("Alterar plano");
-        }
-        else {
-            plano = new Plano();
-            operacao = true;
+        
+        initComponents();
+        setLocationRelativeTo(null);        
+        tbSerProIn.getColumnModel().removeColumn(tbSerProIn.getColumnModel().getColumn(3));                
+        
+        if(modoCadastro){
+            plano = new Plano();            
             rtTitulo.setText("Cadastrar plano");
         }
+        else {
+            initInfo();            
+            rtTitulo.setText("Alterar plano");            
+        }        
     }
 
     
@@ -360,7 +361,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
     }
     
     private void confirmar(){
-        if(operacao) cadastrar();
+        if(modoCadastro) cadastrar();
         else alterar();
     }
     private void confirmar(java.awt.event.KeyEvent evt){
@@ -611,7 +612,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JCadAltPlano(null).setVisible(true);
+                new JCadAltPlano(null, false).setVisible(true);
             }
         });
     }

@@ -1,5 +1,6 @@
 package View;
 
+import Control.NavegadorUI;
 import Control.Usuario_Ctrl;
 import Model.Usuario;
 import com.github.weisj.darklaf.LafManager;
@@ -8,19 +9,16 @@ import javax.swing.UIManager;
 
 
 public final class JLogin extends javax.swing.JFrame {
-    private static JLogin instancia;
+    private NavegadorUI navegador;
     
-    private JLogin() {
+    
+    public JLogin(NavegadorUI navegador) {
+        this.navegador = navegador;
         initComponents();
         rtErro.setVisible(false);
         placeholder(true);
         setLocationRelativeTo(null);
-    }
-    
-    public static JLogin getInstancia(){
-        if(instancia==null) instancia = new JLogin();
-        return instancia;
-    }
+    }   
 
     
     @SuppressWarnings("unchecked")
@@ -240,8 +238,7 @@ public final class JLogin extends javax.swing.JFrame {
             
             if(usuario!=null && usuario.getSenha().equals(String.valueOf(csSenha.getPassword()))){
                 dispose();
-                JMenuUsuario.getInstancia().setUsuario(usuario);                
-                JMenuUsuario.getInstancia().setVisible(true);                
+                navegador.logar(usuario);
                 csSenha.setText("");
                 rtErro.setVisible(false);
             }
@@ -263,17 +260,17 @@ public final class JLogin extends javax.swing.JFrame {
     }
     
     public void jCad(){
-        JCadastro.getInstancia().setVisible(true);
         setVisible(false);
         rtErro.setVisible(false);
+        navegador.mostrarJCadastro();
     }
     public void jCad(java.awt.event.KeyEvent evt){
         if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) jCad();
     }
     
     public void jCon(){
-        dispose();
-        JConexaoBD.getInstancia().setVisible(true);        
+        setVisible(false);
+        navegador.mostrarJConexaoBD();        
     }
     
     public void placeholder(boolean add){
@@ -301,7 +298,7 @@ public final class JLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                getInstancia().setVisible(true);
+                new JLogin(new NavegadorUI());
             }
         });
     }
