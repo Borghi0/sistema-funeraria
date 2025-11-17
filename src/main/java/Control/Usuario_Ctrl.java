@@ -134,7 +134,7 @@ public class Usuario_Ctrl {
         }
     }
     
-    public void alt_User(Usuario user) throws Exception{
+    public int alt_User(Usuario user) throws Exception{
         String cpf = user.getCpf(),
                sql = "UPDATE usuario SET usu_nome = ?,"
                      + "usu_data_natalidade = ?,"
@@ -164,7 +164,7 @@ public class Usuario_Ctrl {
             ps.setString(10, null); // usar metodo de busca de plano por id
             ps.setString(11, cpf);
             
-            ps.executeUpdate();
+            return ps.executeUpdate();
         }
         finally{
             ps.close();
