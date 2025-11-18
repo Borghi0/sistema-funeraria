@@ -4,6 +4,9 @@
  */
 package View;
 
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+
 /**
  *
  * @author mario
@@ -17,6 +20,7 @@ public class JDefunto extends javax.swing.JFrame {
      */
     public JDefunto() {
         initComponents();
+        jTable1.setCellSelectionEnabled(false);
     }
 
     /**
@@ -40,6 +44,7 @@ public class JDefunto extends javax.swing.JFrame {
         jTable1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {"1", "A", "", null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -49,6 +54,12 @@ public class JDefunto extends javax.swing.JFrame {
                 "Código Defunto", "Nome do Defunto", "Inicio do velorio", "Fim do velorio"
             }
         ));
+        jTable1.setEnabled(false);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -77,6 +88,14 @@ public class JDefunto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        JTable tabela = (JTable) evt.getSource();
+        int linha = tabela.rowAtPoint(evt.getPoint());
+        String teste = tabela.getValueAt(linha, 0).toString();
+        
+        JOptionPane.showMessageDialog(null, "Ola mundo" + teste);
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
