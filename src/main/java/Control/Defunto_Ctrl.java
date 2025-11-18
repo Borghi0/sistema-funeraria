@@ -37,6 +37,7 @@ public class Defunto_Ctrl {
             ps.executeUpdate();
         }
         finally{
+            rs.close();
             ps.close();
             con.close();
         }
@@ -63,6 +64,7 @@ public class Defunto_Ctrl {
             
             return null;
         } finally{
+            rs.close();
             ps.close();
             con.close();
         }

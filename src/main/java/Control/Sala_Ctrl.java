@@ -1,6 +1,9 @@
 package Control;
 
 import Model.Sala;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Sala_Ctrl {
     private static Sala_Ctrl instancia;
@@ -13,19 +16,61 @@ public class Sala_Ctrl {
         return instancia;
     }
     
-    public void cad_Sala(Sala sala){
-        //Ainda não implementado
+    public int cad_Sala(Sala sala) throws Exception{
+        String sql = "INSERT INTO sala (sal_capacidade) VALUES (?)";
+        
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+            PreparedStatement ps = con.prepareStatement(sql)){
+            
+            ps.setInt(1, sala.getCapacidade());
+            
+            return ps.executeUpdate();
+        }
     }
     
-    public void ler_Sala(Sala sala){
-        //Ainda não implementado
+    public Sala ler_Sala(int numero) throws Exception{
+        String sql = "SELECT * FROM sala WHERE sal_numero = ?";
+        ResultSet rs = null;
+        
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+            PreparedStatement ps = con.prepareStatement(sql)){
+            
+            ps.setInt(1, numero);
+            rs = ps.executeQuery();
+            
+            while(rs.next()) return new Sala(rs.getInt("sal_capacidade"), 
+                                             rs.getInt("sal_numero"));
+        } finally{
+            rs.close();
+        }
+        
+        return null;
     }
     
-    public void alt_Sala(Sala sala){
-        //Ainda não implementado
+    public int alt_Sala(Sala sala) throws Exception{
+        String sql = "UPDATE sala SET sal_capacidade = ? WHERE sal_numero = ?";
+        
+        try(
+            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            PreparedStatement ps = con.prepareStatement(sql)
+        ){
+            ps.setInt(1, sala.getCapacidade());
+            ps.setInt(2, sala.getNumero());
+            
+            return ps.executeUpdate();
+        }
     }
     
-    public void del_Sala(Sala sala){
-        //Ainda não implementado
+    public int del_Sala(Sala sala) throws Exception{
+        String sql = "DELETE FROM sala WHERE sal_numero = ?";
+        
+        try(
+            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            PreparedStatement ps = con.prepareStatement(sql)
+        ){
+            ps.setInt(1, sala.getNumero());
+            
+            return ps.executeUpdate();
+        }
     }
 }

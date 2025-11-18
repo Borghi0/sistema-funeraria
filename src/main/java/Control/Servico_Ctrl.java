@@ -76,11 +76,11 @@ public class Servico_Ctrl {
         return servico;
     }
     
-    public void alt_Servico(Servico servico){
-        //Ainda não implementado
+    public int alt_Servico(Servico servico){
+        return 0;
     }
     
-    public void del_Servico(Servico servico){
-        //Ainda não implementado
+    public int del_Servico(Servico servico){
+        return 0;
     }
 }

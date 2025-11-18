@@ -153,6 +153,7 @@ public class Endereco_Ctrl {
                 return true;
             }
         } finally{
+            rs.close();
             ps.close();
             con.close();
         }
