@@ -76,6 +76,7 @@ public class Servico_Ctrl {
         return servico;
     }
     
+
     public Servico[] ler_ServicoGenerico() throws Exception{
         int num_lin = 0;
         String sql = "SELECT * FROM usuario WHERE ser_prestacao IS NULL";
@@ -111,7 +112,7 @@ public class Servico_Ctrl {
         //Ainda não implementado
     }
     
-    public void del_Servico(Servico servico){
-        //Ainda não implementado
+    public int del_Servico(Servico servico){
+        return 0;
     }
 }
