@@ -439,7 +439,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         int lin = 0;
         modeloSer.setRowCount(lin);
         
-        for(Servico servico : Servico_Ctrl.getInstancia().ler_Servico()){
+        for(Servico servico : Servico_Ctrl.getInstancia().ler_ServicoGenerico()){
             if(!plano.getLista_Servico().contains(servico))
                 modeloSer.insertRow(lin, new Object[]{                    
                     servico.getId(),
