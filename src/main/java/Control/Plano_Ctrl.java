@@ -18,23 +18,47 @@ public class Plano_Ctrl {
         return instancia;
     }
     
-    public void cad_Plano(Plano plano){
-        //Ainda não implementado
+    public void cad_Plano(Plano plano) throws Exception{
+        Connection con = null;
+        try{
+            con = Banco_Ctrl.getInstancia().getConexao();
+            con.setAutoCommit(false);                        
+            
+            String sql = "INSERT INTO plano VALUES (NULL, ?, ?)";
+            
+            try(PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){            
+                ps.setString(1, plano.getNome());
+                ps.setInt(2, plano.getPreco());
+
+                ps.executeUpdate();
+
+                try(ResultSet rs = ps.getGeneratedKeys()){
+                    if(rs.next()) plano.setId(rs.getInt("pla_id"));
+                }
+            }
+            
+            cad_Relacionamentos(plano, con);
+            
+            con.commit();
+            
+        }catch(Exception e){            
+            if(con!=null) try{con.rollback();} catch(SQLException ex){}
+            throw e;            
+        }finally{
+            if(con!=null) try{con.close();} catch(SQLException ex){}
+        }
     }
     
-    public Plano[] ler_Plano() throws Exception{
-        int num_lin = 0;
+    public Plano[] ler_Plano() throws Exception{        
         String sql = "SELECT * FROM usuario";
-        Plano[] planos = null;
-        
+        Plano[] planos = null;        
         
         Connection con = Banco_Ctrl.getInstancia().getConexao();
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         rs.last();
-        num_lin = rs.getRow();
+        planos = new Plano[rs.getRow()];
         rs.beforeFirst();
-        planos = new Plano[num_lin];
 
         for(int i = 0; rs.next(); i++){
             planos[i] = new Plano(
@@ -78,12 +102,61 @@ public class Plano_Ctrl {
         return plano;
     }
     
-    public void alt_Plano(Plano plano){
-        //Ainda não implementado
+    public void alt_Plano(Plano plano) throws Exception{
+        Connection con = null;
+        try{
+            con = Banco_Ctrl.getInstancia().getConexao();
+            con.setAutoCommit(false);
+            
+            String sql = "UPDATE plano SET pla_nome = ?, pla_preco = ?";
+            
+            try(PreparedStatement ps = con.prepareStatement(sql)){            
+                ps.setString(1, plano.getNome());
+                ps.setInt(2, plano.getPreco());
+                
+                ps.executeUpdate();                
+            }
+            
+            del_Relacionamentos(plano, con);
+            cad_Relacionamentos(plano, con);
+            
+            con.commit();
+        }catch(Exception e){            
+            if(con!=null) try{con.rollback();} catch(SQLException ex){}
+            throw e;            
+        }finally{
+            if(con!=null) try{con.close();} catch(SQLException ex){}
+        }
     }
     
     public boolean del_Plano(Plano plano) throws Exception{
-        return false;
+        Connection con = null;
+        try{
+            con = Banco_Ctrl.getInstancia().getConexao();
+            con.setAutoCommit(false);
+            
+            del_Relacionamentos(plano, con);
+            
+            String sql = "DELETE FROM plano WHERE pla_id = ?";
+            
+            int delCol = 0;
+            
+            try(PreparedStatement ps = con.prepareStatement(sql)){                            
+                ps.setInt(1, plano.getId());
+                
+                delCol = ps.executeUpdate();                
+            }                        
+            
+            con.commit();
+            
+            return delCol>0;
+            
+        }catch(Exception e){            
+            if(con!=null) try{con.rollback();} catch(SQLException ex){}
+            throw e;            
+        }finally{
+            if(con!=null) try{con.close();} catch(SQLException ex){}
+        }
     }
     
     public ArrayList<Servico> getServicos(int id) throws Exception{
@@ -99,7 +172,7 @@ public class Plano_Ctrl {
         while(rs.next()){            
             Servicos.add(Servico_Ctrl.getInstancia().ler_Servico(rs.getInt("ser_id")));
         }
-         
+        
         return Servicos;
     }
     public ArrayList<Produto> getProdutos(int id) throws Exception{
@@ -121,5 +194,49 @@ public class Plano_Ctrl {
         con.close();
         
         return Produtos;
+    }
+
+    private void cad_Relacionamentos(Plano plano, Connection con) throws Exception{
+        String sqlSer = "INSERT INTO plano_servico (pla_id, ser_id) VALUES (?, ?)";
+        
+        try (PreparedStatement ps = con.prepareStatement(sqlSer)) {
+            
+            for(Servico servico : plano.getLista_Servico()){
+                ps.setInt(1, plano.getId());
+                ps.setInt(2, servico.getId());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        }
+
+        
+        String sqlPro = "INSERT INTO plano_produto (pla_id, pro_id) VALUES (?, ?)";
+        
+        try (PreparedStatement ps = con.prepareStatement(sqlPro)) {
+            
+            for(Produto produto : plano.getLista_Produto()){
+                ps.setInt(1, plano.getId());
+                ps.setInt(2, produto.getId());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        }
+    }
+
+    private void del_Relacionamentos(Plano plano, Connection con) throws Exception{
+        String sqlSer = "DELETE FROM plano_servico WHERE pla_id = ?";
+        
+        try(PreparedStatement ps = con.prepareStatement(sqlSer)){
+            ps.setInt(1, plano.getId());
+            ps.executeUpdate();
+        }
+        
+        
+        String sqlPro = "DELETE FROM plano_produto WHERE pla_id = ?";
+        
+        try(PreparedStatement ps = con.prepareStatement(sqlPro)){
+            ps.setInt(1, plano.getId());
+            ps.executeUpdate();
+        }
     }
 }

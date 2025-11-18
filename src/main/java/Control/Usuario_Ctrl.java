@@ -58,15 +58,14 @@ public class Usuario_Ctrl {
             
             con.commit();
         }catch(Exception e){
-            con.rollback();
+            if(con!=null) con.rollback();
             throw e;
         }finally{
-            con.close();
+            if(con!=null) con.close();
         }
     }
     
-    public Usuario[] ler_User() throws Exception{
-        int num_lin = 0;
+    public Usuario[] ler_User() throws Exception{        
         String sql = "SELECT * FROM usuario";
         Usuario[] us = null;
         
@@ -75,12 +74,10 @@ public class Usuario_Ctrl {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             rs.last();
-            num_lin = rs.getRow();
-            rs.beforeFirst();
-            us = new Usuario[num_lin];
+            us = new Usuario[rs.getRow()];
+            rs.beforeFirst();            
             
-            for(int i = 0; i < num_lin; i++){
-                rs.next();
+            for(int i = 0; rs.next(); i++){                
                 us[i] = new Usuario(
                                 rs.getString("usu_login"),
                                 rs.getString("usu_senha"),
