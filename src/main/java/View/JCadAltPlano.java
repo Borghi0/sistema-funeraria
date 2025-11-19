@@ -546,11 +546,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
                     null, "Erro ao buscar serviço no banco:\n" + e,
                     "Erro!", JOptionPane.ERROR_MESSAGE
             );            
-        }
-        
-        try{
-            listarTabServicosProdutos();
-        } catch(Exception e){}                          
+        }                       
     }
     
     private void selecTabProdutos(){
@@ -588,11 +584,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
                     null, "Erro ao buscar serviço no banco:\n" + e,
                     "Erro!", JOptionPane.ERROR_MESSAGE
             );            
-        }
-        
-        try{
-            listarTabServicosProdutos();
-        } catch(Exception e){}                          
+        }                                 
     }
     
     private void initInfo(){

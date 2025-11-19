@@ -12,9 +12,11 @@ public class NavegadorUI {
     private JAdmin jAdmin;
     private JMenuUsuario jMenuUsuario;
     
+    // janelas do admin
     private JRelatorioPlano jRelatorioPlano;
     private JCadAltPlano jCadPlano;
     private JCadAltPlano jAltPlano;
+    private JCadRelatServico jCadRelatServico;
     
     public NavegadorUI(){
         
@@ -80,6 +82,8 @@ public class NavegadorUI {
         jCadPlano = null;        
         jAltPlano.dispose();
         jAltPlano = null;
+        jCadRelatServico.dispose();
+        jCadRelatServico = null;
         //fechar demais janelas associadas
     }
     
@@ -102,6 +106,13 @@ public class NavegadorUI {
         
         jCadPlano = new JCadAltPlano(null, true);        
         jCadPlano.setVisible(true);        
+    }
+    
+    public void mostrarJCadRelatServico(){
+        if(jCadRelatServico == null) jCadRelatServico = new JCadRelatServico();
+        
+        jCadRelatServico.setVisible(true);        
+        jCadRelatServico.toFront();
     }
     
 }
