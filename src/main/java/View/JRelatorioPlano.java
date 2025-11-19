@@ -14,13 +14,20 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class JRelatorioPlano extends javax.swing.JFrame {
-    private NavegadorUI navegador;    
+    private NavegadorUI navegador;
+    private boolean modoAdmin;
     
-    public JRelatorioPlano(NavegadorUI navegador) {
+    public JRelatorioPlano(NavegadorUI navegador, boolean modoAdmin) {
         this.navegador = navegador;
+        this.modoAdmin = modoAdmin;
         initComponents();        
         setLocationRelativeTo(null);
         setExtendedState(MAXIMIZED_BOTH);
+        
+        if(!modoAdmin){
+            btDeletar.setVisible(false);
+            btAtualizar.setVisible(false);
+        }
     }        
     
     
@@ -363,12 +370,12 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         
         try {
             for(Servico servico : Plano_Ctrl.getInstancia().getServicos(id)){                
-                    modelo.insertRow(lin, new Object[]{
-                        servico.getNome(),
-                        servico.getPreco(),
-                        servico.getTipo()
-                    });
-                    lin++;                
+                modelo.insertRow(lin, new Object[]{
+                    servico.getNome(),
+                    servico.getPreco(),
+                    servico.getTipo()
+                });
+                lin++;                
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
@@ -386,12 +393,12 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         
         try {
             for(Produto produto : Plano_Ctrl.getInstancia().getProdutos(id)){                
-                    modelo.insertRow(lin, new Object[]{
-                        produto.getNome(),
-                        produto.getPreco(),
-                        produto.isPerecivel()
-                    });
-                    lin++;                
+                modelo.insertRow(lin, new Object[]{
+                    produto.getNome(),
+                    produto.getPreco(),
+                    produto.isPerecivel()
+                });
+                lin++;                
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
@@ -492,7 +499,6 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         }
     }
     
-    
     private void atualizar(Plano plano){
         if(plano==null) return;
         navegador.mostrarJAltPlano(plano);
@@ -527,7 +533,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JRelatorioPlano(new NavegadorUI()).setVisible(true);
+                new JRelatorioPlano(new NavegadorUI(), false).setVisible(true);
             }
         });
     }
