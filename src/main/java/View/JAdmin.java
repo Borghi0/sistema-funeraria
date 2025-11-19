@@ -29,6 +29,7 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
         mnOpcoes = new javax.swing.JMenu();
         mnRelatorios = new javax.swing.JMenu();
@@ -53,6 +54,9 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Admin");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel1.setText("Tela do Administrador");
 
         mnOpcoes.setText("Opções");
         mnOpcoes.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -196,11 +200,17 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1216, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(147, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 666, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(49, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap(314, Short.MAX_VALUE))
         );
 
         pack();
@@ -303,6 +313,7 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem miAltInfo;
     private javax.swing.JMenuItem miCadPlano;
     private javax.swing.JMenuItem miCadProduto;

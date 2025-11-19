@@ -47,13 +47,14 @@ public class JCadastroDefunto extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        rtTitulo = new javax.swing.JLabel();
         rtNomeDefunto = new javax.swing.JLabel();
         rtDataNascimento = new javax.swing.JLabel();
         rtDataObito = new javax.swing.JLabel();
         rtCemiterio = new javax.swing.JLabel();
-        rtCadastroDefunto = new javax.swing.JLabel();
         rtTipoObito = new javax.swing.JLabel();
         rtCadInfo = new javax.swing.JLabel();
+        rtErroNome = new javax.swing.JLabel();
         cxNomeDefunto = new javax.swing.JTextField();
         cxCemiterio = new javax.swing.JTextField();
         cbTipoObito = new javax.swing.JComboBox<>();
@@ -64,12 +65,18 @@ public class JCadastroDefunto extends javax.swing.JFrame {
         cbMesObito = new javax.swing.JComboBox<>();
         cbAnoObito = new javax.swing.JComboBox<>();
         btCadastrar = new javax.swing.JButton();
+        btLimpar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
-        rtErroNome = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnOp = new javax.swing.JMenu();
+        mniFechar = new javax.swing.JMenuItem();
 
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        rtTitulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        rtTitulo.setText("Cadastro de defunto");
 
         rtNomeDefunto.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtNomeDefunto.setText("Nome do defunto:");
@@ -83,9 +90,6 @@ public class JCadastroDefunto extends javax.swing.JFrame {
         rtCemiterio.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtCemiterio.setText("Cemitério:");
 
-        rtCadastroDefunto.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        rtCadastroDefunto.setText("Cadastro de defunto");
-
         rtTipoObito.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtTipoObito.setText("Tipo de obito:");
 
@@ -93,6 +97,8 @@ public class JCadastroDefunto extends javax.swing.JFrame {
         rtCadInfo.setForeground(new java.awt.Color(255, 0, 0));
         rtCadInfo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         rtCadInfo.setText("Preencha todos os campos");
+
+        rtErroNome.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
         cxNomeDefunto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,6 +143,8 @@ public class JCadastroDefunto extends javax.swing.JFrame {
             }
         });
 
+        btLimpar.setText("Limpar");
+
         btCancelar.setText("Cancelar");
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,69 +152,79 @@ public class JCadastroDefunto extends javax.swing.JFrame {
             }
         });
 
-        rtErroNome.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        mnOp.setText("Opções");
+        mnOp.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+
+        mniFechar.setText("Fechar...");
+        mnOp.add(mniFechar);
+
+        jMenuBar1.add(mnOp);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(39, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(rtCemiterio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rtDataObito, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rtDataNascimento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rtNomeDefunto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rtTipoObito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(rtCadastroDefunto)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(rtCemiterio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rtDataObito, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rtDataNascimento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rtNomeDefunto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rtTipoObito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btCadastrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btLimpar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btCancelar))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btCadastrar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btCancelar))
+                                .addComponent(cbDiaNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbMesNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbAnoNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cxNomeDefunto, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(rtErroNome, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cbDiaNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cbMesNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cbAnoNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cbDiaObito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cbMesObito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cbAnoObito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(cbTipoObito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(rtCadInfo))
-                                        .addComponent(cxCemiterio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 28, Short.MAX_VALUE)))))
+                                .addComponent(cbDiaObito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbMesObito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbAnoObito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(cbTipoObito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(rtCadInfo))
+                                .addComponent(cxCemiterio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cxNomeDefunto, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rtErroNome, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 28, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rtTitulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(rtCadastroDefunto)
-                .addGap(24, 24, 24)
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(rtTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(rtNomeDefunto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rtNomeDefunto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cxNomeDefunto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,17 +244,16 @@ public class JCadastroDefunto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rtCadInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cxNomeDefunto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rtErroNome, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(126, 126, 126)
+                        .addComponent(rtErroNome, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rtTipoObito, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbTipoObito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btCadastrar)
-                    .addComponent(btCancelar))
+                    .addComponent(btCancelar)
+                    .addComponent(btLimpar)
+                    .addComponent(btCadastrar))
                 .addContainerGap())
         );
 
@@ -266,25 +283,27 @@ public class JCadastroDefunto extends javax.swing.JFrame {
     private void cancelar(){
         cxNomeDefunto.setText("");
         cxCemiterio.setText("");
-        cbDiaNasc.insertItemAt("Dia", 0);
-        cbMesNasc.insertItemAt("Mes", 0);
-        cbAnoNasc.insertItemAt("Ano", 0);
-        cbDiaObito.insertItemAt("Dia", 0);
-        cbMesObito.insertItemAt("Mes", 0);
-        cbAnoObito.insertItemAt("Ano", 0);
+        cbDiaNasc.setSelectedIndex(0);
+        cbMesNasc.setSelectedIndex(0);
+        cbAnoNasc.setSelectedIndex(0);
+        cbDiaObito.setSelectedIndex(0);
+        cbMesObito.setSelectedIndex(0);
+        cbAnoObito.setSelectedIndex(0);
+        cbTipoObito.setSelectedIndex(0);
     }
     
+    //Cadastrar.
     private void cadastrar(){
         cxNomeDefunto.setText(cxNomeDefunto.getText().replaceAll("\\s+", ""));
         cxCemiterio.setText(cxCemiterio.getText().replaceAll("\\s+", ""));
                 
         LocalDate data_natalidade;
         try{
-            data_natalidade = LocalDate.of(
-                    Integer.parseInt(cbDiaNasc.getSelectedItem().toString()),
-                    Integer.parseInt(cbMesNasc.getSelectedItem().toString()),
-                    Integer.parseInt(cbAnoNasc.getSelectedItem().toString())
-            );
+            int diaNasc = Integer.parseInt(cbDiaNasc.getSelectedItem().toString());
+            int mesNasc = Integer.parseInt(cbMesNasc.getSelectedItem().toString());
+            int anoNasc = Integer.parseInt(cbAnoNasc.getSelectedItem().toString());
+            data_natalidade = LocalDate.of(anoNasc, mesNasc, diaNasc);
+            System.out.println(data_natalidade);
         }catch(Exception e){
             JOptionPane.showMessageDialog(
                 null,
@@ -295,13 +314,25 @@ public class JCadastroDefunto extends javax.swing.JFrame {
             return;
         }
         
-        LocalDate data_Obito;
+        LocalDate data_Obito = LocalDate.now();
         try{
-            data_Obito = LocalDate.of(
-                    Integer.parseInt((String) cbDiaObito.getSelectedItem()),
-                    Integer.parseInt((String) cbMesObito.getSelectedItem()),
-                    Integer.parseInt((String) cbAnoObito.getSelectedItem())
+            int diaObito = Integer.parseInt(cbDiaObito.getSelectedItem().toString());
+            int mesObito = Integer.parseInt(cbMesObito.getSelectedItem().toString());
+            int anoObito = Integer.parseInt(cbAnoObito.getSelectedItem().toString());
+            data_Obito = LocalDate.of(anoObito, mesObito, diaObito);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(
+                null,
+                "Data inválida:\n" + e,
+                "Erro",
+                JOptionPane.ERROR_MESSAGE
             );
+            return;
+        }
+        
+        String tipoObito;
+        try{
+            tipoObito = (String)cbTipoObito.getSelectedItem();
         }catch(Exception e){
             JOptionPane.showMessageDialog(
                 null,
@@ -314,8 +345,8 @@ public class JCadastroDefunto extends javax.swing.JFrame {
         
         Defunto defunto = new Defunto(
                 data_Obito,
-                (String) cbTipoObito.getSelectedItem(),
-                cxCemiterio.getText(),                
+                tipoObito,
+                cxCemiterio.getText(),
                 cxNomeDefunto.getText(),
                 data_natalidade,
                 0
@@ -377,6 +408,7 @@ public class JCadastroDefunto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCadastrar;
     private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btLimpar;
     private javax.swing.JComboBox<String> cbAnoNasc;
     private javax.swing.JComboBox<String> cbAnoObito;
     private javax.swing.JComboBox<String> cbDiaNasc;
@@ -387,13 +419,16 @@ public class JCadastroDefunto extends javax.swing.JFrame {
     private javax.swing.JTextField cxCemiterio;
     private javax.swing.JTextField cxNomeDefunto;
     private javax.swing.JButton jButton1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu mnOp;
+    private javax.swing.JMenuItem mniFechar;
     private javax.swing.JLabel rtCadInfo;
-    private javax.swing.JLabel rtCadastroDefunto;
     private javax.swing.JLabel rtCemiterio;
     private javax.swing.JLabel rtDataNascimento;
     private javax.swing.JLabel rtDataObito;
     private javax.swing.JLabel rtErroNome;
     private javax.swing.JLabel rtNomeDefunto;
     private javax.swing.JLabel rtTipoObito;
+    private javax.swing.JLabel rtTitulo;
     // End of variables declaration//GEN-END:variables
 }

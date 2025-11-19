@@ -32,11 +32,12 @@ public class JCadRelatServico extends javax.swing.JFrame {
         tbServicos = new javax.swing.JTable();
         rbGenericos = new javax.swing.JRadioButton();
         rbProgramados = new javax.swing.JRadioButton();
+        rtTitulo = new javax.swing.JLabel();
         rtNome = new javax.swing.JLabel();
-        cxNome = new javax.swing.JTextField();
         rtPreco = new javax.swing.JLabel();
+        rtTipo = new javax.swing.JLabel();
+        cxNome = new javax.swing.JTextField();
         cxPreco = new javax.swing.JTextField();
-        rtPreco1 = new javax.swing.JLabel();
         cxTipo = new javax.swing.JTextField();
         btConfirmar = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
@@ -99,9 +100,20 @@ public class JCadRelatServico extends javax.swing.JFrame {
             }
         });
 
+        rtTitulo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        rtTitulo.setText("Cadastro de serviços");
+
         rtNome.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         rtNome.setText("Nome:");
+
+        rtPreco.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtPreco.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtPreco.setText("Preço:");
+
+        rtTipo.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtTipo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtTipo.setText("Tipo:");
 
         cxNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cxNome.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -115,10 +127,6 @@ public class JCadRelatServico extends javax.swing.JFrame {
             }
         });
 
-        rtPreco.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtPreco.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtPreco.setText("Preço:");
-
         cxPreco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cxPreco.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -130,10 +138,6 @@ public class JCadRelatServico extends javax.swing.JFrame {
                 cxPrecoKeyPressed(evt);
             }
         });
-
-        rtPreco1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtPreco1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtPreco1.setText("Tipo:");
 
         cxTipo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cxTipo.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -159,7 +163,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
         mbOpcoes1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
 
         miRestaurar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miRestaurar1.setText("Restaurar Tabela");
+        miRestaurar1.setText("Restaurar Tabela...");
         miRestaurar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miRestaurar1ActionPerformed(evt);
@@ -168,7 +172,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
         mbOpcoes1.add(miRestaurar1);
 
         miFechar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miFechar1.setText("Fechar");
+        miFechar1.setText("Fechar...");
         miFechar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miFechar1ActionPerformed(evt);
@@ -188,12 +192,17 @@ public class JCadRelatServico extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(rbGenericos)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbProgramados)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(rtNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cxNome, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                         .addGap(40, 40, 40)
-                        .addComponent(rtPreco1)
+                        .addComponent(rtTipo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cxTipo, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
                         .addGap(45, 45, 45)
@@ -201,27 +210,28 @@ public class JCadRelatServico extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cxPreco, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
                         .addGap(51, 51, 51)
-                        .addComponent(btConfirmar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(rbGenericos)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbProgramados)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(btConfirmar)))
                 .addGap(18, 18, 18))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rtTitulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(78, 78, 78)
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(rtTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cxNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rtPreco1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cxPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btConfirmar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbGenericos)
                     .addComponent(rbProgramados))
@@ -553,7 +563,8 @@ public class JCadRelatServico extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbProgramados;
     private javax.swing.JLabel rtNome;
     private javax.swing.JLabel rtPreco;
-    private javax.swing.JLabel rtPreco1;
+    private javax.swing.JLabel rtTipo;
+    private javax.swing.JLabel rtTitulo;
     private javax.swing.JTable tbServicos;
     // End of variables declaration//GEN-END:variables
 }

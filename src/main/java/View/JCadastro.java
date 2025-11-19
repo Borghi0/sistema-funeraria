@@ -62,35 +62,39 @@ public class JCadastro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rtTitulo = new javax.swing.JLabel();
         rtEmail = new javax.swing.JLabel();
         rtNome = new javax.swing.JLabel();
         rtTelefone = new javax.swing.JLabel();
         rtCpf = new javax.swing.JLabel();
+        rtRua = new javax.swing.JLabel();
+        rtNumero = new javax.swing.JLabel();
+        rtCep = new javax.swing.JLabel();
+        rtDataNasc = new javax.swing.JLabel();
         rtSenha = new javax.swing.JLabel();
         rtCSenha = new javax.swing.JLabel();
+        rtErroEmail = new javax.swing.JLabel();
+        rtCadInfo = new javax.swing.JLabel();
         cxEmail = new javax.swing.JTextField();
         cxNome = new javax.swing.JTextField();
         cxTelefone = new javax.swing.JTextField();
         cxCpf = new javax.swing.JTextField();
+        cxRua = new javax.swing.JTextField();
+        cxNumero = new javax.swing.JTextField();
+        cxCep = new javax.swing.JTextField();
         csSenha = new javax.swing.JPasswordField();
         csCSenha = new javax.swing.JPasswordField();
         btVoltar = new javax.swing.JButton();
         btConfirmar = new javax.swing.JButton();
-        rtErroEmail = new javax.swing.JLabel();
-        rtCadInfo = new javax.swing.JLabel();
         cbDia = new javax.swing.JComboBox<>();
-        rtCPF1 = new javax.swing.JLabel();
-        rtRua = new javax.swing.JLabel();
-        rtNumero = new javax.swing.JLabel();
-        rtCep = new javax.swing.JLabel();
-        cxRua = new javax.swing.JTextField();
-        cxNumero = new javax.swing.JTextField();
-        cxCep = new javax.swing.JTextField();
         cbMes = new javax.swing.JComboBox<>();
         cbAno = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro");
+
+        rtTitulo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        rtTitulo.setText("Cadastro de Usuário");
 
         rtEmail.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtEmail.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -108,6 +112,22 @@ public class JCadastro extends javax.swing.JFrame {
         rtCpf.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         rtCpf.setText("CPF:");
 
+        rtRua.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtRua.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtRua.setText("Rua:");
+
+        rtNumero.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtNumero.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtNumero.setText("Número:");
+
+        rtCep.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtCep.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtCep.setText("CEP:");
+
+        rtDataNasc.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtDataNasc.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtDataNasc.setText("Data de nascimento:");
+
         rtSenha.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         rtSenha.setText("Senha:");
@@ -115,6 +135,15 @@ public class JCadastro extends javax.swing.JFrame {
         rtCSenha.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtCSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         rtCSenha.setText("Confirmar senha:");
+
+        rtErroEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rtErroEmail.setForeground(new java.awt.Color(255, 0, 0));
+        rtErroEmail.setMinimumSize(new java.awt.Dimension(120, 0));
+
+        rtCadInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rtCadInfo.setForeground(new java.awt.Color(255, 0, 0));
+        rtCadInfo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtCadInfo.setText("Preencha todos os campos");
 
         cxEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cxEmail.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -164,6 +193,42 @@ public class JCadastro extends javax.swing.JFrame {
             }
         });
 
+        cxRua.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cxRua.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cxRuaFocusLost(evt);
+            }
+        });
+        cxRua.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cxRuaKeyPressed(evt);
+            }
+        });
+
+        cxNumero.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cxNumero.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cxNumeroFocusLost(evt);
+            }
+        });
+        cxNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cxNumeroKeyPressed(evt);
+            }
+        });
+
+        cxCep.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cxCep.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cxCepFocusLost(evt);
+            }
+        });
+        cxCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cxCepKeyPressed(evt);
+            }
+        });
+
         csSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         csSenha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -204,68 +269,7 @@ public class JCadastro extends javax.swing.JFrame {
             }
         });
 
-        rtErroEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        rtErroEmail.setForeground(new java.awt.Color(255, 0, 0));
-        rtErroEmail.setMinimumSize(new java.awt.Dimension(120, 0));
-
-        rtCadInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        rtCadInfo.setForeground(new java.awt.Color(255, 0, 0));
-        rtCadInfo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtCadInfo.setText("Preencha todos os campos");
-
         cbDia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        rtCPF1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtCPF1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtCPF1.setText("Data de nascimento:");
-
-        rtRua.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtRua.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtRua.setText("Rua:");
-
-        rtNumero.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtNumero.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtNumero.setText("Número:");
-
-        rtCep.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtCep.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtCep.setText("CEP:");
-
-        cxRua.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cxRua.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cxRuaFocusLost(evt);
-            }
-        });
-        cxRua.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cxRuaKeyPressed(evt);
-            }
-        });
-
-        cxNumero.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cxNumero.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cxNumeroFocusLost(evt);
-            }
-        });
-        cxNumero.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cxNumeroKeyPressed(evt);
-            }
-        });
-
-        cxCep.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cxCep.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cxCepFocusLost(evt);
-            }
-        });
-        cxCep.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cxCepKeyPressed(evt);
-            }
-        });
 
         cbMes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -276,65 +280,74 @@ public class JCadastro extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btVoltar)
-                .addGap(6, 6, 6))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(145, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rtCSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btConfirmar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(rtCadInfo)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(csCSenha, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(csSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btConfirmar)))
+                        .addComponent(btVoltar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(rtNumero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rtCep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rtRua, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cxRua)
-                            .addComponent(cxNumero)
-                            .addComponent(cxCep, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(rtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rtCPF1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(cbAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cxEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
-                            .addComponent(cxNome)
-                            .addComponent(cxTelefone)
-                            .addComponent(cxCpf))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rtErroEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rtCSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(rtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(rtCadInfo)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(csCSenha, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(csSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(rtNumero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(rtCep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(rtRua, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cxRua)
+                                    .addComponent(cxNumero)
+                                    .addComponent(cxCep, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(rtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(rtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(rtDataNasc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(rtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(rtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(cbDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(35, 35, 35)
+                                        .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(35, 35, 35)
+                                        .addComponent(cbAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cxEmail)
+                                    .addComponent(cxNome)
+                                    .addComponent(cxTelefone)
+                                    .addComponent(cxCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rtErroEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 82, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rtTitulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(87, Short.MAX_VALUE)
+                .addContainerGap(48, Short.MAX_VALUE)
+                .addComponent(rtTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rtErroEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(rtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cxEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cxEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rtErroEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -363,7 +376,7 @@ public class JCadastro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbDia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(rtCPF1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(rtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cbAno, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -376,10 +389,10 @@ public class JCadastro extends javax.swing.JFrame {
                     .addComponent(csCSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rtCadInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -644,11 +657,11 @@ public class JCadastro extends javax.swing.JFrame {
     private javax.swing.JTextField cxNumero;
     private javax.swing.JTextField cxRua;
     private javax.swing.JTextField cxTelefone;
-    private javax.swing.JLabel rtCPF1;
     private javax.swing.JLabel rtCSenha;
     private javax.swing.JLabel rtCadInfo;
     private javax.swing.JLabel rtCep;
     private javax.swing.JLabel rtCpf;
+    private javax.swing.JLabel rtDataNasc;
     private javax.swing.JLabel rtEmail;
     private javax.swing.JLabel rtErroEmail;
     private javax.swing.JLabel rtNome;
@@ -656,5 +669,6 @@ public class JCadastro extends javax.swing.JFrame {
     private javax.swing.JLabel rtRua;
     private javax.swing.JLabel rtSenha;
     private javax.swing.JLabel rtTelefone;
+    private javax.swing.JLabel rtTitulo;
     // End of variables declaration//GEN-END:variables
 }

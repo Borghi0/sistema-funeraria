@@ -41,7 +41,7 @@
                           <Component id="csSenha" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                              <Component id="rtBd" min="-2" max="-2" attributes="0"/>
+                              <Component id="rtTitulo" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -54,7 +54,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace pref="97" max="32767" attributes="0"/>
-              <Component id="rtBd" min="-2" max="-2" attributes="0"/>
+              <Component id="rtTitulo" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="rtURL" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
@@ -78,6 +78,14 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
+    <Component class="javax.swing.JLabel" name="rtTitulo">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="20" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Conecte-se ao BD"/>
+      </Properties>
+    </Component>
     <Component class="javax.swing.JLabel" name="rtUser">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -103,14 +111,6 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="URL:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="rtBd">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="20" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Conecte-se ao BD"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cxURL">

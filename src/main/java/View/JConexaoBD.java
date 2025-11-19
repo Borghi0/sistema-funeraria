@@ -25,10 +25,10 @@ public class JConexaoBD extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rtTitulo = new javax.swing.JLabel();
         rtUser = new javax.swing.JLabel();
         rtSenha = new javax.swing.JLabel();
         rtURL = new javax.swing.JLabel();
-        rtBd = new javax.swing.JLabel();
         cxURL = new javax.swing.JTextField();
         cxUser = new javax.swing.JTextField();
         csSenha = new javax.swing.JPasswordField();
@@ -36,6 +36,9 @@ public class JConexaoBD extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Conexão");
+
+        rtTitulo.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        rtTitulo.setText("Conecte-se ao BD");
 
         rtUser.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtUser.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -48,9 +51,6 @@ public class JConexaoBD extends javax.swing.JFrame {
         rtURL.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtURL.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         rtURL.setText("URL:");
-
-        rtBd.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        rtBd.setText("Conecte-se ao BD");
 
         cxURL.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cxURL.setToolTipText("");
@@ -109,14 +109,14 @@ public class JConexaoBD extends javax.swing.JFrame {
                             .addComponent(csSenha)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(19, 19, 19)
-                                .addComponent(rtBd)))))
+                                .addComponent(rtTitulo)))))
                 .addContainerGap(132, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(97, Short.MAX_VALUE)
-                .addComponent(rtBd)
+                .addComponent(rtTitulo)
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rtURL, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -231,8 +231,8 @@ public class JConexaoBD extends javax.swing.JFrame {
     private javax.swing.JPasswordField csSenha;
     private javax.swing.JTextField cxURL;
     private javax.swing.JTextField cxUser;
-    private javax.swing.JLabel rtBd;
     private javax.swing.JLabel rtSenha;
+    private javax.swing.JLabel rtTitulo;
     private javax.swing.JLabel rtURL;
     private javax.swing.JLabel rtUser;
     // End of variables declaration//GEN-END:variables

@@ -8,14 +8,14 @@ package View;
  *
  * @author mario
  */
-public class JSala extends javax.swing.JFrame {
+public class JCadastroSala extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JSala.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JCadastroSala.class.getName());
 
     /**
      * Creates new form JSala
      */
-    public JSala() {
+    public JCadastroSala() {
         initComponents();
     }
 
@@ -30,14 +30,16 @@ public class JSala extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        rtSalas = new javax.swing.JLabel();
-        rtSelecaoSala = new javax.swing.JLabel();
-        cbSala = new javax.swing.JComboBox<>();
         spInfoSala = new javax.swing.JScrollPane();
         tbInfoSala = new javax.swing.JTable();
+        rtTitulo = new javax.swing.JLabel();
+        rtCapacidade = new javax.swing.JLabel();
+        cxCapacidade = new javax.swing.JTextField();
+        btConfirmar = new javax.swing.JButton();
+        btLimpar = new javax.swing.JButton();
+        btCancelar = new javax.swing.JButton();
         mnBar = new javax.swing.JMenuBar();
         mnSala = new javax.swing.JMenu();
-        mniSala1 = new javax.swing.JMenuItem();
         mniSala2 = new javax.swing.JMenuItem();
         mniSala3 = new javax.swing.JMenuItem();
 
@@ -56,41 +58,38 @@ public class JSala extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        rtSalas.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        rtSalas.setText("Salas");
-
-        rtSelecaoSala.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtSelecaoSala.setText("Selecione a sala desejada:");
-
-        cbSala.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sala 1", "Sala 2", "Sala 3" }));
-
         tbInfoSala.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Sala", "Nome do Defunto", "Capacidade", "Disponibilidade", "Inicio do Velorio", "Fim do Velorio"
+                "Sala", "Capacidade"
             }
         ));
         spInfoSala.setViewportView(tbInfoSala);
 
+        rtTitulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        rtTitulo.setText("Salas");
+
+        rtCapacidade.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtCapacidade.setText("Capacidade da sala:");
+
+        btConfirmar.setText("Confirmar");
+
+        btLimpar.setText("Limpar");
+
+        btCancelar.setText("Cancelar");
+
         mnSala.setText("Opções");
+        mnSala.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
 
-        mniSala1.setText("Sala 1");
-        mniSala1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniSala1ActionPerformed(evt);
-            }
-        });
-        mnSala.add(mniSala1);
-
-        mniSala2.setText("Sala 2");
+        mniSala2.setText("Restaurar tabela...");
         mnSala.add(mniSala2);
 
-        mniSala3.setText("Sala 3");
+        mniSala3.setText("Fechar...");
         mnSala.add(mniSala3);
 
         mnBar.add(mnSala);
@@ -104,38 +103,48 @@ public class JSala extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addContainerGap(70, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(spInfoSala, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(rtSelecaoSala)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(310, 310, 310)
-                        .addComponent(rtSalas)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                                .addComponent(rtCapacidade)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cxCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 82, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btConfirmar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btLimpar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btCancelar)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rtTitulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(rtSalas)
-                .addGap(79, 79, 79)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rtTitulo)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rtSelecaoSala)
-                    .addComponent(cbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(rtCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cxCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(spInfoSala, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCancelar)
+                    .addComponent(btLimpar)
+                    .addComponent(btConfirmar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void mniSala1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSala1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mniSala1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,20 +168,22 @@ public class JSala extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new JSala().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new JCadastroSala().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbSala;
+    private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btConfirmar;
+    private javax.swing.JButton btLimpar;
+    private javax.swing.JTextField cxCapacidade;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JMenuBar mnBar;
     private javax.swing.JMenu mnSala;
-    private javax.swing.JMenuItem mniSala1;
     private javax.swing.JMenuItem mniSala2;
     private javax.swing.JMenuItem mniSala3;
-    private javax.swing.JLabel rtSalas;
-    private javax.swing.JLabel rtSelecaoSala;
+    private javax.swing.JLabel rtCapacidade;
+    private javax.swing.JLabel rtTitulo;
     private javax.swing.JScrollPane spInfoSala;
     private javax.swing.JTable tbInfoSala;
     // End of variables declaration//GEN-END:variables

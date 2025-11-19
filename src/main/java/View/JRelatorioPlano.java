@@ -30,8 +30,11 @@ public class JRelatorioPlano extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPlanos = new javax.swing.JTable();
-        cxCodigo = new javax.swing.JTextField();
+        rtTitulo = new javax.swing.JLabel();
         rtCodigo = new javax.swing.JLabel();
+        rtServicos = new javax.swing.JLabel();
+        rtProdutos = new javax.swing.JLabel();
+        cxCodigo = new javax.swing.JTextField();
         btConsultar = new javax.swing.JButton();
         btDeletar = new javax.swing.JButton();
         btAtualizar = new javax.swing.JButton();
@@ -40,8 +43,6 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         tbServicos = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbProdutos = new javax.swing.JTable();
-        rtServicos = new javax.swing.JLabel();
-        rtProdutos = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         barraMenu = new javax.swing.JMenuBar();
         mbOpcoes = new javax.swing.JMenu();
@@ -91,11 +92,20 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         tbPlanos.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 18));
         //fim
 
-        cxCodigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rtTitulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        rtTitulo.setText("Relatório de Planos, Produtos e Serviços");
 
         rtCodigo.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtCodigo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         rtCodigo.setText("Código:");
+
+        rtServicos.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtServicos.setText("Serviços inclusos");
+
+        rtProdutos.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtProdutos.setText("Produtos inclusos");
+
+        cxCodigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         btConsultar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         btConsultar.setText("Consultar...");
@@ -176,17 +186,11 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         tbProdutos.setRowHeight(30);
         jScrollPane3.setViewportView(tbProdutos);
 
-        rtServicos.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtServicos.setText("Serviços inclusos");
-
-        rtProdutos.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtProdutos.setText("Produtos inclusos");
-
         mbOpcoes.setText("Opções");
         mbOpcoes.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
 
         miRestaurar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miRestaurar.setText("Restaurar Tabela");
+        miRestaurar.setText("Restaurar Tabela...");
         miRestaurar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miRestaurarActionPerformed(evt);
@@ -195,7 +199,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         mbOpcoes.add(miRestaurar);
 
         miFechar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miFechar.setText("Fechar");
+        miFechar.setText("Fechar...");
         miFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miFecharActionPerformed(evt);
@@ -239,11 +243,17 @@ public class JRelatorioPlano extends javax.swing.JFrame {
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(rtProdutos))))
                 .addGap(81, 81, 81))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rtTitulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
+                .addContainerGap(10, Short.MAX_VALUE)
+                .addComponent(rtTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cxCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -253,7 +263,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
                     .addComponent(btRestaurar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rtProdutos, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(filler1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,7 +272,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -549,6 +559,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
     private javax.swing.JLabel rtCodigo;
     private javax.swing.JLabel rtProdutos;
     private javax.swing.JLabel rtServicos;
+    private javax.swing.JLabel rtTitulo;
     private javax.swing.JTable tbPlanos;
     private javax.swing.JTable tbProdutos;
     private javax.swing.JTable tbServicos;

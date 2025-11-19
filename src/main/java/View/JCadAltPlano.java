@@ -43,19 +43,19 @@ public class JCadAltPlano extends javax.swing.JFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         tbSerProIn = new javax.swing.JTable();
-        rtServicos = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbServicos = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         tbProdutos = new javax.swing.JTable();
+        rtTitulo = new javax.swing.JLabel();
+        rtServicos = new javax.swing.JLabel();
         rtServicos1 = new javax.swing.JLabel();
         rtServicos2 = new javax.swing.JLabel();
-        btConfirmar = new javax.swing.JButton();
         rtNome = new javax.swing.JLabel();
-        cxNome = new javax.swing.JTextField();
         rtPreco = new javax.swing.JLabel();
+        cxNome = new javax.swing.JTextField();
         cxPreco = new javax.swing.JTextField();
-        rtTitulo = new javax.swing.JLabel();
+        btConfirmar = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         mbOpcoes = new javax.swing.JMenu();
         miRestaurar = new javax.swing.JMenuItem();
@@ -96,9 +96,6 @@ public class JCadAltPlano extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tbSerProIn);
-
-        rtServicos.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtServicos.setText("Serviços e produtos inclusos:");
 
         tbServicos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tbServicos.setModel(new javax.swing.table.DefaultTableModel(
@@ -157,23 +154,25 @@ public class JCadAltPlano extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(tbProdutos);
 
+        rtTitulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        rtTitulo.setText("Alterar Plano, Produtos e Serviços");
+
+        rtServicos.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtServicos.setText("Serviços e produtos inclusos:");
+
         rtServicos1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtServicos1.setText("Incluir serviço");
 
         rtServicos2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtServicos2.setText("Incluir produto");
 
-        btConfirmar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btConfirmar.setText("Confirmar");
-        btConfirmar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btConfirmarActionPerformed(evt);
-            }
-        });
-
         rtNome.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         rtNome.setText("Nome:");
+
+        rtPreco.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtPreco.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtPreco.setText("Preço:");
 
         cxNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cxNome.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -187,10 +186,6 @@ public class JCadAltPlano extends javax.swing.JFrame {
             }
         });
 
-        rtPreco.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtPreco.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtPreco.setText("Preço:");
-
         cxPreco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cxPreco.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -203,8 +198,13 @@ public class JCadAltPlano extends javax.swing.JFrame {
             }
         });
 
-        rtTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        rtTitulo.setText("Texto");
+        btConfirmar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btConfirmar.setText("Confirmar");
+        btConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConfirmarActionPerformed(evt);
+            }
+        });
 
         mbOpcoes.setText("Opções");
         mbOpcoes.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -242,41 +242,40 @@ public class JCadAltPlano extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(rtTitulo)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(rtServicos)
+                        .addGap(0, 144, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(rtNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cxNome)))
+                .addGap(79, 79, 79)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(rtServicos)
-                                .addGap(0, 144, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(rtNome)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cxNome)))
-                        .addGap(79, 79, 79)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
-                                        .addComponent(jScrollPane4))
-                                    .addComponent(rtServicos1)
-                                    .addComponent(rtServicos2))
-                                .addGap(168, 168, 168))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(rtPreco)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cxPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                                .addComponent(jScrollPane4))
+                            .addComponent(rtServicos1)
+                            .addComponent(rtServicos2))
+                        .addGap(168, 168, 168))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(rtPreco)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cxPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rtTitulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addContainerGap(39, Short.MAX_VALUE)
                 .addComponent(rtTitulo)
-                .addGap(52, 52, 52)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cxNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

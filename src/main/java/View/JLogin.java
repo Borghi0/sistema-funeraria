@@ -25,6 +25,7 @@ public final class JLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rtLogin = new javax.swing.JLabel();
         rtEmail = new javax.swing.JLabel();
         rtSenha = new javax.swing.JLabel();
         rtErro = new javax.swing.JLabel();
@@ -40,6 +41,9 @@ public final class JLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu login");
+
+        rtLogin.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        rtLogin.setText("Login");
 
         rtEmail.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtEmail.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -128,7 +132,7 @@ public final class JLogin extends javax.swing.JFrame {
         mnOpcoes.add(mniCon);
 
         mniSair.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        mniSair.setText("Fechar aplicação");
+        mniSair.setText("Fechar aplicação...");
         mniSair.setAlignmentX(0.6F);
         mniSair.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         mniSair.addActionListener(new java.awt.event.ActionListener() {
@@ -163,11 +167,17 @@ public final class JLogin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btEnt, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(225, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rtLogin)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(150, Short.MAX_VALUE)
+                .addContainerGap(53, Short.MAX_VALUE)
+                .addComponent(rtLogin)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cxEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -181,7 +191,7 @@ public final class JLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btEnt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btCad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(150, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
 
         pack();
@@ -315,6 +325,7 @@ public final class JLogin extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniSair;
     private javax.swing.JLabel rtEmail;
     private javax.swing.JLabel rtErro;
+    private javax.swing.JLabel rtLogin;
     private javax.swing.JLabel rtSenha;
     // End of variables declaration//GEN-END:variables
 
