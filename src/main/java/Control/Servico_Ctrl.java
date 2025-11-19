@@ -15,8 +15,25 @@ public class Servico_Ctrl {
         return instancia;
     }
     
-    public void cad_Servico(Servico servico){
-        //Ainda não implementado
+    public void cad_Servico(Servico servico) throws SQLException, ClassNotFoundException{
+        
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao()){
+            
+            String sql = "INSERT INTO servico (ser_nome, ser_prestacao, ser_preco, ser_tipo) "
+                    + "VALUES (?, ?, ?, ?)";
+            
+            try(PreparedStatement ps = con.prepareStatement(sql)){
+                ps.setString(1, servico.getNome());
+                
+                if(servico.getPrestacao()!=null) ps.setDate(2, Date.valueOf(servico.getPrestacao()));
+                else ps.setDate(2, null);
+                
+                ps.setInt(3, servico.getPreco());
+                ps.setString(1, servico.getTipo());
+                
+                ps.executeUpdate();
+            }            
+        }
     }
     
     public Servico[] ler_Servico() throws Exception{
@@ -108,11 +125,42 @@ public class Servico_Ctrl {
         return servicos;                            
     }
     
+    public Servico[] ler_ServicoProgramado() throws Exception{
+        int num_lin = 0;
+        String sql = "SELECT * FROM usuario WHERE ser_prestacao IS NOT NULL";
+        Servico[] servicos = null;
+        
+        
+        Connection con = Banco_Ctrl.getInstancia().getConexao();
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        rs.last();
+        num_lin = rs.getRow();
+        rs.beforeFirst();
+        servicos = new Servico[num_lin];
+
+        for(int i = 0; rs.next(); i++){                
+            servicos[i] = new Servico(
+                            rs.getDate("ser_prestacao").toLocalDate(),
+                            rs.getString("usu_tipo"),
+                            rs.getInt("usu_preco"),
+                            rs.getString("usu_nome"),
+                            rs.getInt("usu_id")                                
+                        );
+        }
+
+        rs.close();
+        ps.close();
+        con.close();
+
+        return servicos;                            
+    }
+    
     public void alt_Servico(Servico servico){
         //Ainda não implementado
     }
     
-    public int del_Servico(Servico servico){
-        return 0;
+    public boolean del_Servico(Servico servico){
+        return false;
     }
 }
