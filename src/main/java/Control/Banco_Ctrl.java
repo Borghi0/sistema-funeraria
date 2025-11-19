@@ -29,7 +29,7 @@ public class Banco_Ctrl {
         inicializadorBD.criarTabelas();
     }
     
-    public Connection getConexao() throws Exception{
+    public Connection getConexao() throws ClassNotFoundException, SQLException{
         Class.forName(banco.getDriver());
         return DriverManager.getConnection(banco.getUrl(), banco.getUser(), banco.getSenha());
     }

@@ -26,7 +26,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         tbSerProIn.getColumnModel().removeColumn(tbSerProIn.getColumnModel().getColumn(3));                
         
         if(modoCadastro){
-            plano = new Plano();            
+            this.plano = new Plano();            
             rtTitulo.setText("Cadastrar plano");
         }
         else {
@@ -381,8 +381,15 @@ public class JCadAltPlano extends javax.swing.JFrame {
         
         try{
             Plano_Ctrl.getInstancia().alt_Plano(planoAlt);
+            
+            JOptionPane.showMessageDialog(
+                null,
+                "Plano alterado com sucesso!",
+                "Sucesso",
+                JOptionPane.INFORMATION_MESSAGE
+            );
             plano = planoAlt;
-            initInfo();
+            initInfo();            
         }catch(Exception e){
             JOptionPane.showMessageDialog(
                     null, "Não foi possível alterar o plano\n"+e,
@@ -399,6 +406,15 @@ public class JCadAltPlano extends javax.swing.JFrame {
         
         try{
             Plano_Ctrl.getInstancia().cad_Plano(plano);
+            
+            JOptionPane.showMessageDialog(
+                null,
+                "Plano cadastrado com sucesso!",
+                "Sucesso",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+            plano = new Plano();
+            limpar();
         }catch(Exception e){
             JOptionPane.showMessageDialog(
                     null, "Não foi possível cadastrar o plano\n"+e,
@@ -585,6 +601,15 @@ public class JCadAltPlano extends javax.swing.JFrame {
         listarTabSerProIn();
     }
     
+    private void limpar(){
+        cxNome.setText(plano.getNome());
+        cxPreco.setText(String.valueOf(plano.getPreco()));
+        
+        DefaultTableModel modelo = (DefaultTableModel) tbSerProIn.getModel();        
+        modelo.setRowCount(0);
+    }
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -612,7 +637,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JCadAltPlano(null, false).setVisible(true);
+                new JCadAltPlano(null, true).setVisible(true);
             }
         });
     }

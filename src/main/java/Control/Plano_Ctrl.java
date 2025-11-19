@@ -29,9 +29,9 @@ public class Plano_Ctrl {
             try(PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){            
                 ps.setString(1, plano.getNome());
                 ps.setInt(2, plano.getPreco());
-
+                
                 ps.executeUpdate();
-
+                
                 try(ResultSet rs = ps.getGeneratedKeys()){
                     if(rs.next()) plano.setId(rs.getInt("pla_id"));
                 }
@@ -59,7 +59,7 @@ public class Plano_Ctrl {
         rs.last();
         planos = new Plano[rs.getRow()];
         rs.beforeFirst();
-
+        
         for(int i = 0; rs.next(); i++){
             planos[i] = new Plano(
                             getServicos(rs.getInt("pla_id")),
@@ -69,11 +69,11 @@ public class Plano_Ctrl {
                             rs.getInt("pla_id")
                         );
         }
-
+        
         rs.close();
         ps.close();
         con.close();
-
+        
         return planos;        
     }
     public Plano ler_Plano(int id) throws Exception{
