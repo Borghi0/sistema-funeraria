@@ -34,6 +34,13 @@ public class Servico extends Ofertavel{
         this.tipo = tipo;
     }
 
-    
+    @Override
+    public boolean equals(Object o){        
+        if(!(o instanceof Servico)) return false;        
+        if(this == o) return true;
+        
+        Servico servico = (Servico) o;
+        return this.getId() == servico.getId();
+    }
     
 }

@@ -521,7 +521,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         if(linSelec<0) return;
                 
         
-        Ofertavel ofertavelSelec = (Ofertavel) tbSerProIn.getValueAt(linSelec, 3);
+        Ofertavel ofertavelSelec = (Ofertavel) tbSerProIn.getModel().getValueAt(linSelec, 3);
         
         int o = JOptionPane.showOptionDialog(                
                 null,
