@@ -77,7 +77,7 @@ public class Plano_Ctrl {
         return planos;        
     }
     public Plano ler_Plano(int id) throws Exception{
-        String sql = "SELECT * FROM plano WHERE ser_id = ?";
+        String sql = "SELECT * FROM plano WHERE pla_id = ?";
                 
         Connection con = Banco_Ctrl.getInstancia().getConexao();
         PreparedStatement ps = con.prepareStatement(sql);
