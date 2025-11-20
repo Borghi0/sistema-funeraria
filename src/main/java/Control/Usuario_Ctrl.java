@@ -4,6 +4,8 @@ import Model.Usuario;
 import Model.Endereco;
 import Model.Plano;
 import java.sql.*;
+import java.util.List;
+import java.util.LinkedList;
 
 public class Usuario_Ctrl {
     private static Usuario_Ctrl instancia;
@@ -66,37 +68,38 @@ public class Usuario_Ctrl {
         }
     }
     
-    public Usuario[] ler_User() throws Exception{        
-        String sql = "SELECT * FROM usuario";
-        Usuario[] us = null;
+    public List<Usuario> ler_User() throws Exception{        
+        String sql = "SELECT * FROM usuario NATURAL JOIN plano";
+        Endereco intermediarioE = new Endereco();
+        Plano intermediarioP = new Plano();
+        List<Usuario> retorno = new LinkedList<>();
         
-        try{
-            con = Banco_Ctrl.getInstancia().getConexao();
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            rs.last();
-            us = new Usuario[rs.getRow()];
-            rs.beforeFirst();            
-            
-            for(int i = 0; rs.next(); i++){                
-                us[i] = new Usuario(
-                                rs.getString("usu_login"),
-                                rs.getString("usu_senha"),
-                                rs.getString("usu_numero_telefone"),
-                                rs.getBoolean("usu_admin"),
-                                new Endereco(rs.getInt("end_numero"), rs.getString("end_rua"), rs.getString("end_cep")),
-                                null, // usar metodo de busca de plano por id
-                                rs.getString("usu_nome"),
-                                rs.getString("usu_cpf"),
-                                rs.getDate("usu_data_natalidade").toLocalDate()
-                            );
+        try(
+            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+        ){
+            while(rs.next()){
+                intermediarioE.setNumero(rs.getInt("end_numero"));
+                intermediarioE.setCep(rs.getString("end_cep"));
+                intermediarioE.setRua(rs.getString("end_rua"));
+                
+                intermediarioP.setId(rs.getInt("pla_id"));
+                intermediarioP.setPreco(rs.getInt("pla_preco"));
+                
+                retorno.add(new Usuario(
+                                    rs.getString("usu_login"),
+                                    rs.getString("usu_senha"),
+                                    rs.getString("usu_numero_telefone"),
+                                    rs.getBoolean("usu_admin"),
+                                    intermediarioE,
+                                    intermediarioP,
+                                    rs.getString("usu_cpf"),
+                                    rs.getString("usu_nome"),
+                                    rs.getDate("usu_data_natalidade").toLocalDate()));
             }
             
-            return us;
-        } finally{
-            rs.close();
-            ps.close();
-            con.close();
+            return retorno;
         }
     }
     
