@@ -18,9 +18,6 @@ public class JConexaoBD extends javax.swing.JFrame {
         this.navegador = navegador;
         initComponents();
         setLocationRelativeTo(null);
-        cxURL.setText("jdbc:mysql://127.0.0.1:3306/UTFuneral");
-cxUser.setText("root");
-csSenha.setText("ovu1OY-0LsgojWK=");
     }
     
     
