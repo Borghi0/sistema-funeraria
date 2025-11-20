@@ -84,6 +84,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         });
         tbPlanos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tbPlanos.setRowHeight(30);
+        tbPlanos.getTableHeader().setReorderingAllowed(false);
         tbPlanos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbPlanosMouseClicked(evt);
@@ -160,6 +161,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         tbServicos.setMinimumSize(new java.awt.Dimension(380, 0));
         tbServicos.setPreferredSize(new java.awt.Dimension(380, 0));
         tbServicos.setRowHeight(30);
+        tbServicos.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tbServicos);
 
         tbProdutos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -183,6 +185,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         tbProdutos.setMinimumSize(new java.awt.Dimension(380, 0));
         tbProdutos.setPreferredSize(new java.awt.Dimension(380, 0));
         tbProdutos.setRowHeight(30);
+        tbProdutos.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tbProdutos);
 
         rtServicos.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -419,7 +422,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         Plano planoSelec = null;
         try {
             planoSelec = Plano_Ctrl.getInstancia().ler_Plano(
-                    Integer.parseInt(tbPlanos.getValueAt(linSelec, 1).toString())
+                    Integer.parseInt(tbPlanos.getValueAt(linSelec, 0).toString())
             );
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
@@ -457,7 +460,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
             if(plano==null)
                 JOptionPane.showMessageDialog(
                     null, "Plano não encontrado",
-                    "Código: "+cxCodigo.getText(), JOptionPane.INFORMATION_MESSAGE
+                    "Código: "+cxCodigo.getText(), JOptionPane.WARNING_MESSAGE
                 );
             return plano;
             

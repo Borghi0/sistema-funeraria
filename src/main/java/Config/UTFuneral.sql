@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS produto(
                 
 CREATE TABLE IF NOT EXISTS plano(
                 pla_id INT AUTO_INCREMENT PRIMARY KEY,
-                pro_nome VARCHAR(255),
+                pla_nome VARCHAR(255),
                 pla_preco INT NOT NULL DEFAULT 0
 );
 

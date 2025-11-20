@@ -28,10 +28,12 @@ public class JCadAltPlano extends javax.swing.JFrame {
         if(modoCadastro){
             this.plano = new Plano();            
             rtTitulo.setText("Cadastrar plano");
+            this.setTitle("Cadastrar plano");
         }
         else {
             initInfo();            
             rtTitulo.setText("Alterar plano");            
+            this.setTitle("Alterar plano");
         }        
     }
 
@@ -429,24 +431,28 @@ public class JCadAltPlano extends javax.swing.JFrame {
         int lin = 0;
         modelo.setRowCount(lin);
                 
-        for(Servico servico : plano.getLista_Servico()){
-                modelo.insertRow(lin, new Object[]{                    
-                    servico.getId(),
-                    servico.getNome(),
-                    servico.getPreco(),
-                    servico
-                });
-                lin++;
+        if(plano.getLista_Servico()!=null){
+            for(Servico servico : plano.getLista_Servico()){
+                    modelo.insertRow(lin, new Object[]{                    
+                        servico.getId(),
+                        servico.getNome(),
+                        servico.getPreco(),
+                        servico
+                    });
+                    lin++;
+            }
         }
-        for(Produto produto : plano.getLista_Produto()){
-                modelo.insertRow(lin, new Object[]{
-                    produto.getId(),
-                    produto.getNome(),
-                    produto.getPreco(),
-                    produto
-                });
-                lin++;
-        }                
+        if(plano.getLista_Produto()!=null){
+            for(Produto produto : plano.getLista_Produto()){
+                    modelo.insertRow(lin, new Object[]{
+                        produto.getId(),
+                        produto.getNome(),
+                        produto.getPreco(),
+                        produto
+                    });
+                    lin++;
+            }                
+        }
     }
     
     private void listarTabServicosProdutos() throws Exception{        
@@ -455,32 +461,58 @@ public class JCadAltPlano extends javax.swing.JFrame {
         int lin = 0;
         modeloSer.setRowCount(lin);
         
-        for(Servico servico : Servico_Ctrl.getInstancia().ler_ServicoGenerico()){
-            if(!plano.getLista_Servico().contains(servico))
+        if(plano.getLista_Servico()==null){
+            for(Servico servico : Servico_Ctrl.getInstancia().ler_ServicoGenerico()){                
                 modeloSer.insertRow(lin, new Object[]{                    
                     servico.getId(),
                     servico.getNome(),
                     servico.getPreco(),
                     servico.getTipo()
                 });
-            lin++;
+                lin++;
+            }
+        } else{
+            for(Servico servico : Servico_Ctrl.getInstancia().ler_ServicoGenerico()){
+                if(!plano.getLista_Servico().contains(servico)){
+                    modeloSer.insertRow(lin, new Object[]{                    
+                        servico.getId(),
+                        servico.getNome(),
+                        servico.getPreco(),
+                        servico.getTipo()
+                    });
+                    lin++;
+                }
+            }
         }
         
-        DefaultTableModel modeloPro = (DefaultTableModel) tbServicos.getModel();       
+        DefaultTableModel modeloPro = (DefaultTableModel) tbProdutos.getModel();       
 
         lin = 0;
         modeloPro.setRowCount(lin);
         
-        for(Produto produto : Produto_Ctrl.getInstancia().ler_Produto()){
-            if(!plano.getLista_Produto().contains(produto))
+        if(plano.getLista_Servico()==null){
+            for(Produto produto : Produto_Ctrl.getInstancia().ler_Produto()){                
                 modeloPro.insertRow(lin, new Object[]{                    
                     produto.getId(),
                     produto.getNome(),
                     produto.getPreco(),
                     produto.isPerecivel()
                 });
-            lin++;
-        }                
+                lin++;                
+            }
+        } else{
+            for(Produto produto : Produto_Ctrl.getInstancia().ler_Produto()){
+                if(!plano.getLista_Produto().contains(produto)){
+                    modeloPro.insertRow(lin, new Object[]{                    
+                        produto.getId(),
+                        produto.getNome(),
+                        produto.getPreco(),
+                        produto.isPerecivel()
+                    });
+                    lin++;
+                }
+            }
+        }
     }
     
     private void selecTabSerProIn(){
@@ -489,7 +521,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         if(linSelec<0) return;
                 
         
-        Ofertavel ofertavelSelec = (Ofertavel) tbSerProIn.getValueAt(linSelec, 4);
+        Ofertavel ofertavelSelec = (Ofertavel) tbSerProIn.getValueAt(linSelec, 3);
         
         int o = JOptionPane.showOptionDialog(                
                 null,
@@ -530,7 +562,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         
         Servico servicoSelec = null;
         try {
-            servicoSelec = Servico_Ctrl.getInstancia().ler_Servico((Integer) tbServicos.getValueAt(linSelec, 1));
+            servicoSelec = Servico_Ctrl.getInstancia().ler_Servico((Integer) tbServicos.getValueAt(linSelec, 0));
             if(servicoSelec!=null){
                 if(!plano.getLista_Servico().contains(servicoSelec))
                     plano.getLista_Servico().add(servicoSelec);
@@ -568,14 +600,14 @@ public class JCadAltPlano extends javax.swing.JFrame {
         
         Produto produtoSelec = null;
         try {
-            produtoSelec = Produto_Ctrl.getInstancia().ler_Produto((Integer) tbProdutos.getValueAt(linSelec, 1));
+            produtoSelec = Produto_Ctrl.getInstancia().ler_Produto((Integer) tbProdutos.getValueAt(linSelec, 0));
             if(produtoSelec!=null){
                 if(!plano.getLista_Produto().contains(produtoSelec))
                     plano.getLista_Produto().add(produtoSelec);
                 listarTabSerProIn();
             } else{
                 JOptionPane.showMessageDialog(
-                    null, "Serviço não encontrado",
+                    null, "Produto não encontrado",
                     "Erro!", JOptionPane.ERROR_MESSAGE
                 );
             }
