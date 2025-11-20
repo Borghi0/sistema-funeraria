@@ -12,9 +12,11 @@ public class NavegadorUI {
     private JAdmin jAdmin;
     private JMenuUsuario jMenuUsuario;
     
+    // janelas do admin
     private JRelatorioPlano jRelatorioPlano;
     private JCadAltPlano jCadPlano;
     private JCadAltPlano jAltPlano;
+    private JCadRelatServico jCadRelatServico;
     
     public NavegadorUI(){
         
@@ -62,8 +64,7 @@ public class NavegadorUI {
     
     public void deslogar(){
         if(jMenuUsuario != null){
-            jMenuUsuario.dispose();
-            jMenuUsuario = null;
+            fecharJMenuUsuario();
         }
         else if(jAdmin != null){            
             fecharJAdmin();
@@ -71,20 +72,39 @@ public class NavegadorUI {
         mostrarJLogin();
     }
     
-    public void fecharJAdmin(){
+    private void fecharJMenuUsuario(){
+        jMenuUsuario.dispose();
+        jMenuUsuario = null;
+        if(jRelatorioPlano!=null){
+            jRelatorioPlano.dispose();
+            jRelatorioPlano = null;
+        }
+    }
+    
+    private void fecharJAdmin(){
         jAdmin.dispose();
         jAdmin = null;
-        jRelatorioPlano.dispose();
-        jRelatorioPlano = null;
-        jCadPlano.dispose();
-        jCadPlano = null;        
-        jAltPlano.dispose();
-        jAltPlano = null;
+        if(jRelatorioPlano!=null){
+            jRelatorioPlano.dispose();
+            jRelatorioPlano = null;
+        }
+        if(jCadPlano!=null){
+            jCadPlano.dispose();
+            jCadPlano = null;
+        }
+        if(jAltPlano!=null){
+            jAltPlano.dispose();
+            jAltPlano = null;
+        }
+        if(jCadRelatServico!=null){
+            jCadRelatServico.dispose();
+            jCadRelatServico = null;
+        }
         //fechar demais janelas associadas
     }
     
-    public void mostrarJRelatorioPlano(){
-        if(jRelatorioPlano == null) jRelatorioPlano = new JRelatorioPlano(this);
+    public void mostrarJRelatorioPlano(Usuario usuario){
+        if(jRelatorioPlano == null) jRelatorioPlano = new JRelatorioPlano(this, usuario);
         
         jRelatorioPlano.setVisible(true);        
         jRelatorioPlano.toFront();
@@ -102,6 +122,13 @@ public class NavegadorUI {
         
         jCadPlano = new JCadAltPlano(null, true);        
         jCadPlano.setVisible(true);        
+    }
+    
+    public void mostrarJCadRelatServico(){
+        if(jCadRelatServico == null) jCadRelatServico = new JCadRelatServico();
+        
+        jCadRelatServico.setVisible(true);        
+        jCadRelatServico.toFront();
     }
     
 }

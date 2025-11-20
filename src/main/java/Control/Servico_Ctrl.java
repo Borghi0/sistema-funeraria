@@ -3,6 +3,8 @@ package Control;
 
 import Model.Servico;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Servico_Ctrl {
     private static Servico_Ctrl instancia;
@@ -15,38 +17,45 @@ public class Servico_Ctrl {
         return instancia;
     }
     
-    public void cad_Servico(Servico servico){
-        //Ainda não implementado
+    public void cad_Servico(Servico servico) throws SQLException, ClassNotFoundException{
+        
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao()){
+            
+            String sql = "INSERT INTO servico (ser_nome, ser_prestacao, ser_preco, ser_tipo) "
+                    + "VALUES (?, ?, ?, ?)";
+            
+            try(PreparedStatement ps = con.prepareStatement(sql)){
+                ps.setString(1, servico.getNome());
+                
+                if(servico.getPrestacao()!=null) ps.setDate(2, Date.valueOf(servico.getPrestacao()));
+                else ps.setDate(2, null);
+                
+                ps.setInt(3, servico.getPreco());
+                ps.setString(4, servico.getTipo());
+                
+                ps.executeUpdate();
+            }            
+        }
     }
     
-    public Servico[] ler_Servico() throws Exception{
-        int num_lin = 0;
-        String sql = "SELECT * FROM usuario";
-        Servico[] servicos = null;
+    public List<Servico> ler_Servico() throws Exception{
+        String sql = "SELECT * FROM servico";
+        List<Servico> servicos = new ArrayList();
+                
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()){
         
-        
-        Connection con = Banco_Ctrl.getInstancia().getConexao();
-        PreparedStatement ps = con.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        rs.last();
-        num_lin = rs.getRow();
-        rs.beforeFirst();
-        servicos = new Servico[num_lin];
-
-        for(int i = 0; rs.next(); i++){                
-            servicos[i] = new Servico(
-                            rs.getDate("ser_prestacao").toLocalDate(),
-                            rs.getString("usu_tipo"),
-                            rs.getInt("usu_preco"),
-                            rs.getString("usu_nome"),
-                            rs.getInt("usu_id")                                
-                        );
+            while(rs.next()){
+                servicos.add(new Servico(
+                                rs.getDate("ser_prestacao")==null ? null : rs.getDate("ser_prestacao").toLocalDate(),
+                                rs.getString("ser_tipo"),
+                                rs.getInt("ser_preco"),
+                                rs.getString("ser_nome"),
+                                rs.getInt("ser_id")                                
+                            ));
+            }        
         }
-
-        rs.close();
-        ps.close();
-        con.close();
-
         return servicos;                            
     }
     
@@ -62,7 +71,7 @@ public class Servico_Ctrl {
         
         if(rs.next())
             servico = new Servico(
-                    rs.getDate("ser_prestacao").toLocalDate(),
+                    rs.getDate("ser_prestacao")==null ? null : rs.getDate("ser_prestacao").toLocalDate(),
                     rs.getString("ser_tipo"),
                     rs.getInt("ser_preco"),
                     rs.getString("ser_nome"),
@@ -76,11 +85,61 @@ public class Servico_Ctrl {
         return servico;
     }
     
-    public int alt_Servico(Servico servico){
-        return 0;
+
+    public List<Servico> ler_ServicoGenerico() throws Exception{        
+        String sql = "SELECT * FROM servico WHERE ser_prestacao IS NULL";
+        List<Servico> servicos = new ArrayList();
+                
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()){
+        
+            while(rs.next()){
+                servicos.add(new Servico(
+                                null,
+                                rs.getString("ser_tipo"),
+                                rs.getInt("ser_preco"),
+                                rs.getString("ser_nome"),
+                                rs.getInt("ser_id")                                
+                            ));
+            }        
+        }
+        return servicos;                            
     }
     
-    public int del_Servico(Servico servico){
-        return 0;
+    public List<Servico> ler_ServicoProgramado() throws Exception{        
+        String sql = "SELECT * FROM servico WHERE ser_prestacao IS NOT NULL";
+        List<Servico> servicos = new ArrayList();
+                
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()){
+        
+            while(rs.next()){
+                servicos.add(new Servico(
+                                rs.getDate("ser_prestacao").toLocalDate(),
+                                rs.getString("ser_tipo"),
+                                rs.getInt("ser_preco"),
+                                rs.getString("ser_nome"),
+                                rs.getInt("ser_id")                                
+                            ));
+            }        
+        }
+        return servicos;
+    }
+    
+    public void alt_Servico(Servico servico){
+        //Ainda não implementado
+    }
+    
+    public boolean del_Servico(Servico servico) throws Exception{
+        String sql = "DELETE FROM servico WHERE ser_id = ?";
+        
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql)){
+            
+            ps.setInt(1, servico.getId());
+            return ps.executeUpdate()>0;
+        }
     }
 }

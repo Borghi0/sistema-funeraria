@@ -51,7 +51,7 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
         miAltInfo = new javax.swing.JMenuItem();
         miSair = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Admin");
 
         mnOpcoes.setText("Opções");
@@ -87,6 +87,11 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
 
         miRelatServicos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         miRelatServicos.setText("Serviços...");
+        miRelatServicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRelatServicosActionPerformed(evt);
+            }
+        });
         mnRelatOfertaveis.add(miRelatServicos);
 
         miRelatProdutos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -118,7 +123,7 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
         mnCadastrar.setText("Cadastrar");
         mnCadastrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        mnCadOfertavel.setText("Ofertavel");
+        mnCadOfertavel.setText("Ofertável");
         mnCadOfertavel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         miCadPlano.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -132,6 +137,11 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
 
         miCadServico.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         miCadServico.setText("Serviço...");
+        miCadServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCadServicoActionPerformed(evt);
+            }
+        });
         mnCadOfertavel.add(miCadServico);
 
         miCadProduto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -221,12 +231,20 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
     }//GEN-LAST:event_miCadSalaActionPerformed
 
     private void miRelatPlanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatPlanosActionPerformed
-        navegador.mostrarJRelatorioPlano();
+        navegador.mostrarJRelatorioPlano(usuario);
     }//GEN-LAST:event_miRelatPlanosActionPerformed
 
     private void miCadPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadPlanoActionPerformed
         navegador.mostrarJCadPlano();
     }//GEN-LAST:event_miCadPlanoActionPerformed
+
+    private void miCadServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadServicoActionPerformed
+        navegador.mostrarJCadRelatServico();
+    }//GEN-LAST:event_miCadServicoActionPerformed
+
+    private void miRelatServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatServicosActionPerformed
+        navegador.mostrarJCadRelatServico();
+    }//GEN-LAST:event_miRelatServicosActionPerformed
     
     private void jAlterarUsuario(){        
         setVisible(false);
@@ -249,6 +267,39 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
         }
     }
     
+    
+    
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(JCadAltPlano.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(JCadAltPlano.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(JCadAltPlano.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JCadAltPlano.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new JAdmin(new NavegadorUI(), null).setVisible(true);
+            }
+        });
+    }    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;

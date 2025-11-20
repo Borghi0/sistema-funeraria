@@ -3,9 +3,11 @@ package View;
 
 import Control.NavegadorUI;
 import Control.Plano_Ctrl;
+import Control.Usuario_Ctrl;
 import Model.Plano;
 import Model.Servico;
 import Model.Produto;
+import Model.Usuario;
 import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -14,13 +16,20 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class JRelatorioPlano extends javax.swing.JFrame {
-    private NavegadorUI navegador;    
+    private NavegadorUI navegador;
+    private Usuario usuario;
     
-    public JRelatorioPlano(NavegadorUI navegador) {
+    public JRelatorioPlano(NavegadorUI navegador, Usuario usuario) {
         this.navegador = navegador;
+        this.usuario = usuario;
         initComponents();        
         setLocationRelativeTo(null);
         setExtendedState(MAXIMIZED_BOTH);
+        
+        if(!usuario.isAdmin()){
+            btDelAdq.setText("Adquirir...");
+            btAtualizar.setVisible(false);
+        }
     }        
     
     
@@ -33,7 +42,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         cxCodigo = new javax.swing.JTextField();
         rtCodigo = new javax.swing.JLabel();
         btConsultar = new javax.swing.JButton();
-        btDeletar = new javax.swing.JButton();
+        btDelAdq = new javax.swing.JButton();
         btAtualizar = new javax.swing.JButton();
         btRestaurar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -75,6 +84,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         });
         tbPlanos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tbPlanos.setRowHeight(30);
+        tbPlanos.getTableHeader().setReorderingAllowed(false);
         tbPlanos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbPlanosMouseClicked(evt);
@@ -105,11 +115,11 @@ public class JRelatorioPlano extends javax.swing.JFrame {
             }
         });
 
-        btDeletar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btDeletar.setText("Deletar...");
-        btDeletar.addActionListener(new java.awt.event.ActionListener() {
+        btDelAdq.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btDelAdq.setText("Deletar...");
+        btDelAdq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btDeletarActionPerformed(evt);
+                btDelAdqActionPerformed(evt);
             }
         });
 
@@ -151,6 +161,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         tbServicos.setMinimumSize(new java.awt.Dimension(380, 0));
         tbServicos.setPreferredSize(new java.awt.Dimension(380, 0));
         tbServicos.setRowHeight(30);
+        tbServicos.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tbServicos);
 
         tbProdutos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -174,6 +185,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         tbProdutos.setMinimumSize(new java.awt.Dimension(380, 0));
         tbProdutos.setPreferredSize(new java.awt.Dimension(380, 0));
         tbProdutos.setRowHeight(30);
+        tbProdutos.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tbProdutos);
 
         rtServicos.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -221,7 +233,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btConsultar)
                         .addGap(18, 18, 18)
-                        .addComponent(btDeletar)
+                        .addComponent(btDelAdq)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btAtualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
@@ -248,7 +260,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
                     .addComponent(rtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cxCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btConsultar)
-                    .addComponent(btDeletar)
+                    .addComponent(btDelAdq)
                     .addComponent(btAtualizar)
                     .addComponent(btRestaurar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -286,9 +298,9 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         restaurar();
     }//GEN-LAST:event_miRestaurarActionPerformed
 
-    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
-        deletarCod();
-    }//GEN-LAST:event_btDeletarActionPerformed
+    private void btDelAdqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDelAdqActionPerformed
+        delAdqCod();
+    }//GEN-LAST:event_btDelAdqActionPerformed
 
     private void btAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtualizarActionPerformed
         atualizarCod();
@@ -363,12 +375,12 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         
         try {
             for(Servico servico : Plano_Ctrl.getInstancia().getServicos(id)){                
-                    modelo.insertRow(lin, new Object[]{
-                        servico.getNome(),
-                        servico.getPreco(),
-                        servico.getTipo()
-                    });
-                    lin++;                
+                modelo.insertRow(lin, new Object[]{
+                    servico.getNome(),
+                    servico.getPreco(),
+                    servico.getTipo()
+                });
+                lin++;                
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
@@ -386,12 +398,12 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         
         try {
             for(Produto produto : Plano_Ctrl.getInstancia().getProdutos(id)){                
-                    modelo.insertRow(lin, new Object[]{
-                        produto.getNome(),
-                        produto.getPreco(),
-                        produto.isPerecivel()
-                    });
-                    lin++;                
+                modelo.insertRow(lin, new Object[]{
+                    produto.getNome(),
+                    produto.getPreco(),
+                    produto.isPerecivel()
+                });
+                lin++;                
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
@@ -410,7 +422,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         Plano planoSelec = null;
         try {
             planoSelec = Plano_Ctrl.getInstancia().ler_Plano(
-                    Integer.parseInt(tbPlanos.getValueAt(linSelec, 1).toString())
+                    Integer.parseInt(tbPlanos.getValueAt(linSelec, 0).toString())
             );
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
@@ -426,9 +438,12 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         
     }
  
-    public void deletarCod(){
+    public void delAdqCod(){
         Plano plano = consultarPlano();
-        if(plano!=null) deletar(plano);         
+        if(plano!=null){
+            if(usuario.isAdmin()) deletar(plano);
+            else adquirir(plano);
+        }         
     }
     
     public void atualizarCod(){
@@ -445,7 +460,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
             if(plano==null)
                 JOptionPane.showMessageDialog(
                     null, "Plano não encontrado",
-                    "Código: "+cxCodigo.getText(), JOptionPane.INFORMATION_MESSAGE
+                    "Código: "+cxCodigo.getText(), JOptionPane.WARNING_MESSAGE
                 );
             return plano;
             
@@ -492,10 +507,38 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         }
     }
     
-    
     private void atualizar(Plano plano){
         if(plano==null) return;
         navegador.mostrarJAltPlano(plano);
+    }
+    
+    private void adquirir(Plano plano){
+        int o = JOptionPane.showOptionDialog(
+                        null, "Deseja realmente adquirir o plano?", "Id do plano: "+plano.getId(),
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, 
+                        null, new Object[]{"Sim...", "Não"}, "Não"
+                );
+        if(o==0){
+            try {
+                //if(Usuario_Ctrl.getInstancia().adquirirPlano(usuario, plano)>0)
+                if(true)
+                    JOptionPane.showMessageDialog(
+                            null, "Plano adquirido!",
+                            "Sucesso!", JOptionPane.INFORMATION_MESSAGE
+                    );
+                else{
+                    JOptionPane.showMessageDialog(
+                            null, "Usuário não encontrado!",
+                            "Erro!", JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(
+                    null, "Erro na busca:\n" + e,
+                    "Erro!", JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
     }
     
     
@@ -527,7 +570,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JRelatorioPlano(new NavegadorUI()).setVisible(true);
+                new JRelatorioPlano(new NavegadorUI(), new Usuario()).setVisible(true);
             }
         });
     }
@@ -536,7 +579,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton btAtualizar;
     private javax.swing.JButton btConsultar;
-    private javax.swing.JButton btDeletar;
+    private javax.swing.JButton btDelAdq;
     private javax.swing.JButton btRestaurar;
     private javax.swing.JTextField cxCodigo;
     private javax.swing.Box.Filler filler1;
