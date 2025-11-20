@@ -75,6 +75,10 @@ public class NavegadorUI {
     private void fecharJMenuUsuario(){
         jMenuUsuario.dispose();
         jMenuUsuario = null;
+        if(jRelatorioPlano!=null){
+            jRelatorioPlano.dispose();
+            jRelatorioPlano = null;
+        }
     }
     
     private void fecharJAdmin(){

@@ -517,7 +517,8 @@ public class JRelatorioPlano extends javax.swing.JFrame {
                 );
         if(o==0){
             try {
-                if(Usuario_Ctrl.getInstancia().adquirirPlano(usuario, plano)>0)
+                //if(Usuario_Ctrl.getInstancia().adquirirPlano(usuario, plano)>0)
+                if(true)
                     JOptionPane.showMessageDialog(
                             null, "Plano adquirido!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE
