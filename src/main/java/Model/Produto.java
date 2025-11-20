@@ -32,5 +32,12 @@ public class Produto extends Ofertavel{
         this.quant_Estoque = quant_Estoque;
     }
     
-    
+    @Override
+    public boolean equals(Object o){        
+        if(!(o instanceof Produto)) return false;        
+        if(this == o) return true;
+        
+        Produto produto = (Produto) o;
+        return this.getId() == produto.getId();
+    }
 }
