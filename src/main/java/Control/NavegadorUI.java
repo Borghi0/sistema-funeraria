@@ -64,8 +64,7 @@ public class NavegadorUI {
     
     public void deslogar(){
         if(jMenuUsuario != null){
-            jMenuUsuario.dispose();
-            jMenuUsuario = null;
+            fecharJMenuUsuario();
         }
         else if(jAdmin != null){            
             fecharJAdmin();
@@ -73,17 +72,30 @@ public class NavegadorUI {
         mostrarJLogin();
     }
     
-    public void fecharJAdmin(){
+    private void fecharJMenuUsuario(){
+        jMenuUsuario.dispose();
+        jMenuUsuario = null;
+    }
+    
+    private void fecharJAdmin(){
         jAdmin.dispose();
         jAdmin = null;
-        jRelatorioPlano.dispose();
-        jRelatorioPlano = null;
-        jCadPlano.dispose();
-        jCadPlano = null;        
-        jAltPlano.dispose();
-        jAltPlano = null;
-        jCadRelatServico.dispose();
-        jCadRelatServico = null;
+        if(jRelatorioPlano!=null){
+            jRelatorioPlano.dispose();
+            jRelatorioPlano = null;
+        }
+        if(jCadPlano!=null){
+            jCadPlano.dispose();
+            jCadPlano = null;
+        }
+        if(jAltPlano!=null){
+            jAltPlano.dispose();
+            jAltPlano = null;
+        }
+        if(jCadRelatServico!=null){
+            jCadRelatServico.dispose();
+            jCadRelatServico = null;
+        }
         //fechar demais janelas associadas
     }
     
