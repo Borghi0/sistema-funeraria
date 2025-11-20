@@ -87,8 +87,8 @@ public class NavegadorUI {
         //fechar demais janelas associadas
     }
     
-    public void mostrarJRelatorioPlano(boolean modoAdmin){
-        if(jRelatorioPlano == null) jRelatorioPlano = new JRelatorioPlano(this, modoAdmin);
+    public void mostrarJRelatorioPlano(Usuario usuario){
+        if(jRelatorioPlano == null) jRelatorioPlano = new JRelatorioPlano(this, usuario);
         
         jRelatorioPlano.setVisible(true);        
         jRelatorioPlano.toFront();
