@@ -2,6 +2,7 @@ package Control;
 
 import Model.Usuario;
 import Model.Endereco;
+import Model.Plano;
 import java.sql.*;
 
 public class Usuario_Ctrl {
@@ -135,65 +136,73 @@ public class Usuario_Ctrl {
     }
     
     public int alt_User(Usuario user) throws Exception{
-        String cpf = user.getCpf(),
-               sql = "UPDATE usuario SET usu_nome = ?,"
-                     + "usu_data_natalidade = ?,"
-                     + "usu_login = ?,"
-                     + "usu_senha = ?,"
-                     + "usu_numero_telefone = ?,"
-                     + "usu_admin = ?,"
-                     + "end_numero = ?,"
-                     + "end_rua = ?,"
-                     + "end_cep = ?,"
-                     + "pla_id = ? "
-                     + "WHERE usu_cpf = ?";
+        int retorno = 0;
+        String sql_updt_us = "UPDATE usuario SET usu_nome = " + user.getNome()
+                           + " usu_data_natalidade = " + Date.valueOf(user.getData_natalidade())
+                            + " usu_login = " + user.getEmail()
+                            + " usu_senha = " + user.getSenha()
+                            + " usu_numero_telefone = " + user.getNumero_Telefone()
+                            + " usu_admin = " + (user.isAdmin() ? "TRUE" : "FALSE")
+                            + " pla_id = " + user.getPlano().getId()
+                            + " WHERE usu_cpf = " + user.getCpf(),
+                sql_updt_end = "UPDATE endereco SET end_numero = " + user.getEndereco().getNumero()
+                             + ", end_rua = " + user.getEndereco().getRua()
+                             + ", end_cep = " + user.getEndereco().getCep()
+                             + " WHERE (end_numero, end_rua, end_cep) IN "
+                             + "(SELECT end_numero, end_rua, end_cep FROM usuario"
+                             + " WHERE usu_cpf = " + user.getCpf() + ")";
         
-        try{
-            con = Banco_Ctrl.getInstancia().getConexao();
-            ps = con.prepareStatement(sql);
-
-            ps.setString(1, user.getNome());
-            ps.setDate(2, Date.valueOf(user.getData_natalidade()));
-            ps.setString(3, user.getEmail());
-            ps.setString(4, user.getSenha());
-            ps.setString(5, user.getNumero_Telefone());
-            ps.setBoolean(6, user.isAdmin());
-            ps.setInt(7, user.getEndereco().getNumero());
-            ps.setString(8, user.getEndereco().getRua());
-            ps.setString(9, user.getEndereco().getCep());
-            ps.setString(10, null); // usar metodo de busca de plano por id
-            ps.setString(11, cpf);
+        try(
+            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            Statement st = con.createStatement();
+        ){
+            con.setAutoCommit(false);
             
-            return ps.executeUpdate();
-        }
-        finally{
-            ps.close();
-            con.close();
+            retorno += st.executeUpdate(sql_updt_end);
+            retorno += st.executeUpdate(sql_updt_us);
+            
+            con.commit();
+        } catch(Exception e){
+            con.rollback();
+        } finally{
+            return retorno;
         }
     }
 
-    public boolean del_User(Usuario user) throws Exception{
+    public int del_User(Usuario user) throws Exception{
+        int retorno = 0;
         String cpf = user.getCpf(),
-               sql_del = "DELETE FROM usuario WHERE usu_cpf = ?",
-               sql_busca = "SELECT usu_nome, usu_cpf FROM usuario WHERE usu_cpf = ?";
+               sql_del_us = "DELETE FROM usuario WHERE usu_cpf = " + user.getCpf(),
+               sql_del_end = "DELETE FROM endereco WHERE end_numero = " +
+                user.getEndereco().getNumero() + " AND end_rua = " + user.getEndereco().getRua()
+                + " AND end_cep = " + user.getEndereco().getCep();
         
-        try{
-            con = Banco_Ctrl.getInstancia().getConexao();
-            ps = con.prepareStatement(sql_busca);
-            ps.setString(1, cpf);
-            rs = ps.executeQuery();
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+            Statement st = con.createStatement()){
+            con.setAutoCommit(false);
             
-            if(!rs.next()) return false;
-            else{
-                ps = con.prepareStatement(sql_del);
-                ps.setString(1, cpf);
-                ps.executeUpdate();
-                
-                return true;
-            }
+            retorno += st.executeUpdate(sql_del_us);
+            retorno += st.executeUpdate(sql_del_end);
+            
+            con.commit();
+        } catch(Exception e){
+            con.rollback();
         } finally{
-            ps.close();
-            con.close();
+            return retorno;
         }
+    }
+    
+    public int adquirir_plano(Usuario user, Plano plano) throws Exception{
+        String sql = "UPDATE usuario SET pla_id = ? WHERE usu_cpf = ?";
+        
+        try(
+            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            PreparedStatement ps = con.prepareStatement(sql)
+        ){
+            ps.setInt(1, plano.getId());
+            ps.setString(2, user.getCpf());
+            
+            return ps.executeUpdate();
+        }       
     }
 }
