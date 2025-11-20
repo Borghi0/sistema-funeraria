@@ -74,6 +74,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
         tbServicos.setMinimumSize(new java.awt.Dimension(380, 0));
         tbServicos.setPreferredSize(new java.awt.Dimension(380, 0));
         tbServicos.setRowHeight(30);
+        tbServicos.getTableHeader().setReorderingAllowed(false);
         tbServicos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbServicosMouseClicked(evt);
@@ -388,10 +389,10 @@ public class JCadRelatServico extends javax.swing.JFrame {
         
         Servico servicoSelec = new Servico(
                 null,
-                (String) tbServicos.getValueAt(linSelec, 4),
-                (Integer) tbServicos.getValueAt(linSelec, 3),
-                (String) tbServicos.getValueAt(linSelec, 2),
-                (Integer) tbServicos.getValueAt(linSelec, 1)
+                (String) tbServicos.getValueAt(linSelec, 3),
+                (Integer) tbServicos.getValueAt(linSelec, 2),
+                (String) tbServicos.getValueAt(linSelec, 1),
+                (Integer) tbServicos.getValueAt(linSelec, 0)
         );
         
                         
@@ -416,7 +417,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
         if(linSelec<0) return;                
         
         Servico servicoSelec = new Servico();
-        servicoSelec.setId((Integer) tbServicos.getValueAt(linSelec, 1));
+        servicoSelec.setId((Integer) tbServicos.getValueAt(linSelec, 0));
         
         deletar(servicoSelec);        
     }

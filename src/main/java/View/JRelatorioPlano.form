@@ -76,7 +76,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btConsultar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btDeletar" min="-2" max="-2" attributes="0"/>
+                      <Component id="btDelAdq" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btAtualizar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="67" max="32767" attributes="0"/>
@@ -111,7 +111,7 @@
                   <Component id="rtCodigo" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                   <Component id="cxCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btConsultar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btDeletar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btDelAdq" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btAtualizar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btRestaurar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -175,7 +175,7 @@
             </Property>
             <Property name="rowHeight" type="int" value="30"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+              <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>
           </Properties>
           <Events>
@@ -211,7 +211,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btConsultarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btDeletar">
+    <Component class="javax.swing.JButton" name="btDelAdq">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="16" style="1"/>
@@ -219,7 +219,7 @@
         <Property name="text" type="java.lang.String" value="Deletar..."/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btDeletarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btDelAdqActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btAtualizar">
@@ -292,7 +292,7 @@
             </Property>
             <Property name="rowHeight" type="int" value="30"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+              <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>
           </Properties>
         </Component>
@@ -345,7 +345,7 @@
             </Property>
             <Property name="rowHeight" type="int" value="30"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+              <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>
           </Properties>
         </Component>

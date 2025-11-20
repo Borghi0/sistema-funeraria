@@ -4,6 +4,7 @@ package Control;
 import Model.Plano;
 import Model.Produto;
 import Model.Servico;
+import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -33,7 +34,7 @@ public class Plano_Ctrl {
                 ps.executeUpdate();
                 
                 try(ResultSet rs = ps.getGeneratedKeys()){
-                    if(rs.next()) plano.setId(rs.getInt("pla_id"));
+                    if(rs.next()) plano.setId(rs.getInt(1));
                 }
             }
             
@@ -49,35 +50,29 @@ public class Plano_Ctrl {
         }
     }
     
-    public Plano[] ler_Plano() throws Exception{        
-        String sql = "SELECT * FROM usuario";
-        Plano[] planos = null;        
+    public List<Plano> ler_Plano() throws Exception{        
+        String sql = "SELECT * FROM plano";
+        List<Plano> planos = new ArrayList();
         
-        Connection con = Banco_Ctrl.getInstancia().getConexao();
-        PreparedStatement ps = con.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        rs.last();
-        planos = new Plano[rs.getRow()];
-        rs.beforeFirst();
-        
-        for(int i = 0; rs.next(); i++){
-            planos[i] = new Plano(
-                            getServicos(rs.getInt("pla_id")),
-                            getProdutos(rs.getInt("pla_id")),
-                            rs.getInt("pla_preco"),
-                            rs.getString("pla_nome"),
-                            rs.getInt("pla_id")
-                        );
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()){                                                    
+                
+                while(rs.next()){
+                    planos.add(new Plano(
+                                    getServicos(rs.getInt("pla_id")),
+                                    getProdutos(rs.getInt("pla_id")),
+                                    rs.getInt("pla_preco"),
+                                    rs.getString("pla_nome"),
+                                    rs.getInt("pla_id")
+                    ));
+                }
         }
-        
-        rs.close();
-        ps.close();
-        con.close();
-        
         return planos;        
     }
+    
     public Plano ler_Plano(int id) throws Exception{
-        String sql = "SELECT * FROM plano WHERE ser_id = ?";
+        String sql = "SELECT * FROM plano WHERE pla_id = ?";
                 
         Connection con = Banco_Ctrl.getInstancia().getConexao();
         PreparedStatement ps = con.prepareStatement(sql);
@@ -197,29 +192,32 @@ public class Plano_Ctrl {
     }
 
     private void cad_Relacionamentos(Plano plano, Connection con) throws Exception{
-        String sqlSer = "INSERT INTO plano_servico (pla_id, ser_id) VALUES (?, ?)";
-        
-        try (PreparedStatement ps = con.prepareStatement(sqlSer)) {
-            
-            for(Servico servico : plano.getLista_Servico()){
-                ps.setInt(1, plano.getId());
-                ps.setInt(2, servico.getId());
-                ps.addBatch();
-            }
-            ps.executeBatch();
-        }
+        if(plano.getLista_Servico()!=null){        
+            String sqlSer = "INSERT INTO plano_servico (pla_id, ser_id) VALUES (?, ?)";
+                
+            try (PreparedStatement ps = con.prepareStatement(sqlSer)) {
 
+                for(Servico servico : plano.getLista_Servico()){
+                    ps.setInt(1, plano.getId());
+                    ps.setInt(2, servico.getId());
+                    ps.addBatch();
+                }
+                ps.executeBatch();
+            }            
+        }
         
-        String sqlPro = "INSERT INTO plano_produto (pla_id, pro_id) VALUES (?, ?)";
-        
-        try (PreparedStatement ps = con.prepareStatement(sqlPro)) {
-            
-            for(Produto produto : plano.getLista_Produto()){
-                ps.setInt(1, plano.getId());
-                ps.setInt(2, produto.getId());
-                ps.addBatch();
+        if(plano.getLista_Produto()!=null){
+            String sqlPro = "INSERT INTO plano_produto (pla_id, pro_id) VALUES (?, ?)";
+
+            try (PreparedStatement ps = con.prepareStatement(sqlPro)) {
+
+                for(Produto produto : plano.getLista_Produto()){
+                    ps.setInt(1, plano.getId());
+                    ps.setInt(2, produto.getId());
+                    ps.addBatch();
+                }
+                ps.executeBatch();
             }
-            ps.executeBatch();
         }
     }
 

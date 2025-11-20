@@ -24,6 +24,7 @@ public class JMenuUsuario extends javax.swing.JFrame implements I_JanelaRaiz{
 
         mnBar = new javax.swing.JMenuBar();
         mnOpcoes = new javax.swing.JMenu();
+        miAdqPlano = new javax.swing.JMenuItem();
         miAltInfo = new javax.swing.JMenuItem();
         miSair = new javax.swing.JMenuItem();
 
@@ -31,6 +32,15 @@ public class JMenuUsuario extends javax.swing.JFrame implements I_JanelaRaiz{
 
         mnOpcoes.setText("Opções");
         mnOpcoes.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+
+        miAdqPlano.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        miAdqPlano.setText("Adquirir plano");
+        miAdqPlano.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAdqPlanoActionPerformed(evt);
+            }
+        });
+        mnOpcoes.add(miAdqPlano);
 
         miAltInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         miAltInfo.setText("Atualizar informações...");
@@ -77,6 +87,10 @@ public class JMenuUsuario extends javax.swing.JFrame implements I_JanelaRaiz{
         jAlterarUsuario();
     }//GEN-LAST:event_miAltInfoActionPerformed
 
+    private void miAdqPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAdqPlanoActionPerformed
+        navegador.mostrarJRelatorioPlano(usuario);
+    }//GEN-LAST:event_miAdqPlanoActionPerformed
+
     private void jAlterarUsuario(){        
         setVisible(false);
         new JAlterarUsuario(this, usuario).setVisible(true);
@@ -100,6 +114,7 @@ public class JMenuUsuario extends javax.swing.JFrame implements I_JanelaRaiz{
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem miAdqPlano;
     private javax.swing.JMenuItem miAltInfo;
     private javax.swing.JMenuItem miSair;
     private javax.swing.JMenuBar mnBar;
