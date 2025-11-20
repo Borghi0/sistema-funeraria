@@ -2,6 +2,8 @@ package Control;
 
 import Model.Endereco;
 import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class Endereco_Ctrl {
@@ -63,37 +65,23 @@ public class Endereco_Ctrl {
         }
     }
     
-    public Endereco[] ler_Endereco() throws Exception{
-        int num_lin = 0;
+    public List<Endereco> ler_Endereco() throws Exception{
         String sql = "SELECT * FROM endereco";
-        Endereco[] end = null;
+        List<Endereco> retorno = new LinkedList<>();
         
-        try{
-            con = Banco_Ctrl.getInstancia().getConexao();
-            ps = con.prepareStatement(sql);
-            
-            rs = ps.executeQuery();
-            rs.last();
-            num_lin = rs.getRow();
-            end = new Endereco[num_lin];
-            rs.beforeFirst();
-            
-            for(int i = 0; i < num_lin; i++){
-                rs.next();
-                end[i] = new Endereco(
-                                rs.getInt("end_numero"),
-                                rs.getString("end_rua"),
-                                rs.getString("end_cep"));
-                
+        try(
+            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()
+        ){
+            while(rs.next()){
+                retorno.add(new Endereco(
+                                    rs.getInt("end_numero"),
+                                    rs.getString("end_rua"),
+                                    rs.getString("end_cep")));
             }
             
-            return end;
-                
-        }
-        finally{
-            rs.close();
-            ps.close();
-            con.close();
+            return retorno;
         }
     }
     

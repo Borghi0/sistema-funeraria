@@ -1,9 +1,10 @@
 package Control;
 
+import Model.Defunto;
+import Model.Sala;
 import Model.Velorio;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.Timestamp;
+import java.sql.*;
+import java.time.LocalDateTime;
 
 public class Velorio_Ctrl {
     private static Velorio_Ctrl instancia;
@@ -31,8 +32,39 @@ public class Velorio_Ctrl {
         }
     }
     
-    public void ler_Velorio(Velorio velorio){
-        //Ainda não implementado
+    public Velorio ler_Velorio(int numero, LocalDateTime data) throws Exception{
+        String sql = "SELECT * FROM velorio AS ve NATURAL JOIN sala  "
+                   + "NATURAL JOIN defunto WHERE "
+                   + "ve.sal_numero = ? AND "
+                   + "vel_data_horario = ?";
+        Sala intermediarioS = new Sala();
+        Defunto intermediarioD = new Defunto();
+        ResultSet rs = null;
+        
+        try(
+            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            PreparedStatement ps = con.prepareStatement(sql)
+        ){
+            ps.setInt(1, numero);
+            ps.setTimestamp(2, Timestamp.valueOf(data));
+            
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                intermediarioS.setCapacidade(rs.getInt("sal_capacidade"));
+                intermediarioS.setNumero(numero);
+                
+                intermediarioD.setCemiterio(rs.getString("end_cemiterio"));
+                intermediarioD.setId(rs.getInt("def_id"));
+                intermediarioD.setNome(rs.getString("def_nome"));
+                intermediarioD.setData_natalidade(rs.getDate("def_data_natalidade").toLocalDate());
+                intermediarioD.setData_Obito(rs.getDate("def_data_obito").toLocalDate());
+                intermediarioD.setTipo_Obito(rs.getString("def_tipo_obito"));
+                
+                return new Velorio(intermediarioS, data, intermediarioD);
+            }
+        }
+        return null;
     }
     
     public void alt_Velorio(Velorio velorio){
