@@ -2,6 +2,8 @@ package Control;
 
 import Model.Defunto;
 import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Defunto_Ctrl {
     private static Defunto_Ctrl instancia;
@@ -70,36 +72,26 @@ public class Defunto_Ctrl {
         }
     }
     
-    public Defunto[] ler_Defunto() throws Exception{
-        int num_lin = 0;
+    public List<Defunto> ler_Defunto() throws Exception{
         String sql = "SELECT * FROM defunto";
-        Defunto[] def = null;
+        List<Defunto> retorno = new LinkedList<>();
         
-        try{
-            con = Banco_Ctrl.getInstancia().getConexao();
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            rs.last();
-            num_lin = rs.getRow();
-            rs.beforeFirst();
-            def = new Defunto[num_lin];
-            
-            for(int i = 0; i < num_lin; i++){
-                rs.next();
-                def[i] = new Defunto(rs.getDate("def_data_obito").toLocalDate(),
-                                   rs.getString("def_tipo_obito"),
-                                   rs.getString("def_cemiterio"),
-                                   rs.getString("def_nome"),
-                                   rs.getDate("def_data_natalidade").toLocalDate(),
-                                   rs.getInt("def_id")
-                                    );
+        try(
+            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()
+        ){
+            while(rs.next()){
+                retorno.add(new Defunto(
+                                    rs.getDate("def_data_obito").toLocalDate(),
+                                    rs.getString("def_tipo_obito"),
+                                    rs.getString("def_cemiterio"),
+                                    rs.getString("def_nome"),
+                                    rs.getDate("def_data_natalidade").toLocalDate(),
+                                    rs.getInt("def_id")));
             }
-           
-            return def;
-        } finally{
-            rs.close();
-            ps.close();
-            con.close();
+            
+            return retorno;
         }
     }
     
