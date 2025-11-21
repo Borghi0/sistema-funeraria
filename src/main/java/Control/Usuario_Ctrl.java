@@ -84,8 +84,7 @@ public class Usuario_Ctrl {
                 intermediarioE.setCep(rs.getString("end_cep"));
                 intermediarioE.setRua(rs.getString("end_rua"));
                 
-                intermediarioP.setId(rs.getInt("pla_id"));
-                intermediarioP.setPreco(rs.getInt("pla_preco"));
+                intermediarioP = Plano_Ctrl.getInstancia().ler_Plano(rs.getInt("pla_id"));
                 
                 retorno.add(new Usuario(
                                     rs.getString("usu_login"),
@@ -120,9 +119,9 @@ public class Usuario_Ctrl {
                             rs.getString("usu_numero_telefone"),
                             rs.getBoolean("usu_admin"),
                             new Endereco(rs.getInt("end_numero"), rs.getString("end_rua"), rs.getString("end_cep")),
-                            null, // usar metodo de busca de plano por id
-                            rs.getString("usu_nome"),
+                            Plano_Ctrl.getInstancia().ler_Plano(rs.getInt("pla_id")),
                             rs.getString("usu_cpf"),
+                            rs.getString("usu_nome"),
                             rs.getDate("usu_data_natalidade").toLocalDate()
                     );
             }
@@ -143,7 +142,7 @@ public class Usuario_Ctrl {
                             + " usu_senha = " + user.getSenha()
                             + " usu_numero_telefone = " + user.getNumero_Telefone()
                             + " usu_admin = " + (user.isAdmin() ? "TRUE" : "FALSE")
-                            + " pla_id = " + user.getPlano().getId()
+                            + " pla_id = " + (user.getPlano()==null ? null : user.getPlano().getId())
                             + " WHERE usu_cpf = " + user.getCpf(),
                 sql_updt_end = "UPDATE endereco SET end_numero = " + user.getEndereco().getNumero()
                              + ", end_rua = " + user.getEndereco().getRua()
