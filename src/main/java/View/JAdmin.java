@@ -2,9 +2,16 @@ package View;
 
 
 import Control.NavegadorUI;
+import Control.Sala_Ctrl;
+import Control.Velorio_Ctrl;
 import Interfaces.I_JanelaRaiz;
+import Model.Sala;
 import Model.Usuario;
+import Model.Velorio;
 import java.awt.Font;
+import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -20,8 +27,7 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
         this.navegador = navegador;
         this.usuario = usuario;
         initComponents();        
-        setLocationRelativeTo(null);
-        setExtendedState(MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);        
     }        
     
     
@@ -29,6 +35,8 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbVelorio = new javax.swing.JTable();
         barraMenu = new javax.swing.JMenuBar();
         mnOpcoes = new javax.swing.JMenu();
         mnRelatorios = new javax.swing.JMenu();
@@ -39,7 +47,6 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
         miRelatPlanos = new javax.swing.JMenuItem();
         miRelatServicos = new javax.swing.JMenuItem();
         miRelatProdutos = new javax.swing.JMenuItem();
-        miRelatVelorios = new javax.swing.JMenuItem();
         miRelatSalas = new javax.swing.JMenuItem();
         mnCadastrar = new javax.swing.JMenu();
         mnCadOfertavel = new javax.swing.JMenu();
@@ -48,11 +55,44 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
         miCadProduto = new javax.swing.JMenuItem();
         miCadVelorio = new javax.swing.JMenuItem();
         miCadSala = new javax.swing.JMenuItem();
+        miRestaurar1 = new javax.swing.JMenuItem();
         miAltInfo = new javax.swing.JMenuItem();
         miSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Admin");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
+
+        tbVelorio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tbVelorio.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Data", "Sala", "Lotação", "Falecido"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbVelorio.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tbVelorio.setRowHeight(30);
+        tbVelorio.getTableHeader().setReorderingAllowed(false);
+        tbVelorio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbVelorioMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbVelorio);
 
         mnOpcoes.setText("Opções");
         mnOpcoes.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -99,15 +139,6 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
         mnRelatOfertaveis.add(miRelatProdutos);
 
         mnRelatorios.add(mnRelatOfertaveis);
-
-        miRelatVelorios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miRelatVelorios.setText("Velórios...");
-        miRelatVelorios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miRelatVeloriosActionPerformed(evt);
-            }
-        });
-        mnRelatorios.add(miRelatVelorios);
 
         miRelatSalas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         miRelatSalas.setText("Salas...");
@@ -170,6 +201,15 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
 
         mnOpcoes.add(mnCadastrar);
 
+        miRestaurar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        miRestaurar1.setText("Restaurar Tabela");
+        miRestaurar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRestaurar1ActionPerformed(evt);
+            }
+        });
+        mnOpcoes.add(miRestaurar1);
+
         miAltInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         miAltInfo.setText("Alterar informações...");
         miAltInfo.addActionListener(new java.awt.event.ActionListener() {
@@ -196,11 +236,17 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1216, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1043, Short.MAX_VALUE)
+                .addGap(80, 80, 80))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 666, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(148, 148, 148)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+                .addGap(50, 50, 50))
         );
 
         pack();
@@ -214,16 +260,12 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
         jAlterarUsuario();
     }//GEN-LAST:event_miAltInfoActionPerformed
 
-    private void miRelatVeloriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatVeloriosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_miRelatVeloriosActionPerformed
-
     private void miRelatSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatSalasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_miRelatSalasActionPerformed
 
     private void miCadVelorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadVelorioActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_miCadVelorioActionPerformed
 
     private void miCadSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadSalaActionPerformed
@@ -245,10 +287,22 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
     private void miRelatServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatServicosActionPerformed
         navegador.mostrarJCadRelatServico();
     }//GEN-LAST:event_miRelatServicosActionPerformed
+
+    private void tbVelorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbVelorioMouseClicked
+        selecTabVelorio();
+    }//GEN-LAST:event_tbVelorioMouseClicked
+
+    private void miRestaurar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRestaurar1ActionPerformed
+        restaurar();
+    }//GEN-LAST:event_miRestaurar1ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        try{listarTabVelorio();}catch(Exception ex){}
+    }//GEN-LAST:event_formWindowActivated
     
     private void jAlterarUsuario(){        
         setVisible(false);
-        new JAlterarUsuario(this, usuario).setVisible(true);
+        navegador.mostrarJAlterarUsuario(this, usuario);
     }
     
     private void sair(){
@@ -267,7 +321,69 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
         }
     }
     
+    private void restaurar(){
+        try{
+            listarTabVelorio();            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(
+                    null, "Erro na busca:\n" + e,
+                    "Erro!", JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
     
+    private void listarTabVelorio() throws Exception{                
+        DefaultTableModel modelo = (DefaultTableModel) tbVelorio.getModel();       
+
+        int lin = 0;
+        modelo.setRowCount(lin);
+                
+        for(Velorio velorio : Velorio_Ctrl.getInstancia().ler_Velorio()){
+            modelo.insertRow(lin, new Object[]{                    
+                velorio.getData(),
+                velorio.getSala().getNumero(),
+                velorio.getSala().getCapacidade(),
+                velorio.getDefunto().getNome()
+            });
+            lin++;
+        }
+    }
+    
+    private void selecTabVelorio(){
+        int linSelec = tbVelorio.getSelectedRow();
+        
+        if(linSelec<0) return;                
+ 
+        deletar((Integer) tbVelorio.getValueAt(linSelec, 1), (LocalDateTime) tbVelorio.getValueAt(linSelec, 0));                    
+    }
+    
+    private void deletar(int numero, LocalDateTime data){
+        int o = JOptionPane.showOptionDialog(
+                        null, "Deseja realmente deletar o velorio?", "Deletar",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, 
+                        null, new Object[]{"Sim...", "Não"}, "Não"
+                );
+        if(o==0){
+            try {
+                if(Velorio_Ctrl.getInstancia().del_Velorio(numero, data) > 0)
+                    JOptionPane.showMessageDialog(
+                            null, "Velorio deletado!",
+                            "Sucesso!", JOptionPane.INFORMATION_MESSAGE
+                    );
+                else{
+                    JOptionPane.showMessageDialog(
+                            null, "Velorio não encontrado!",
+                            "Erro!", JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(
+                    null, "Erro na busca:\n" + e,
+                    "Erro!", JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
+    }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -303,6 +419,7 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem miAltInfo;
     private javax.swing.JMenuItem miCadPlano;
     private javax.swing.JMenuItem miCadProduto;
@@ -315,7 +432,7 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
     private javax.swing.JMenuItem miRelatSalas;
     private javax.swing.JMenuItem miRelatServicos;
     private javax.swing.JMenuItem miRelatUsuarios;
-    private javax.swing.JMenuItem miRelatVelorios;
+    private javax.swing.JMenuItem miRestaurar1;
     private javax.swing.JMenuItem miSair;
     private javax.swing.JMenu mnCadOfertavel;
     private javax.swing.JMenu mnCadastrar;
@@ -323,6 +440,7 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
     private javax.swing.JMenu mnRelatOfertaveis;
     private javax.swing.JMenu mnRelatPessoa;
     private javax.swing.JMenu mnRelatorios;
+    private javax.swing.JTable tbVelorio;
     // End of variables declaration//GEN-END:variables
 
     

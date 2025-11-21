@@ -1,5 +1,6 @@
 package Control;
 
+import Interfaces.I_JanelaRaiz;
 import View.*;
 import Model.*;
 
@@ -12,16 +13,21 @@ public class NavegadorUI {
     private JAdmin jAdmin;
     private JMenuUsuario jMenuUsuario;
     
-    // janelas do admin
-    private JRelatorioPlano jRelatorioPlano;
+    // janelas do admin    
     private JCadAltPlano jCadPlano;
     private JCadAltPlano jAltPlano;
     private JCadRelatServico jCadRelatServico;
     private JRelatorioUsuario jRelatorioUsuario;
     
-    public NavegadorUI(){
-        
-    }
+    // janelas do usuario
+    
+    
+    // janelas do admin e usuario
+    private JRelatorioPlano jRelatorioPlano;
+    private JAlterarUsuario jAlterarUsuario;
+    
+    
+    public NavegadorUI(){}
 
     public void mostrarJConexaoBD(){
         if(jConexaoBD == null) jConexaoBD = new JConexaoBD(this);
@@ -80,6 +86,10 @@ public class NavegadorUI {
             jRelatorioPlano.dispose();
             jRelatorioPlano = null;
         }
+        if(jAlterarUsuario!=null){
+            jAlterarUsuario.dispose();
+            jAlterarUsuario = null;
+        }
     }
     
     private void fecharJAdmin(){
@@ -88,6 +98,10 @@ public class NavegadorUI {
         if(jRelatorioPlano!=null){
             jRelatorioPlano.dispose();
             jRelatorioPlano = null;
+        }
+        if(jAlterarUsuario!=null){
+            jAlterarUsuario.dispose();
+            jAlterarUsuario = null;
         }
         if(jCadPlano!=null){
             jCadPlano.dispose();
@@ -147,5 +161,16 @@ public class NavegadorUI {
             jRelatorioUsuario.setVisible(false);
             jRelatorioUsuario = null;
         }
+    }
+    
+    public void mostrarJAlterarUsuario(I_JanelaRaiz janelaRaiz, Usuario usuario){
+        if(jAlterarUsuario != null) jAlterarUsuario.dispose();
+        
+        jAlterarUsuario = new JAlterarUsuario(janelaRaiz, usuario);
+        jAlterarUsuario.setVisible(true);               
+    }
+    
+    public void atualizarMenuUsuario(Usuario usuario){
+        jMenuUsuario.setUsuario(usuario);
     }
 }
