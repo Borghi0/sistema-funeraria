@@ -17,6 +17,8 @@ public class NavegadorUI {
     private JCadAltPlano jCadPlano;
     private JCadAltPlano jAltPlano;
     private JCadRelatServico jCadRelatServico;
+    private JCadAltVelorio jCadVelorio;
+    private JCadAltVelorio jAltVelorio;
     private JRelatorioUsuario jRelatorioUsuario;
     
     // janelas do usuario
@@ -119,6 +121,10 @@ public class NavegadorUI {
             jRelatorioUsuario.dispose();
             jRelatorioUsuario = null;
         }
+        if(jCadVelorio!=null){
+            jCadVelorio.dispose();
+            jCadVelorio = null;
+        }
         if(jAltVelorio!=null){
             jAltVelorio.dispose();
             jAltVelorio = null;
@@ -144,7 +150,21 @@ public class NavegadorUI {
             jAltPlano = new JCadAltPlano(plano, false);
             jAltPlano.setVisible(true);
         }
-    }   
+    }
+    
+    public void mostrarJCadAltVelorio(Velorio velorio, boolean modoCadastro){
+        if(modoCadastro){
+            if(jCadVelorio == null) jCadVelorio = new JCadAltVelorio(velorio, true);
+
+            jCadVelorio.setVisible(true);        
+            jCadVelorio.toFront();
+        }else{
+            if(jAltVelorio != null) jAltVelorio.dispose();
+        
+            jAltVelorio = new JCadAltVelorio(velorio, false);        
+            jAltVelorio.setVisible(true);  
+        }
+    }
     
     public void mostrarJCadRelatServico(){
         if(jCadRelatServico == null) jCadRelatServico = new JCadRelatServico();
