@@ -17,8 +17,7 @@ public class NavegadorUI {
     private JCadAltPlano jCadPlano;
     private JCadAltPlano jAltPlano;
     private JCadRelatServico jCadRelatServico;
-    private JCadAltVelorio jCadVelorio;
-    private JCadAltVelorio jAltVelorio;
+    private JRelatorioUsuario jRelatorioUsuario;
     
     // janelas do usuario
     
@@ -116,18 +115,14 @@ public class NavegadorUI {
             jCadRelatServico.dispose();
             jCadRelatServico = null;
         }
-        if(jCadVelorio!=null){
-            jCadVelorio.dispose();
-            jCadVelorio = null;
+        if(jRelatorioUsuario != null){
+            jRelatorioUsuario.dispose();
+            jRelatorioUsuario = null;
         }
         if(jAltVelorio!=null){
             jAltVelorio.dispose();
             jAltVelorio = null;
         }        
-    }
-    
-    public void atualizarMenuUsuario(Usuario usuario){
-        jMenuUsuario.setUsuario(usuario);
     }
     
     public void mostrarJRelatorioPlano(Usuario usuario){
@@ -158,17 +153,17 @@ public class NavegadorUI {
         jCadRelatServico.toFront();
     }
     
-    public void mostrarJCadAltVelorio(Velorio velorio, boolean modoCadastro){
-        if(modoCadastro){
-            if(jCadVelorio == null) jCadVelorio = new JCadAltVelorio(velorio, true);
-
-            jCadVelorio.setVisible(true);        
-            jCadVelorio.toFront();
-        }else{
-            if(jAltVelorio != null) jAltVelorio.dispose();
+    public void mostrarJRelatorioUsuario(){
+        if(jRelatorioUsuario == null) jRelatorioUsuario = new JRelatorioUsuario(this);
         
-            jAltVelorio = new JCadAltVelorio(velorio, false);        
-            jAltVelorio.setVisible(true);  
+        jRelatorioUsuario.setVisible(true);
+        jRelatorioUsuario.toFront();
+    }
+    
+    public void fecharJRelatorioUsuario(){
+        if(jRelatorioUsuario != null){
+            jRelatorioUsuario.setVisible(false);
+            jRelatorioUsuario = null;
         }
     }
     
@@ -177,5 +172,9 @@ public class NavegadorUI {
         
         jAlterarUsuario = new JAlterarUsuario(janelaRaiz, usuario);
         jAlterarUsuario.setVisible(true);               
+    }
+    
+    public void atualizarMenuUsuario(Usuario usuario){
+        jMenuUsuario.setUsuario(usuario);
     }
 }

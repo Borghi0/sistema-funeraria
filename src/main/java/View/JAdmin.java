@@ -388,7 +388,7 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
                 );
         if(o==0){
             try {
-                if(Velorio_Ctrl.getInstancia().del_Velorio(velorio)>0)
+                if(Velorio_Ctrl.getInstancia().del_Velorio(numero, data) > 0)
                     JOptionPane.showMessageDialog(
                             null, "Velorio deletado!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE

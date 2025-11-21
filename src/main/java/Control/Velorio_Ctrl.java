@@ -131,4 +131,18 @@ public class Velorio_Ctrl {
             return ps.executeUpdate();
         }
     }
+    
+    public int del_Velorio(int numero, LocalDateTime data) throws Exception{
+        String sql = "DELETE FROM velorio WHERE sal_numero = ? AND vel_data_horario = ?";
+        
+        try(
+            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            PreparedStatement ps = con.prepareStatement(sql);
+        ){
+            ps.setInt(1, numero);
+            ps.setTimestamp(2, Timestamp.valueOf(data));
+            
+            return ps.executeUpdate();
+        }
+    }
 }
