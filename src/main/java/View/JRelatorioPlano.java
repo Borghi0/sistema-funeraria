@@ -520,12 +520,14 @@ public class JRelatorioPlano extends javax.swing.JFrame {
                 );
         if(o==0){
             try {
-                //if(Usuario_Ctrl.getInstancia().adquirirPlano(usuario, plano)>0)
-                if(true)
+                if(Usuario_Ctrl.getInstancia().adquirir_plano(usuario, plano)>0){
                     JOptionPane.showMessageDialog(
                             null, "Plano adquirido!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE
                     );
+                    usuario.setPlano(plano);
+                    navegador.atualizarMenuUsuario(usuario);
+                }
                 else{
                     JOptionPane.showMessageDialog(
                             null, "Usuário não encontrado!",

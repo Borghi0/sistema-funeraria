@@ -34,7 +34,7 @@ public class JMenuUsuario extends javax.swing.JFrame implements I_JanelaRaiz{
         mnOpcoes.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
 
         miAdqPlano.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miAdqPlano.setText("Adquirir plano");
+        miAdqPlano.setText("Adquirir plano...");
         miAdqPlano.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miAdqPlanoActionPerformed(evt);

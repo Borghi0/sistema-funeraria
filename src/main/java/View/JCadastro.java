@@ -503,8 +503,8 @@ public class JCadastro extends javax.swing.JFrame {
                 false,
                 endereco,
                 null,
-                cxNome.getText(),
                 cxCpf.getText(),
+                cxNome.getText(),
                 data_natalidade
         );
         
