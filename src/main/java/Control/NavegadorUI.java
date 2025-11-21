@@ -115,6 +115,10 @@ public class NavegadorUI {
             jCadRelatServico.dispose();
             jCadRelatServico = null;
         }
+        if(jCadVelorio!=null){
+            jCadVelorio.dispose();
+            jCadVelorio = null;
+        }
     }
     
     public void atualizarMenuUsuario(Usuario usuario){
