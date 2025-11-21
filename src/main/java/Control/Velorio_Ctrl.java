@@ -5,6 +5,8 @@ import Model.Sala;
 import Model.Velorio;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Velorio_Ctrl {
     private static Velorio_Ctrl instancia;
@@ -67,11 +69,21 @@ public class Velorio_Ctrl {
         return null;
     }
     
+    public List<Velorio> ler_Velorio(){
+        return new ArrayList();
+    }
+    
     public void alt_Velorio(Velorio velorio){
         //Ainda não implementado
     }
     
-    public void del_Velorio(Velorio velorio){
+    public boolean del_Velorio(Velorio velorio){
         //Ainda não implementado
+        return false;
+    }
+    
+    public boolean del_Velorio(int numero, LocalDateTime data){
+        //Ainda não implementado
+        return false;
     }
 }
