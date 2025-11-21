@@ -9,10 +9,15 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 
-public class JCadVelorio extends javax.swing.JFrame {
-
+public class JCadAltVelorio extends javax.swing.JFrame {
+    private Velorio velorio;
+    private boolean modoCadastro;
     
-    public JCadVelorio() {
+    
+    public JCadAltVelorio(Velorio velorio, Boolean modoCadastro) {
+        this.velorio = velorio;
+        this.modoCadastro = modoCadastro;
+        
         initComponents();
         setLocationRelativeTo(null);
         
@@ -35,6 +40,18 @@ public class JCadVelorio extends javax.swing.JFrame {
         DefaultComboBoxModel<String> modelMin = new DefaultComboBoxModel<>();
         for(int i=0; i<=55; i+=5) modelMin.addElement(String.valueOf(i));
         cbMin.setModel(modelMin);
+        
+        if(modoCadastro){
+            this.velorio = new Velorio();            
+            rtTitulo.setText("Cadastrar velório");
+            this.setTitle("Cadastrar velório");
+        }
+        else {
+            initInfo();            
+            rtTitulo.setText("Alterar velório");            
+            this.setTitle("Alterar velório");
+            cxIdDefunto.setEnabled(false);
+        }
     }
 
     
@@ -54,7 +71,7 @@ public class JCadVelorio extends javax.swing.JFrame {
         btVoltar = new javax.swing.JButton();
         cbHora = new javax.swing.JComboBox<>();
         cbMin = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        rtTitulo = new javax.swing.JLabel();
         rtHorario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -132,9 +149,9 @@ public class JCadVelorio extends javax.swing.JFrame {
 
         cbMin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Cadastrar velório");
+        rtTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        rtTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        rtTitulo.setText("Texto");
 
         rtHorario.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtHorario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -156,7 +173,7 @@ public class JCadVelorio extends javax.swing.JFrame {
                     .addComponent(rtHorario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cbHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -181,7 +198,7 @@ public class JCadVelorio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(54, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rtIdDefunto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,7 +231,7 @@ public class JCadVelorio extends javax.swing.JFrame {
     }//GEN-LAST:event_cxNumeroSalaFocusLost
 
     private void cxNumeroSalaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cxNumeroSalaKeyPressed
-        cadastrar(evt);
+        confirmar(evt);
     }//GEN-LAST:event_cxNumeroSalaKeyPressed
 
     private void cxIdDefuntoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cxIdDefuntoFocusLost
@@ -222,7 +239,7 @@ public class JCadVelorio extends javax.swing.JFrame {
     }//GEN-LAST:event_cxIdDefuntoFocusLost
 
     private void cxIdDefuntoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cxIdDefuntoKeyPressed
-        cadastrar(evt);
+        confirmar(evt);
     }//GEN-LAST:event_cxIdDefuntoKeyPressed
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
@@ -234,14 +251,22 @@ public class JCadVelorio extends javax.swing.JFrame {
     }//GEN-LAST:event_btVoltarKeyPressed
 
     private void btConfirmarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btConfirmarKeyPressed
-        cadastrar(evt);
+        confirmar(evt);
     }//GEN-LAST:event_btConfirmarKeyPressed
 
     private void btConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarActionPerformed
-        cadastrar();
+        confirmar();
     }//GEN-LAST:event_btConfirmarActionPerformed
 
-    public void cadastrar(){        
+    private void confirmar(){
+        if(modoCadastro) cadastrar();
+        else alterar();
+    }
+    private void confirmar(java.awt.event.KeyEvent evt){
+        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) confirmar();
+    }    
+    
+    private void cadastrar(){        
         cxNumeroSala.setText(cxNumeroSala.getText().replaceAll("[^0-9]", ""));
         cxIdDefunto.setText(cxIdDefunto.getText().replaceAll("[^0-9]", ""));
         
@@ -249,14 +274,14 @@ public class JCadVelorio extends javax.swing.JFrame {
         if(data == null) return;
                      
         
-        Velorio velorio = new Velorio(
+        Velorio v = new Velorio(
                 new Sala(0, Integer.parseInt(cxNumeroSala.getText())),
                 data,
                 new Defunto(null, null, null, null, null, Integer.parseInt(cxIdDefunto.getText()))
         );
         
         try {            
-            Velorio_Ctrl.getInstancia().cad_Velorio(velorio);
+            Velorio_Ctrl.getInstancia().cad_Velorio(v);
             JOptionPane.showMessageDialog(
                 null,
                 "Velório cadastrado com sucesso!",
@@ -272,9 +297,40 @@ public class JCadVelorio extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE
             );
         }
-    }
-    public void cadastrar(java.awt.event.KeyEvent evt){
-        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) cadastrar();
+    }    
+    
+    private void alterar(){
+        cxNumeroSala.setText(cxNumeroSala.getText().replaceAll("[^0-9]", ""));
+        cxIdDefunto.setText(cxIdDefunto.getText().replaceAll("[^0-9]", ""));
+        
+        LocalDateTime data = validarData();
+        if(data == null) return;
+                     
+        
+        Velorio velorioAlt = new Velorio(
+                new Sala(0, Integer.parseInt(cxNumeroSala.getText())),
+                data,
+                new Defunto(null, null, null, null, null, Integer.parseInt(cxIdDefunto.getText()))
+        );
+        
+        try {            
+            Velorio_Ctrl.getInstancia().alt_Velorio(velorioAlt);
+            JOptionPane.showMessageDialog(
+                null,
+                "Velório alterado com sucesso!",
+                "Sucesso",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+            velorio = velorioAlt;
+            initInfo();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                null,
+                "Erro ao alterar velório:\n" + e,
+                "Erro",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
     }
     
     private LocalDateTime validarData(){
@@ -299,6 +355,16 @@ public class JCadVelorio extends javax.swing.JFrame {
         return data;
     }
              
+    private void initInfo(){
+        cxNumeroSala.setText(String.valueOf(velorio.getSala().getNumero()));
+        cxIdDefunto.setText(String.valueOf(velorio.getDefunto().getId()));
+        cbDia.setSelectedItem(String.valueOf(velorio.getData().getDayOfMonth()));
+        cbMes.setSelectedItem(String.valueOf(velorio.getData().getMonthValue()));
+        cbAno.setSelectedItem(String.valueOf(velorio.getData().getYear()));
+        cbHora.setSelectedItem(String.valueOf(velorio.getData().getHour()));
+        cbMin.setSelectedItem(String.valueOf(velorio.getData().getMinute()));
+    }
+    
     private void limpar(){        
         cxNumeroSala.setText("");
         cxIdDefunto.setText("");
@@ -325,11 +391,11 @@ public class JCadVelorio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JCadVelorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JCadAltVelorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JCadVelorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JCadAltVelorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JCadVelorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JCadAltVelorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             //java.util.logging.Logger.getLogger(JCadVelorio.class.getName())cbHoraava.util.logging.Level.SEVERE, null, ex);
         }
@@ -338,7 +404,7 @@ public class JCadVelorio extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JCadVelorio().setVisible(true);
+                new JCadAltVelorio(null, true).setVisible(true);
             }
         });
     }
@@ -353,10 +419,10 @@ public class JCadVelorio extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbMin;
     private javax.swing.JTextField cxIdDefunto;
     private javax.swing.JTextField cxNumeroSala;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel rtData;
     private javax.swing.JLabel rtHorario;
     private javax.swing.JLabel rtIdDefunto;
     private javax.swing.JLabel rtNumeroSala;
+    private javax.swing.JLabel rtTitulo;
     // End of variables declaration//GEN-END:variables
 }

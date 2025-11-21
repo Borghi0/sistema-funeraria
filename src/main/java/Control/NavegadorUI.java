@@ -17,7 +17,8 @@ public class NavegadorUI {
     private JCadAltPlano jCadPlano;
     private JCadAltPlano jAltPlano;
     private JCadRelatServico jCadRelatServico;
-    private JCadVelorio jCadVelorio;
+    private JCadAltVelorio jCadVelorio;
+    private JCadAltVelorio jAltVelorio;
     
     // janelas do usuario
     
@@ -119,6 +120,10 @@ public class NavegadorUI {
             jCadVelorio.dispose();
             jCadVelorio = null;
         }
+        if(jAltVelorio!=null){
+            jAltVelorio.dispose();
+            jAltVelorio = null;
+        }        
     }
     
     public void atualizarMenuUsuario(Usuario usuario){
@@ -132,19 +137,19 @@ public class NavegadorUI {
         jRelatorioPlano.toFront();
     }
     
-    public void mostrarJAltPlano(Plano plano){
-        if(jAltPlano != null) jAltPlano.dispose();
-        
-        jAltPlano = new JCadAltPlano(plano, false);        
-        jAltPlano.setVisible(true);        
-    }
-    
-    public void mostrarJCadPlano(){
-        if(jCadPlano != null) jCadPlano.dispose();
-        
-        jCadPlano = new JCadAltPlano(null, true);        
-        jCadPlano.setVisible(true);        
-    }
+    public void mostrarJCadAltPlano(Plano plano, boolean modoCadastro){
+        if(modoCadastro){
+            if(jCadPlano == null) jCadPlano = new JCadAltPlano(null, true);
+                    
+            jCadPlano.setVisible(true);            
+            jCadPlano.toFront();
+        }else{
+            if(jAltPlano != null) jAltPlano.dispose();
+            
+            jAltPlano = new JCadAltPlano(plano, false);
+            jAltPlano.setVisible(true);
+        }
+    }   
     
     public void mostrarJCadRelatServico(){
         if(jCadRelatServico == null) jCadRelatServico = new JCadRelatServico();
@@ -153,11 +158,18 @@ public class NavegadorUI {
         jCadRelatServico.toFront();
     }
     
-    public void mostrarJCadVelorio(){
-        if(jCadVelorio == null) jCadVelorio = new JCadVelorio();
+    public void mostrarJCadAltVelorio(Velorio velorio, boolean modoCadastro){
+        if(modoCadastro){
+            if(jCadVelorio == null) jCadVelorio = new JCadAltVelorio(velorio, true);
+
+            jCadVelorio.setVisible(true);        
+            jCadVelorio.toFront();
+        }else{
+            if(jAltVelorio != null) jAltVelorio.dispose();
         
-        jCadVelorio.setVisible(true);        
-        jCadVelorio.toFront();
+            jAltVelorio = new JCadAltVelorio(velorio, false);        
+            jAltVelorio.setVisible(true);  
+        }
     }
     
     public void mostrarJAlterarUsuario(I_JanelaRaiz janelaRaiz, Usuario usuario){
