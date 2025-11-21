@@ -55,7 +55,7 @@ public class JAlterarUsuario extends javax.swing.JFrame {
         btVoltar = new javax.swing.JButton();
         btConfirmar = new javax.swing.JButton();
         cbDia = new javax.swing.JComboBox<>();
-        rtCPF1 = new javax.swing.JLabel();
+        rtData = new javax.swing.JLabel();
         rtRua = new javax.swing.JLabel();
         rtNumero = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -198,9 +198,9 @@ public class JAlterarUsuario extends javax.swing.JFrame {
 
         cbDia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        rtCPF1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtCPF1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtCPF1.setText("Data de nascimento:");
+        rtData.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtData.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtData.setText("Data de nascimento:");
 
         rtRua.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtRua.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -246,7 +246,7 @@ public class JAlterarUsuario extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(rtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(rtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(rtCPF1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(rtData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(rtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -295,7 +295,7 @@ public class JAlterarUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbDia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(rtCPF1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(rtData, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cbAno, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -493,8 +493,8 @@ public class JAlterarUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField cxRua;
     private javax.swing.JTextField cxTelefone;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel rtCPF1;
     private javax.swing.JLabel rtCep;
+    private javax.swing.JLabel rtData;
     private javax.swing.JLabel rtEmail;
     private javax.swing.JLabel rtNome;
     private javax.swing.JLabel rtNumero;

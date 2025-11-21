@@ -36,7 +36,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
         cxNome = new javax.swing.JTextField();
         rtPreco = new javax.swing.JLabel();
         cxPreco = new javax.swing.JTextField();
-        rtPreco1 = new javax.swing.JLabel();
+        rtTipo = new javax.swing.JLabel();
         cxTipo = new javax.swing.JTextField();
         btConfirmar = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
@@ -132,9 +132,9 @@ public class JCadRelatServico extends javax.swing.JFrame {
             }
         });
 
-        rtPreco1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtPreco1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtPreco1.setText("Tipo:");
+        rtTipo.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        rtTipo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        rtTipo.setText("Tipo:");
 
         cxTipo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cxTipo.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -194,7 +194,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cxNome, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                         .addGap(40, 40, 40)
-                        .addComponent(rtPreco1)
+                        .addComponent(rtTipo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cxTipo, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
                         .addGap(45, 45, 45)
@@ -217,7 +217,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cxNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rtPreco1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cxPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -554,7 +554,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbProgramados;
     private javax.swing.JLabel rtNome;
     private javax.swing.JLabel rtPreco;
-    private javax.swing.JLabel rtPreco1;
+    private javax.swing.JLabel rtTipo;
     private javax.swing.JTable tbServicos;
     // End of variables declaration//GEN-END:variables
 }
