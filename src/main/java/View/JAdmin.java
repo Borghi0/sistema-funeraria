@@ -265,7 +265,7 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
     }//GEN-LAST:event_miRelatSalasActionPerformed
 
     private void miCadVelorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadVelorioActionPerformed
-        
+        navegador.mostrarJCadVelorio();
     }//GEN-LAST:event_miCadVelorioActionPerformed
 
     private void miCadSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadSalaActionPerformed
