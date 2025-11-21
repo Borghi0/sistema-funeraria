@@ -509,7 +509,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
     
     private void atualizar(Plano plano){
         if(plano==null) return;
-        navegador.mostrarJAltPlano(plano);
+        navegador.mostrarJCadAltPlano(plano, false);
     }
     
     private void adquirir(Plano plano){
