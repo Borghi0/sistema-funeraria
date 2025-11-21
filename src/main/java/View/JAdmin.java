@@ -374,13 +374,13 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
                 "Cancelar"
         );
         
-        if(o==0) deletar((Integer) tbVelorio.getValueAt(linSelec, 1), (LocalDateTime) tbVelorio.getValueAt(linSelec, 0));
+        if(o==0) deletar(velorio);
         else if(o==1) navegador.mostrarJCadAltVelorio(velorio, false);
  
         
     }
     
-    private void deletar(int numero, LocalDateTime data){
+    private void deletar(Velorio velorio){
         int o = JOptionPane.showOptionDialog(
                         null, "Deseja realmente deletar o velorio?", "Deletar",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, 
@@ -388,7 +388,7 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
                 );
         if(o==0){
             try {
-                if(Velorio_Ctrl.getInstancia().del_Velorio(numero, data))
+                if(Velorio_Ctrl.getInstancia().del_Velorio(velorio)>0)
                     JOptionPane.showMessageDialog(
                             null, "Velorio deletado!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE
