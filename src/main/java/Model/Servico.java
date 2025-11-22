@@ -12,7 +12,7 @@ public class Servico extends Ofertavel{
         this.prestacao = null;
         this.tipo = "";
     }
-    public Servico(LocalDate prestacao, String tipo, int preco, String nome, int id) {
+    public Servico(LocalDate prestacao, String tipo, double preco, String nome, int id) {
         super(preco, nome, id);
         this.prestacao = prestacao;
         this.tipo = tipo;

@@ -2,7 +2,7 @@ package Model;
 
 
 public abstract class Ofertavel{    
-    private int preco;    
+    private double preco;    
     private String nome;
     private int id;
 
@@ -11,13 +11,13 @@ public abstract class Ofertavel{
         this.nome = "";
         this.id = 0;
     }
-    public Ofertavel(int preco, String nome, int id) {
+    public Ofertavel(double preco, String nome, int id) {
         this.preco = preco;
         this.nome = nome;
         this.id = id;
     }
 
-    public int getPreco() {
+    public double getPreco() {
         return preco;
     }
 
@@ -29,7 +29,7 @@ public abstract class Ofertavel{
         return id;
     }
 
-    public void setPreco(int preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 
