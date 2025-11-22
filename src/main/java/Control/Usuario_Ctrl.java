@@ -102,17 +102,17 @@ public class Usuario_Ctrl {
         }
     }
     
-    public Usuario ler_User(String email) throws Exception{
-        String sql = "SELECT * FROM usuario WHERE usu_login = ?";
+    public Usuario ler_User(String cpf) throws Exception{
+        String sql = "SELECT * FROM usuario WHERE usu_cpf = ?";
         
         try{
             con = Banco_Ctrl.getInstancia().getConexao();
             ps = con.prepareStatement(sql);
-            ps.setString(1, email);
+            ps.setString(1, cpf);
             rs = ps.executeQuery();
             
             while(rs.next()){
-                if(rs.getString("usu_login").equals(email)) 
+                if(rs.getString("usu_cpf").equals(cpf)) 
                     return new Usuario(
                             rs.getString("usu_login"),
                             rs.getString("usu_senha"),
@@ -133,6 +133,7 @@ public class Usuario_Ctrl {
             con.close();
         }
     }
+    
     
     public int alt_User(Usuario user) throws Exception{
         int retorno = 0;

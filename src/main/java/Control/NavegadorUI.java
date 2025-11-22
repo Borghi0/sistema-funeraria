@@ -149,8 +149,8 @@ public class NavegadorUI {
         jCadRelatServico.toFront();
     }
     
-    public void mostrarJRelatorioUsuario(){
-        if(jRelatorioUsuario == null) jRelatorioUsuario = new JRelatorioUsuario(this);
+    public void mostrarJRelatorioUsuario(Usuario usuario){
+        if(jRelatorioUsuario == null) jRelatorioUsuario = new JRelatorioUsuario(this, usuario);
         
         jRelatorioUsuario.setVisible(true);
         jRelatorioUsuario.toFront();
