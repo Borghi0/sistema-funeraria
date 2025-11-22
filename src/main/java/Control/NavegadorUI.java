@@ -1,8 +1,8 @@
 package Control;
 
-import Interfaces.I_JanelaRaiz;
 import View.*;
 import Model.*;
+import Interfaces.JanelaRaiz;
 
 
 public class NavegadorUI {    
@@ -187,7 +187,7 @@ public class NavegadorUI {
         }
     }
     
-    public void mostrarJAlterarUsuario(I_JanelaRaiz janelaRaiz, Usuario usuario){
+    public void mostrarJAlterarUsuario(JanelaRaiz janelaRaiz, Usuario usuario){
         if(jAlterarUsuario != null) jAlterarUsuario.dispose();
         
         jAlterarUsuario = new JAlterarUsuario(janelaRaiz, usuario);

@@ -29,7 +29,7 @@ public class Plano_Ctrl {
             
             try(PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){            
                 ps.setString(1, plano.getNome());
-                ps.setInt(2, plano.getPreco());
+                ps.setDouble(2, plano.getPreco());
                 
                 ps.executeUpdate();
                 
@@ -62,7 +62,7 @@ public class Plano_Ctrl {
                     planos.add(new Plano(
                                     getServicos(rs.getInt("pla_id")),
                                     getProdutos(rs.getInt("pla_id")),
-                                    rs.getInt("pla_preco"),
+                                    rs.getDouble("pla_preco"),
                                     rs.getString("pla_nome"),
                                     rs.getInt("pla_id")
                     ));
@@ -85,7 +85,7 @@ public class Plano_Ctrl {
             plano = new Plano(
                     getServicos(rs.getInt("pla_id")),
                     getProdutos(rs.getInt("pla_id")),
-                    rs.getInt("pla_preco"),
+                    rs.getDouble("pla_preco"),
                     rs.getString("pla_nome"),
                     rs.getInt("pla_id")
             );
@@ -107,7 +107,7 @@ public class Plano_Ctrl {
             
             try(PreparedStatement ps = con.prepareStatement(sql)){            
                 ps.setString(1, plano.getNome());
-                ps.setInt(2, plano.getPreco());
+                ps.setDouble(2, plano.getPreco());
                 
                 ps.executeUpdate();                
             }
