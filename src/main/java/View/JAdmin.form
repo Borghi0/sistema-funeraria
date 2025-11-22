@@ -35,6 +35,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="Usu&#xe1;rios..."/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miRelatUsuariosActionPerformed"/>
+                      </Events>
                     </MenuItem>
                     <MenuItem class="javax.swing.JMenuItem" name="miRelatDefuntos">
                       <Properties>
@@ -43,6 +46,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="Defuntos..."/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miRelatDefuntosActionPerformed"/>
+                      </Events>
                     </MenuItem>
                   </SubComponents>
                 </Menu>
@@ -83,6 +89,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="Produtos..."/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miRelatProdutosActionPerformed"/>
+                      </Events>
                     </MenuItem>
                   </SubComponents>
                 </Menu>

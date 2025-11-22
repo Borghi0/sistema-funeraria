@@ -31,9 +31,9 @@ public class Defunto_Ctrl {
             ps = con.prepareStatement(sql);
 
             ps.setString(1, defunto.getNome());            
-            ps.setDate(2, Date.valueOf(defunto.getData_natalidade()));
-            ps.setDate(3, Date.valueOf(defunto.getData_Obito()));
-            ps.setString(4, defunto.getTipo_Obito());
+            ps.setDate(2, Date.valueOf(defunto.getDataNatalidade()));
+            ps.setDate(3, Date.valueOf(defunto.getDataObito()));
+            ps.setString(4, defunto.getTipoObito());
             ps.setString(5, defunto.getCemiterio());
             
             ps.executeUpdate();
@@ -109,9 +109,9 @@ public class Defunto_Ctrl {
             ps = con.prepareStatement(sql);
             
             ps.setString(1, defunto.getNome());
-            ps.setDate(2, Date.valueOf(defunto.getData_natalidade()));
-            ps.setDate(3, Date.valueOf(defunto.getData_Obito()));
-            ps.setString(4, defunto.getTipo_Obito());
+            ps.setDate(2, Date.valueOf(defunto.getDataNatalidade()));
+            ps.setDate(3, Date.valueOf(defunto.getDataObito()));
+            ps.setString(4, defunto.getTipoObito());
             ps.setString(5, defunto.getCemiterio());
             ps.setInt(6, id);
             

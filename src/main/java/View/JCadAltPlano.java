@@ -413,8 +413,8 @@ public class JCadAltPlano extends javax.swing.JFrame {
         cxNome.setText(cxNome.getText().trim());
         
         Plano planoAlt = new Plano(
-                plano.getLista_Servico(),
-                plano.getLista_Produto(),
+                plano.getListaServicos(),
+                plano.getListaProdutos(),
                 plano.getPreco(),
                 cxNome.getText().isBlank() ? plano.getNome() : cxNome.getText(),
                 plano.getId()
@@ -469,8 +469,8 @@ public class JCadAltPlano extends javax.swing.JFrame {
         int lin = 0;
         modelo.setRowCount(lin);
                 
-        if(plano.getLista_Servico()!=null){
-            for(Servico servico : plano.getLista_Servico()){
+        if(plano.getListaServicos()!=null){
+            for(Servico servico : plano.getListaServicos()){
                     modelo.insertRow(lin, new Object[]{                    
                         servico.getId(),
                         servico.getNome(),
@@ -480,8 +480,8 @@ public class JCadAltPlano extends javax.swing.JFrame {
                     lin++;
             }
         }
-        if(plano.getLista_Produto()!=null){
-            for(Produto produto : plano.getLista_Produto()){
+        if(plano.getListaProdutos()!=null){
+            for(Produto produto : plano.getListaProdutos()){
                     modelo.insertRow(lin, new Object[]{
                         produto.getId(),
                         produto.getNome(),
@@ -499,7 +499,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         int lin = 0;
         modeloSer.setRowCount(lin);
         
-        if(plano.getLista_Servico()==null){
+        if(plano.getListaServicos()==null){
             for(Servico servico : Servico_Ctrl.getInstancia().ler_ServicoGenerico()){                
                 modeloSer.insertRow(lin, new Object[]{                    
                     servico.getId(),
@@ -511,7 +511,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
             }
         } else{
             for(Servico servico : Servico_Ctrl.getInstancia().ler_ServicoGenerico()){
-                if(!plano.getLista_Servico().contains(servico)){
+                if(!plano.getListaServicos().contains(servico)){
                     modeloSer.insertRow(lin, new Object[]{                    
                         servico.getId(),
                         servico.getNome(),
@@ -528,7 +528,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         lin = 0;
         modeloPro.setRowCount(lin);
         
-        if(plano.getLista_Servico()==null){
+        if(plano.getListaServicos()==null){
             for(Produto produto : Produto_Ctrl.getInstancia().ler_Produto()){                
                 modeloPro.insertRow(lin, new Object[]{                    
                     produto.getId(),
@@ -540,7 +540,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
             }
         } else{
             for(Produto produto : Produto_Ctrl.getInstancia().ler_Produto()){
-                if(!plano.getLista_Produto().contains(produto)){
+                if(!plano.getListaProdutos().contains(produto)){
                     modeloPro.insertRow(lin, new Object[]{                    
                         produto.getId(),
                         produto.getNome(),
@@ -573,7 +573,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         
         if(o==0){
             if(ofertavelSelec instanceof Servico servico){
-                plano.getLista_Servico().remove(servico);
+                plano.getListaServicos().remove(servico);
                 
                 Calculadora c = new Calculadora(new DescontoServico());                
                 plano.setPreco(
@@ -581,7 +581,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
                 );
             }
             else if(ofertavelSelec instanceof Produto produto){
-                plano.getLista_Produto().remove(produto);
+                plano.getListaProdutos().remove(produto);
                 
                 Calculadora c = new Calculadora(new DescontoProduto());                
                 plano.setPreco(
@@ -619,8 +619,8 @@ public class JCadAltPlano extends javax.swing.JFrame {
             servicoSelec = Servico_Ctrl.getInstancia().ler_Servico((Integer) tbServicos.getValueAt(linSelec, 0));
             
             if(servicoSelec!=null){
-                if(!plano.getLista_Servico().contains(servicoSelec)){
-                    plano.getLista_Servico().add(servicoSelec);
+                if(!plano.getListaServicos().contains(servicoSelec)){
+                    plano.getListaServicos().add(servicoSelec);
                     
                     Calculadora c = new Calculadora(new DescontoServico());                
                     plano.setPreco(
@@ -664,8 +664,8 @@ public class JCadAltPlano extends javax.swing.JFrame {
             produtoSelec = Produto_Ctrl.getInstancia().ler_Produto((Integer) tbProdutos.getValueAt(linSelec, 0));
             
             if(produtoSelec!=null){
-                if(!plano.getLista_Produto().contains(produtoSelec)){
-                    plano.getLista_Produto().add(produtoSelec);
+                if(!plano.getListaProdutos().contains(produtoSelec)){
+                    plano.getListaProdutos().add(produtoSelec);
                     
                     Calculadora c = new Calculadora(new DescontoProduto());                
                     plano.setPreco(

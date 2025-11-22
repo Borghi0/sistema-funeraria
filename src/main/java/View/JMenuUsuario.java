@@ -293,7 +293,7 @@ public class JMenuUsuario extends javax.swing.JFrame implements JanelaRaiz{
         int lin = 0;
         modeloSer.setRowCount(lin);        
         
-        for(Servico servico : plano.getLista_Servico()){                
+        for(Servico servico : plano.getListaServicos()){                
             modeloSer.insertRow(lin, new Object[]{
                 servico.getNome(),                
                 servico.getTipo()
@@ -307,7 +307,7 @@ public class JMenuUsuario extends javax.swing.JFrame implements JanelaRaiz{
         lin = 0;
         modeloPro.setRowCount(lin);
         
-        for(Produto produto : plano.getLista_Produto()){                
+        for(Produto produto : plano.getListaProdutos()){                
             modeloPro.insertRow(lin, new Object[]{
                 produto.getNome(),                
                 produto.isPerecivel()

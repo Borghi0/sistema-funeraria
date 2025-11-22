@@ -413,7 +413,7 @@ public class JAlterarUsuario extends javax.swing.JFrame {
         Usuario usuarioAlt = new Usuario(
                 cxEmail.getText().isBlank() ? usuario.getEmail() : cxEmail.getText(),
                 senha.isBlank() ? usuario.getSenha() : senha,
-                cxTelefone.getText().isBlank() ? usuario.getNumero_Telefone() : cxTelefone.getText(),
+                cxTelefone.getText().isBlank() ? usuario.getNumeroTelefone() : cxTelefone.getText(),
                 usuario.isAdmin(),
                 endereco,
                 usuario.getPlano(),
@@ -469,13 +469,13 @@ public class JAlterarUsuario extends javax.swing.JFrame {
         cxEmail.setText(usuario.getEmail());
         cxNome.setText(usuario.getNome());
         csSenha.setText(usuario.getSenha());
-        cxTelefone.setText(usuario.getNumero_Telefone());
+        cxTelefone.setText(usuario.getNumeroTelefone());
         cxNumero.setText(String.valueOf(usuario.getEndereco().getNumero()));
         cxRua.setText(usuario.getEndereco().getRua());
         cxCep.setText(usuario.getEndereco().getCep());
-        cbDia.setSelectedItem(String.valueOf(usuario.getData_natalidade().getDayOfMonth()));
-        cbMes.setSelectedItem(String.valueOf(usuario.getData_natalidade().getMonthValue()));
-        cbAno.setSelectedItem(String.valueOf(usuario.getData_natalidade().getYear()));
+        cbDia.setSelectedItem(String.valueOf(usuario.getDataNatalidade().getDayOfMonth()));
+        cbMes.setSelectedItem(String.valueOf(usuario.getDataNatalidade().getMonthValue()));
+        cbAno.setSelectedItem(String.valueOf(usuario.getDataNatalidade().getYear()));
         cxEmail.requestFocus();
     }
 

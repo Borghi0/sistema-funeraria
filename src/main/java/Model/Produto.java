@@ -3,33 +3,33 @@ package Model;
 
 public class Produto extends Ofertavel{    
     private boolean perecivel;
-    private int quant_Estoque;    
+    private int quantEstoque;    
     
     public Produto(){
         super();
         this.perecivel = false;
-        this.quant_Estoque = 0;
+        this.quantEstoque = 0;
     }
     public Produto(boolean perecivel, int quant_Estoque, double preco, String nome, int id) {
         super(preco, nome, id);
         this.perecivel = perecivel;
-        this.quant_Estoque = quant_Estoque;
+        this.quantEstoque = quant_Estoque;
     }        
     
     public boolean isPerecivel() {
         return perecivel;
     }
 
-    public int getQuant_Estoque() {
-        return quant_Estoque;
+    public int getQuantEstoque() {
+        return quantEstoque;
     }
   
     public void setPerecivel(boolean perecivel) {
         this.perecivel = perecivel;
     }
 
-    public void setQuant_Estoque(int quant_Estoque) {
-        this.quant_Estoque = quant_Estoque;
+    public void setQuantEstoque(int quant_Estoque) {
+        this.quantEstoque = quant_Estoque;
     }
     
     @Override
