@@ -300,7 +300,8 @@ public class JCadRelatServico extends javax.swing.JFrame {
     }//GEN-LAST:event_cxNomeKeyPressed
 
     private void cxPrecoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cxPrecoFocusLost
-        // TODO add your handling code here:
+        cxPreco.setText(cxPreco.getText().replaceAll("[^0-9]", ""));
+        cxPreco.setText(cxPreco.getText().replaceAll(",", "."));
     }//GEN-LAST:event_cxPrecoFocusLost
 
     private void cxPrecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cxPrecoKeyPressed
@@ -333,11 +334,13 @@ public class JCadRelatServico extends javax.swing.JFrame {
     private void confirmar(){
         cxNome.setText(cxNome.getText().trim());
         cxTipo.setText(cxTipo.getText().trim());
+        cxPreco.setText(cxPreco.getText().replaceAll("[^0-9]", ""));
+        cxPreco.setText(cxPreco.getText().replaceAll(",", "."));
         
         Servico servico = new Servico(
                 null,
                 cxTipo.getText(),
-                Integer.parseInt(cxPreco.getText()),
+                Double.parseDouble(cxPreco.getText()),
                 cxNome.getText(),
                 0
         );

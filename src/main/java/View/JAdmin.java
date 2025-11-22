@@ -3,7 +3,6 @@ package View;
 
 import Control.NavegadorUI;
 import Control.Velorio_Ctrl;
-import Interfaces.I_JanelaRaiz;
 import Model.Defunto;
 import Model.Sala;
 import Model.Usuario;
@@ -18,9 +17,10 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import Interfaces.JanelaRaiz;
 
 
-public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{    
+public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{    
     private NavegadorUI navegador;
     private Usuario usuario;
     

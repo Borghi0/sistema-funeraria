@@ -1,6 +1,6 @@
 package Interfaces;
 
 
-public interface I_JanelaRaiz {    
+public interface JanelaRaiz {    
     void voltar(Object objeto);
 }

@@ -10,7 +10,7 @@ public class Produto extends Ofertavel{
         this.perecivel = false;
         this.quant_Estoque = 0;
     }
-    public Produto(boolean perecivel, int quant_Estoque, int preco, String nome, int id) {
+    public Produto(boolean perecivel, int quant_Estoque, double preco, String nome, int id) {
         super(preco, nome, id);
         this.perecivel = perecivel;
         this.quant_Estoque = quant_Estoque;
