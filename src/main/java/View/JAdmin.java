@@ -134,10 +134,20 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
 
         miRelatUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         miRelatUsuarios.setText("Usuários...");
+        miRelatUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRelatUsuariosActionPerformed(evt);
+            }
+        });
         mnRelatPessoa.add(miRelatUsuarios);
 
         miRelatDefuntos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         miRelatDefuntos.setText("Defuntos...");
+        miRelatDefuntos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRelatDefuntosActionPerformed(evt);
+            }
+        });
         mnRelatPessoa.add(miRelatDefuntos);
 
         mnRelatorios.add(mnRelatPessoa);
@@ -165,6 +175,11 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
 
         miRelatProdutos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         miRelatProdutos.setText("Produtos...");
+        miRelatProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRelatProdutosActionPerformed(evt);
+            }
+        });
         mnRelatOfertaveis.add(miRelatProdutos);
 
         mnRelatorios.add(mnRelatOfertaveis);
@@ -328,6 +343,18 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         try{listarTabVelorio();}catch(Exception ex){}
     }//GEN-LAST:event_formWindowActivated
+
+    private void miRelatDefuntosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatDefuntosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miRelatDefuntosActionPerformed
+
+    private void miRelatUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatUsuariosActionPerformed
+        navegador.mostrarJRelatorioUsuario();
+    }//GEN-LAST:event_miRelatUsuariosActionPerformed
+
+    private void miRelatProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatProdutosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miRelatProdutosActionPerformed
     
     private void jAlterarUsuario(){        
         setVisible(false);

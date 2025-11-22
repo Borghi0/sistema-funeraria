@@ -178,14 +178,7 @@ public class NavegadorUI {
         
         jRelatorioUsuario.setVisible(true);
         jRelatorioUsuario.toFront();
-    }
-    
-    public void fecharJRelatorioUsuario(){
-        if(jRelatorioUsuario != null){
-            jRelatorioUsuario.setVisible(false);
-            jRelatorioUsuario = null;
-        }
-    }
+    }        
     
     public void mostrarJAlterarUsuario(JanelaRaiz janelaRaiz, Usuario usuario){
         if(jAlterarUsuario != null) jAlterarUsuario.dispose();
