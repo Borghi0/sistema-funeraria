@@ -501,11 +501,7 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
     public void setUsuario(Usuario usuario){
         this.usuario = usuario;
     }
-    
-    @Override
-    public void voltar() {
-        this.setVisible(true);
-    }
+        
     @Override
     public void voltar(Object objeto) {
         usuario = (Usuario) objeto;
