@@ -1,7 +1,9 @@
 package View;
 
 
-import Control.NavegadorUI;
+import Control.Calculadora;
+import Control.DescontoProduto;
+import Control.DescontoServico;
 import Control.Plano_Ctrl;
 import Control.Produto_Ctrl;
 import Control.Servico_Ctrl;
@@ -9,8 +11,15 @@ import Model.Ofertavel;
 import Model.Plano;
 import Model.Produto;
 import Model.Servico;
+import java.awt.Component;
+import java.awt.Font;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 
 public class JCadAltPlano extends javax.swing.JFrame {
@@ -56,7 +65,6 @@ public class JCadAltPlano extends javax.swing.JFrame {
         rtNome = new javax.swing.JLabel();
         cxNome = new javax.swing.JTextField();
         rtPreco = new javax.swing.JLabel();
-        cxPreco = new javax.swing.JTextField();
         rtTitulo = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
         mbOpcoes = new javax.swing.JMenu();
@@ -98,6 +106,32 @@ public class JCadAltPlano extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tbSerProIn);
+        //minhas configs
+        tbSerProIn.getColumnModel().getColumn(0).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbSerProIn.getColumnModel().getColumn(1).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbSerProIn.getColumnModel().getColumn(2).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+
+        TableCellRenderer centerHeaderRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int column){
+                JLabel lbl = (JLabel) tbSerProIn.getTableHeader().getDefaultRenderer().getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, column
+                );
+                lbl.setHorizontalAlignment(SwingConstants.CENTER);
+                return lbl;
+            }
+        };
+        tbSerProIn.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);
+        tbSerProIn.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        //fim
 
         rtServicos.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtServicos.setText("Serviços e produtos inclusos:");
@@ -130,6 +164,20 @@ public class JCadAltPlano extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(tbServicos);
+        //minhas configs
+        tbServicos.getColumnModel().getColumn(0).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbServicos.getColumnModel().getColumn(1).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbServicos.getColumnModel().getColumn(2).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+
+        tbServicos.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);
+        tbServicos.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        //fim
 
         tbProdutos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tbProdutos.setModel(new javax.swing.table.DefaultTableModel(
@@ -158,6 +206,20 @@ public class JCadAltPlano extends javax.swing.JFrame {
             }
         });
         jScrollPane4.setViewportView(tbProdutos);
+        //minhas configs
+        tbProdutos.getColumnModel().getColumn(0).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbProdutos.getColumnModel().getColumn(1).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbProdutos.getColumnModel().getColumn(2).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+
+        tbProdutos.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);
+        tbProdutos.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        //fim
 
         rtServicos1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtServicos1.setText("Incluir serviço");
@@ -191,19 +253,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
 
         rtPreco.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtPreco.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtPreco.setText("Preço:");
-
-        cxPreco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cxPreco.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cxPrecoFocusLost(evt);
-            }
-        });
-        cxPreco.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cxPrecoKeyPressed(evt);
-            }
-        });
+        rtPreco.setText("Valor: <preço>");
 
         rtTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         rtTitulo.setText("Texto");
@@ -269,8 +319,6 @@ public class JCadAltPlano extends javax.swing.JFrame {
                                 .addGap(168, 168, 168))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(rtPreco)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cxPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
@@ -282,8 +330,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cxNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cxPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rtServicos)
@@ -316,14 +363,6 @@ public class JCadAltPlano extends javax.swing.JFrame {
     private void cxNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cxNomeKeyPressed
         confirmar(evt);
     }//GEN-LAST:event_cxNomeKeyPressed
-
-    private void cxPrecoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cxPrecoFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cxPrecoFocusLost
-
-    private void cxPrecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cxPrecoKeyPressed
-        confirmar(evt);
-    }//GEN-LAST:event_cxPrecoKeyPressed
 
     private void miRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRestaurarActionPerformed
         restaurar();
@@ -374,9 +413,9 @@ public class JCadAltPlano extends javax.swing.JFrame {
         cxNome.setText(cxNome.getText().trim());
         
         Plano planoAlt = new Plano(
-                plano.getLista_Servico(),
-                plano.getLista_Produto(),
-                cxPreco.getText().isBlank() ? plano.getPreco() : Integer.parseInt(cxPreco.getText()),
+                plano.getListaServicos(),
+                plano.getListaProdutos(),
+                plano.getPreco(),
                 cxNome.getText().isBlank() ? plano.getNome() : cxNome.getText(),
                 plano.getId()
         );
@@ -403,8 +442,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
     private void cadastrar(){
         cxNome.setText(cxNome.getText().trim());
         
-        plano.setNome(cxNome.getText());
-        plano.setPreco(Integer.parseInt(cxPreco.getText()));
+        plano.setNome(cxNome.getText());        
         
         try{
             Plano_Ctrl.getInstancia().cad_Plano(plano);
@@ -431,8 +469,8 @@ public class JCadAltPlano extends javax.swing.JFrame {
         int lin = 0;
         modelo.setRowCount(lin);
                 
-        if(plano.getLista_Servico()!=null){
-            for(Servico servico : plano.getLista_Servico()){
+        if(plano.getListaServicos()!=null){
+            for(Servico servico : plano.getListaServicos()){
                     modelo.insertRow(lin, new Object[]{                    
                         servico.getId(),
                         servico.getNome(),
@@ -442,8 +480,8 @@ public class JCadAltPlano extends javax.swing.JFrame {
                     lin++;
             }
         }
-        if(plano.getLista_Produto()!=null){
-            for(Produto produto : plano.getLista_Produto()){
+        if(plano.getListaProdutos()!=null){
+            for(Produto produto : plano.getListaProdutos()){
                     modelo.insertRow(lin, new Object[]{
                         produto.getId(),
                         produto.getNome(),
@@ -461,7 +499,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         int lin = 0;
         modeloSer.setRowCount(lin);
         
-        if(plano.getLista_Servico()==null){
+        if(plano.getListaServicos()==null){
             for(Servico servico : Servico_Ctrl.getInstancia().ler_ServicoGenerico()){                
                 modeloSer.insertRow(lin, new Object[]{                    
                     servico.getId(),
@@ -473,7 +511,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
             }
         } else{
             for(Servico servico : Servico_Ctrl.getInstancia().ler_ServicoGenerico()){
-                if(!plano.getLista_Servico().contains(servico)){
+                if(!plano.getListaServicos().contains(servico)){
                     modeloSer.insertRow(lin, new Object[]{                    
                         servico.getId(),
                         servico.getNome(),
@@ -490,7 +528,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         lin = 0;
         modeloPro.setRowCount(lin);
         
-        if(plano.getLista_Servico()==null){
+        if(plano.getListaServicos()==null){
             for(Produto produto : Produto_Ctrl.getInstancia().ler_Produto()){                
                 modeloPro.insertRow(lin, new Object[]{                    
                     produto.getId(),
@@ -502,7 +540,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
             }
         } else{
             for(Produto produto : Produto_Ctrl.getInstancia().ler_Produto()){
-                if(!plano.getLista_Produto().contains(produto)){
+                if(!plano.getListaProdutos().contains(produto)){
                     modeloPro.insertRow(lin, new Object[]{                    
                         produto.getId(),
                         produto.getNome(),
@@ -519,8 +557,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         int linSelec = tbSerProIn.getSelectedRow();
 
         if(linSelec<0) return;
-                
-        
+                        
         Ofertavel ofertavelSelec = (Ofertavel) tbSerProIn.getModel().getValueAt(linSelec, 3);
         
         int o = JOptionPane.showOptionDialog(                
@@ -533,9 +570,26 @@ public class JCadAltPlano extends javax.swing.JFrame {
                 new Object[] {"Sim", "Não"},
                 "Não"
         );
+        
         if(o==0){
-            plano.removerOfertavel(ofertavelSelec);
-            listarTabSerProIn();
+            if(ofertavelSelec instanceof Servico servico){
+                plano.getListaServicos().remove(servico);
+                
+                Calculadora c = new Calculadora(new DescontoServico());                
+                plano.setPreco(
+                        plano.getPreco() - c.calcularValor(servico.getPreco())
+                );
+            }
+            else if(ofertavelSelec instanceof Produto produto){
+                plano.getListaProdutos().remove(produto);
+                
+                Calculadora c = new Calculadora(new DescontoProduto());                
+                plano.setPreco(
+                        plano.getPreco() - c.calcularValor(produto.getPreco())
+                );
+            }
+            
+            atualizarInfo();
             try{
                 listarTabServicosProdutos();
             }
@@ -560,13 +614,20 @@ public class JCadAltPlano extends javax.swing.JFrame {
         );
         if(o!=0) return;
         
-        Servico servicoSelec = null;
+        Servico servicoSelec;
         try {
             servicoSelec = Servico_Ctrl.getInstancia().ler_Servico((Integer) tbServicos.getValueAt(linSelec, 0));
+            
             if(servicoSelec!=null){
-                if(!plano.getLista_Servico().contains(servicoSelec))
-                    plano.getLista_Servico().add(servicoSelec);
-                listarTabSerProIn();
+                if(!plano.getListaServicos().contains(servicoSelec)){
+                    plano.getListaServicos().add(servicoSelec);
+                    
+                    Calculadora c = new Calculadora(new DescontoServico());                
+                    plano.setPreco(
+                            plano.getPreco() + c.calcularValor(servicoSelec.getPreco())
+                    );
+                }
+                atualizarInfo();
             } else{
                 JOptionPane.showMessageDialog(
                     null, "Serviço não encontrado",
@@ -598,13 +659,20 @@ public class JCadAltPlano extends javax.swing.JFrame {
         );
         if(o!=0) return;
         
-        Produto produtoSelec = null;
+        Produto produtoSelec;
         try {
             produtoSelec = Produto_Ctrl.getInstancia().ler_Produto((Integer) tbProdutos.getValueAt(linSelec, 0));
+            
             if(produtoSelec!=null){
-                if(!plano.getLista_Produto().contains(produtoSelec))
-                    plano.getLista_Produto().add(produtoSelec);
-                listarTabSerProIn();
+                if(!plano.getListaProdutos().contains(produtoSelec)){
+                    plano.getListaProdutos().add(produtoSelec);
+                    
+                    Calculadora c = new Calculadora(new DescontoProduto());                
+                    plano.setPreco(
+                            plano.getPreco() + c.calcularValor(produtoSelec.getPreco())
+                    );
+                }
+                atualizarInfo();
             } else{
                 JOptionPane.showMessageDialog(
                     null, "Produto não encontrado",
@@ -620,14 +688,18 @@ public class JCadAltPlano extends javax.swing.JFrame {
     }
     
     private void initInfo(){
-        cxNome.setText(plano.getNome());
-        cxPreco.setText(String.valueOf(plano.getPreco()));
+        cxNome.setText(plano.getNome());        
+        atualizarInfo();
+    }
+    
+    private void atualizarInfo(){
+        rtPreco.setText(String.format("R$ %.2f", plano.getPreco()));
         listarTabSerProIn();
     }
     
     private void limpar(){
-        cxNome.setText(plano.getNome());
-        cxPreco.setText(String.valueOf(plano.getPreco()));
+        cxNome.setText("");
+        rtPreco.setText(String.format("R$ %.2f", plano.getPreco()));
         
         DefaultTableModel modelo = (DefaultTableModel) tbSerProIn.getModel();        
         modelo.setRowCount(0);
@@ -670,7 +742,6 @@ public class JCadAltPlano extends javax.swing.JFrame {
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton btConfirmar;
     private javax.swing.JTextField cxNome;
-    private javax.swing.JTextField cxPreco;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;

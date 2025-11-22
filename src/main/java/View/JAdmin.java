@@ -2,24 +2,25 @@ package View;
 
 
 import Control.NavegadorUI;
-import Control.Sala_Ctrl;
 import Control.Velorio_Ctrl;
-import Interfaces.I_JanelaRaiz;
 import Model.Defunto;
 import Model.Sala;
 import Model.Usuario;
 import Model.Velorio;
+import java.awt.Component;
 import java.awt.Font;
 import java.time.LocalDateTime;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import Interfaces.JanelaRaiz;
 
 
-public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{    
+public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{    
     private NavegadorUI navegador;
     private Usuario usuario;
     
@@ -95,6 +96,32 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
             }
         });
         jScrollPane1.setViewportView(tbVelorio);
+        //minhas configs
+        tbVelorio.getColumnModel().getColumn(0).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbVelorio.getColumnModel().getColumn(1).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbVelorio.getColumnModel().getColumn(2).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+
+        TableCellRenderer centerHeaderRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int column){
+                JLabel lbl = (JLabel) tbVelorio.getTableHeader().getDefaultRenderer().getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, column
+                );
+                lbl.setHorizontalAlignment(SwingConstants.CENTER);
+                return lbl;
+            }
+        };
+        tbVelorio.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);
+        tbVelorio.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        //fim
 
         mnOpcoes.setText("Opções");
         mnOpcoes.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -107,10 +134,20 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
 
         miRelatUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         miRelatUsuarios.setText("Usuários...");
+        miRelatUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRelatUsuariosActionPerformed(evt);
+            }
+        });
         mnRelatPessoa.add(miRelatUsuarios);
 
         miRelatDefuntos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         miRelatDefuntos.setText("Defuntos...");
+        miRelatDefuntos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRelatDefuntosActionPerformed(evt);
+            }
+        });
         mnRelatPessoa.add(miRelatDefuntos);
 
         mnRelatorios.add(mnRelatPessoa);
@@ -138,6 +175,11 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
 
         miRelatProdutos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         miRelatProdutos.setText("Produtos...");
+        miRelatProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRelatProdutosActionPerformed(evt);
+            }
+        });
         mnRelatOfertaveis.add(miRelatProdutos);
 
         mnRelatorios.add(mnRelatOfertaveis);
@@ -301,6 +343,18 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         try{listarTabVelorio();}catch(Exception ex){}
     }//GEN-LAST:event_formWindowActivated
+
+    private void miRelatDefuntosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatDefuntosActionPerformed
+        navegador.mostrarJRelatorioDefunto();
+    }//GEN-LAST:event_miRelatDefuntosActionPerformed
+
+    private void miRelatUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatUsuariosActionPerformed
+        navegador.mostrarJRelatorioUsuario();
+    }//GEN-LAST:event_miRelatUsuariosActionPerformed
+
+    private void miRelatProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatProdutosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miRelatProdutosActionPerformed
     
     private void jAlterarUsuario(){        
         setVisible(false);
@@ -388,7 +442,7 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
                 );
         if(o==0){
             try {
-                if(Velorio_Ctrl.getInstancia().del_Velorio(numero, data) > 0)
+                if(Velorio_Ctrl.getInstancia().del_Velorio(velorio) > 0)
                     JOptionPane.showMessageDialog(
                             null, "Velorio deletado!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE
@@ -474,11 +528,7 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
     public void setUsuario(Usuario usuario){
         this.usuario = usuario;
     }
-    
-    @Override
-    public void voltar() {
-        this.setVisible(true);
-    }
+        
     @Override
     public void voltar(Object objeto) {
         usuario = (Usuario) objeto;

@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS servico(
                 ser_id INT AUTO_INCREMENT PRIMARY KEY,
                 ser_nome VARCHAR(255),
                 ser_prestacao DATE,
-                ser_preco INT NOT NULL DEFAULT 0,
+                ser_preco DECIMAL(10,2) NOT NULL DEFAULT 0.00,
                 ser_tipo VARCHAR(100)
 );
 
@@ -21,29 +21,33 @@ CREATE TABLE IF NOT EXISTS produto(
                 pro_nome VARCHAR(255),
                 pro_perecivel BOOLEAN NOT NULL DEFAULT false,
                 pro_quant_estoque INT NOT NULL DEFAULT 0,
-                pro_preco INT NOT NULL DEFAULT 0
+                ser_preco DECIMAL(10,2) NOT NULL DEFAULT 0.00
 );
                 
 CREATE TABLE IF NOT EXISTS plano(
                 pla_id INT AUTO_INCREMENT PRIMARY KEY,
                 pla_nome VARCHAR(255),
-                pla_preco INT NOT NULL DEFAULT 0
+                ser_preco DECIMAL(10,2) NOT NULL DEFAULT 0.00
 );
 
-CREATE TABLE IF NOT EXISTS plano_produto(
-                pla_pro_id INT PRIMARY KEY AUTO_INCREMENT,
-                pla_id INT NOT NULL,
-                pro_id INT NOT NULL,
-                FOREIGN KEY (pla_id) REFERENCES plano(pla_id),
-                FOREIGN KEY (pro_id) REFERENCES produto(pro_id)
+CREATE TABLE IF NOT EXISTS plano_produto(                
+                pla_id INT,
+                pro_id INT,
+                PRIMARY KEY (pla_id, pro_id),
+                CONSTRAINT fk_pp_plano 
+					FOREIGN KEY (pla_id) REFERENCES plano(pla_id),
+                CONSTRAINT fk_pp_produto
+					FOREIGN KEY (pro_id) REFERENCES produto(pro_id) 
 );
 
-CREATE TABLE IF NOT EXISTS plano_servico(
-                pla_ser_id INT PRIMARY KEY AUTO_INCREMENT,
-                pla_id INT NOT NULL,
-                ser_id INT NOT NULL,
-                FOREIGN KEY (pla_id) REFERENCES plano(pla_id),
-                FOREIGN KEY (ser_id) REFERENCES servico(ser_id)
+CREATE TABLE IF NOT EXISTS plano_servico(                
+                pla_id INT,
+                ser_id INT,
+                PRIMARY KEY (pla_id, ser_id),
+                CONSTRAINT fk_ps_plano 
+					FOREIGN KEY (pla_id) REFERENCES plano(pla_id),
+                CONSTRAINT fk_ps_servico
+					FOREIGN KEY (ser_id) REFERENCES servico(ser_id)                
 );
 
 CREATE TABLE IF NOT EXISTS sala(

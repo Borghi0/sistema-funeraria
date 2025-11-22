@@ -6,14 +6,14 @@ import Model.Usuario;
 import java.time.LocalDate;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import Interfaces.I_JanelaRaiz;
+import Interfaces.JanelaRaiz;
 
 
 public class JAlterarUsuario extends javax.swing.JFrame {    
-    private final I_JanelaRaiz janelaRaiz;
+    private final JanelaRaiz janelaRaiz;
     private Usuario usuario;
 
-    public JAlterarUsuario(I_JanelaRaiz janelaRaiz, Usuario usuario) {
+    public JAlterarUsuario(JanelaRaiz janelaRaiz, Usuario usuario) {
         if(janelaRaiz==null||usuario==null) throw new IllegalArgumentException("Args não podem ser null");
         this.janelaRaiz = janelaRaiz;
         this.usuario = usuario;
@@ -413,7 +413,7 @@ public class JAlterarUsuario extends javax.swing.JFrame {
         Usuario usuarioAlt = new Usuario(
                 cxEmail.getText().isBlank() ? usuario.getEmail() : cxEmail.getText(),
                 senha.isBlank() ? usuario.getSenha() : senha,
-                cxTelefone.getText().isBlank() ? usuario.getNumero_Telefone() : cxTelefone.getText(),
+                cxTelefone.getText().isBlank() ? usuario.getNumeroTelefone() : cxTelefone.getText(),
                 usuario.isAdmin(),
                 endereco,
                 usuario.getPlano(),
@@ -469,13 +469,13 @@ public class JAlterarUsuario extends javax.swing.JFrame {
         cxEmail.setText(usuario.getEmail());
         cxNome.setText(usuario.getNome());
         csSenha.setText(usuario.getSenha());
-        cxTelefone.setText(usuario.getNumero_Telefone());
+        cxTelefone.setText(usuario.getNumeroTelefone());
         cxNumero.setText(String.valueOf(usuario.getEndereco().getNumero()));
         cxRua.setText(usuario.getEndereco().getRua());
         cxCep.setText(usuario.getEndereco().getCep());
-        cbDia.setSelectedItem(String.valueOf(usuario.getData_natalidade().getDayOfMonth()));
-        cbMes.setSelectedItem(String.valueOf(usuario.getData_natalidade().getMonthValue()));
-        cbAno.setSelectedItem(String.valueOf(usuario.getData_natalidade().getYear()));
+        cbDia.setSelectedItem(String.valueOf(usuario.getDataNatalidade().getDayOfMonth()));
+        cbMes.setSelectedItem(String.valueOf(usuario.getDataNatalidade().getMonthValue()));
+        cbAno.setSelectedItem(String.valueOf(usuario.getDataNatalidade().getYear()));
         cxEmail.requestFocus();
     }
 

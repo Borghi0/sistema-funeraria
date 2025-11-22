@@ -29,7 +29,7 @@ public class Plano_Ctrl {
             
             try(PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){            
                 ps.setString(1, plano.getNome());
-                ps.setInt(2, plano.getPreco());
+                ps.setDouble(2, plano.getPreco());
                 
                 ps.executeUpdate();
                 
@@ -62,7 +62,7 @@ public class Plano_Ctrl {
                     planos.add(new Plano(
                                     getServicos(rs.getInt("pla_id")),
                                     getProdutos(rs.getInt("pla_id")),
-                                    rs.getInt("pla_preco"),
+                                    rs.getDouble("pla_preco"),
                                     rs.getString("pla_nome"),
                                     rs.getInt("pla_id")
                     ));
@@ -85,7 +85,7 @@ public class Plano_Ctrl {
             plano = new Plano(
                     getServicos(rs.getInt("pla_id")),
                     getProdutos(rs.getInt("pla_id")),
-                    rs.getInt("pla_preco"),
+                    rs.getDouble("pla_preco"),
                     rs.getString("pla_nome"),
                     rs.getInt("pla_id")
             );
@@ -107,7 +107,7 @@ public class Plano_Ctrl {
             
             try(PreparedStatement ps = con.prepareStatement(sql)){            
                 ps.setString(1, plano.getNome());
-                ps.setInt(2, plano.getPreco());
+                ps.setDouble(2, plano.getPreco());
                 
                 ps.executeUpdate();                
             }
@@ -192,12 +192,12 @@ public class Plano_Ctrl {
     }
 
     private void cad_Relacionamentos(Plano plano, Connection con) throws Exception{
-        if(plano.getLista_Servico()!=null){        
+        if(plano.getListaServicos()!=null){        
             String sqlSer = "INSERT INTO plano_servico (pla_id, ser_id) VALUES (?, ?)";
                 
             try (PreparedStatement ps = con.prepareStatement(sqlSer)) {
 
-                for(Servico servico : plano.getLista_Servico()){
+                for(Servico servico : plano.getListaServicos()){
                     ps.setInt(1, plano.getId());
                     ps.setInt(2, servico.getId());
                     ps.addBatch();
@@ -206,12 +206,12 @@ public class Plano_Ctrl {
             }            
         }
         
-        if(plano.getLista_Produto()!=null){
+        if(plano.getListaProdutos()!=null){
             String sqlPro = "INSERT INTO plano_produto (pla_id, pro_id) VALUES (?, ?)";
 
             try (PreparedStatement ps = con.prepareStatement(sqlPro)) {
 
-                for(Produto produto : plano.getLista_Produto()){
+                for(Produto produto : plano.getListaProdutos()){
                     ps.setInt(1, plano.getId());
                     ps.setInt(2, produto.getId());
                     ps.addBatch();

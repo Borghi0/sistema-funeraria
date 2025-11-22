@@ -1,13 +1,13 @@
 package Config;
 
 import Control.Banco_Ctrl;
-import Interfaces.I_InicializadorBD;
 import java.sql.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import Interfaces.InicializadorBD;
 
-public class MySQLInicializadorBD implements I_InicializadorBD{
+public class MySQLInicializadorBD implements InicializadorBD{
     private static MySQLInicializadorBD instancia;
     
     private MySQLInicializadorBD(){}

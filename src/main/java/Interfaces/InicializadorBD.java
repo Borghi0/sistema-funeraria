@@ -1,6 +1,6 @@
 package Interfaces;
 
 
-public interface I_InicializadorBD {
+public interface InicializadorBD {
     void criarTabelas() throws Exception;
 }
