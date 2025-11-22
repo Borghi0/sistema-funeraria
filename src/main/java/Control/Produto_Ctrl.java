@@ -9,8 +9,15 @@ import java.util.List;
 
 public class Produto_Ctrl {
     private static Produto_Ctrl instancia;
+    private static Connection con;
+    private static PreparedStatement ps;
+    private static ResultSet rs;
     
-    private Produto_Ctrl(){}
+    private Produto_Ctrl(){
+        con = null;
+        ps = null;
+        rs = null;
+    }
     
     public static Produto_Ctrl getInstancia(){
         if(instancia == null) instancia = new Produto_Ctrl();
@@ -18,8 +25,26 @@ public class Produto_Ctrl {
         return instancia;
     }
     
-    public void cad_Produto(Produto produto){
-        //Ainda não implementado
+    public void cad_Produto(Produto produto) throws Exception{
+        String sql = "INSERT INTO defunto VALUES (NULL, ?, ?, ?, ?, ?)";
+        
+        try{
+            con = Banco_Ctrl.getInstancia().getConexao();
+            ps = con.prepareStatement(sql);
+
+            ps.setInt(1, produto.getPreco());            
+            ps.setString(2, produto.getNome());
+            ps.setInt(3, produto.getId());
+            ps.setBoolean(4, produto.isPerecivel());
+            ps.setInt(5, produto.getQuant_Estoque());
+            
+            ps.executeUpdate();
+        }
+        finally{
+            rs.close();
+            ps.close();
+            con.close();
+        }
     }
     
     public List<Produto> ler_Produto() throws Exception{
@@ -69,11 +94,45 @@ public class Produto_Ctrl {
         return produto;
     }
     
-    public void alt_Produto(Produto produto){
-        //Ainda não implementado
+    public int alt_Produto(Produto produto) throws Exception{
+        int id = produto.getId();
+        String sql = "UPDATE produto SET def_perecivel = ?,"
+                + "def_quantidade = ?,"
+                + "def_preco = ?,"
+                + "def_nome = ?,"
+                + " WHERE def_id = ?";
+        
+        try{
+            con = Banco_Ctrl.getInstancia().getConexao();
+            ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, produto.getPreco());
+            ps.setString(2, produto.getNome());
+            ps.setInt(3, produto.getId());
+            ps.setBoolean(4, produto.isPerecivel());
+            ps.setInt(5, id);
+            
+            return ps.executeUpdate();
+        } finally{
+            ps.close();
+            con.close(); 
+        }
     }
     
-    public void del_Produto(Produto produto){
-        //Ainda não implementado
+    public int del_Produto(Produto produto) throws Exception{
+        int id = produto.getId();
+        String sql_del = "DELETE FROM produto WHERE def_id = ?";
+        
+        try{
+            con = Banco_Ctrl.getInstancia().getConexao();
+            ps = con.prepareStatement(sql_del);
+            
+            ps.setInt(1, id);
+            
+            return ps.executeUpdate();
+        } finally{
+            ps.close();
+            con.close();
+        }
     }
 }

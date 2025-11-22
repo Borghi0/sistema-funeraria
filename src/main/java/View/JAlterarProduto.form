@@ -23,86 +23,79 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace pref="58" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="66" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="rtCadProd" min="-2" pref="499" max="-2" attributes="0"/>
-                      <EmptySpace pref="46" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="btConfirmar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btLimpar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btCancelar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="rtNome" alignment="0" max="32767" attributes="0"/>
-                          <Component id="rtCadQuant" alignment="0" max="32767" attributes="0"/>
-                          <Component id="rtCadPreco" alignment="0" max="32767" attributes="0"/>
-                          <Component id="rtCadPerecivel" alignment="0" pref="110" max="32767" attributes="0"/>
+                          <Component id="rtQuant" alignment="0" max="32767" attributes="0"/>
+                          <Component id="rtPreco" alignment="0" max="32767" attributes="0"/>
+                          <Component id="rtPerecivel" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="cxCadQuant" max="32767" attributes="0"/>
-                          <Component id="cxCadPreco" pref="164" max="32767" attributes="0"/>
-                          <Component id="cbPerecivel" min="-2" max="-2" attributes="0"/>
-                          <Component id="cxNome" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cxQuant" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cxPreco" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cbPerecivel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="cxNome" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
+                  <Component id="rtTitulo" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace pref="74" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="btAtualizar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btCancelar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace pref="51" max="32767" attributes="0"/>
-              <Component id="rtCadProd" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="29" max="32767" attributes="0"/>
+              <Component id="rtTitulo" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="24" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="rtNome" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                   <Component id="cxNome" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="rtCadQuant" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                  <Component id="cxCadQuant" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="rtQuant" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                  <Component id="cxQuant" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="rtCadPreco" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                  <Component id="cxCadPreco" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="rtPreco" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                  <Component id="cxPreco" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="rtCadPerecivel" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                  <Component id="rtPerecivel" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                   <Component id="cbPerecivel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="42" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btConfirmar" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btLimpar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <EmptySpace pref="51" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btAtualizar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="rtCadProd">
+    <Component class="javax.swing.JLabel" name="rtTitulo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="48" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Cadastro de Produto"/>
+        <Property name="text" type="java.lang.String" value="Atualizar Produto"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="rtNome">
@@ -113,7 +106,7 @@
         <Property name="text" type="java.lang.String" value="Nome:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="rtCadQuant">
+    <Component class="javax.swing.JLabel" name="rtQuant">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="16" style="1"/>
@@ -121,7 +114,7 @@
         <Property name="text" type="java.lang.String" value="Quantidade:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="rtCadPreco">
+    <Component class="javax.swing.JLabel" name="rtPreco">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="16" style="1"/>
@@ -129,7 +122,7 @@
         <Property name="text" type="java.lang.String" value="Pre&#xe7;o:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="rtCadPerecivel">
+    <Component class="javax.swing.JLabel" name="rtPerecivel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="16" style="1"/>
@@ -139,12 +132,12 @@
     </Component>
     <Component class="javax.swing.JTextField" name="cxNome">
     </Component>
-    <Component class="javax.swing.JTextField" name="cxCadQuant">
+    <Component class="javax.swing.JTextField" name="cxQuant">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cxCadQuantActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cxQuantActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="cxCadPreco">
+    <Component class="javax.swing.JTextField" name="cxPreco">
     </Component>
     <Component class="javax.swing.JComboBox" name="cbPerecivel">
       <Properties>
@@ -159,20 +152,13 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="btConfirmar">
+    <Component class="javax.swing.JButton" name="btAtualizar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Confirmar"/>
+        <Property name="text" type="java.lang.String" value="Atualizar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btConfirmarActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btLimpar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Limpar"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btLimparActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAtualizarActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btAtualizarKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btCancelar">
