@@ -4,32 +4,32 @@ import java.time.LocalDate;
 
 
 public class Defunto extends Pessoa{
-    private LocalDate data_Obito;
-    private String tipo_Obito;
+    private LocalDate dataObito;
+    private String tipoObito;
     private String cemiterio;
     private int id;
 
     public Defunto() {
         super();
-        this.data_Obito = null;
-        this.tipo_Obito = "";
+        this.dataObito = null;
+        this.tipoObito = "";
         this.cemiterio = "";
         this.id = 0;
     }
     public Defunto(LocalDate data_Obito, String tipo_Obito, String cemiterio, String nome, LocalDate data_natalidade, int id) {
         super(nome, data_natalidade);
-        this.data_Obito = data_Obito;
-        this.tipo_Obito = tipo_Obito;
+        this.dataObito = data_Obito;
+        this.tipoObito = tipo_Obito;
         this.cemiterio = cemiterio;
         this.id = id;
     }
 
-    public LocalDate getData_Obito() {
-        return data_Obito;
+    public LocalDate getDataObito() {
+        return dataObito;
     }
 
-    public String getTipo_Obito() {
-        return tipo_Obito;
+    public String getTipoObito() {
+        return tipoObito;
     }
 
     public String getCemiterio() {
@@ -40,12 +40,12 @@ public class Defunto extends Pessoa{
         return id;
     }
 
-    public void setData_Obito(LocalDate data_Obito) {
-        this.data_Obito = data_Obito;
+    public void setDataObito(LocalDate data_Obito) {
+        this.dataObito = data_Obito;
     }
 
-    public void setTipo_Obito(String tipo_Obito) {
-        this.tipo_Obito = tipo_Obito;
+    public void setTipoObito(String tipo_Obito) {
+        this.tipoObito = tipo_Obito;
     }
 
     public void setCemiterio(String cemiterio) {
