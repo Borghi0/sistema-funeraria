@@ -345,7 +345,7 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
     }//GEN-LAST:event_formWindowActivated
 
     private void miRelatDefuntosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatDefuntosActionPerformed
-        // TODO add your handling code here:
+        navegador.mostrarJRelatorioDefunto();
     }//GEN-LAST:event_miRelatDefuntosActionPerformed
 
     private void miRelatUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatUsuariosActionPerformed

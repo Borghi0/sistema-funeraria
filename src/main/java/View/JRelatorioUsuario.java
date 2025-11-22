@@ -83,15 +83,13 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 808, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1045, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 37, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE))
         );
 
         pack();
@@ -122,7 +120,7 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         try{
             for(Usuario u : Usuario_Ctrl.getInstancia().ler_User()){
                 modelo.insertRow(linha, new Object[]{
-                    u.getNome(), u.getCpf(), u.getEmail(), u.getNumero_Telefone(),
+                    u.getNome(), u.getCpf(), u.getEmail(), u.getNumeroTelefone(),
                     (u.isAdmin() ? "Sim" : "Não"), u.getEndereco().getRua(),
                     u.getEndereco().getNumero(), u.getPlano().getId(), u.getEndereco()
                 });

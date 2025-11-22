@@ -25,10 +25,10 @@ public class Usuario_Ctrl {
             
             ps.setString(1, user.getCpf());
             ps.setString(2, user.getNome());
-            ps.setDate(3, Date.valueOf(user.getData_natalidade()));
+            ps.setDate(3, Date.valueOf(user.getDataNatalidade()));
             ps.setString(4, user.getEmail());
             ps.setString(5, user.getSenha());
-            ps.setString(6, user.getNumero_Telefone());
+            ps.setString(6, user.getNumeroTelefone());
             ps.setBoolean(7, user.isAdmin());
             ps.setInt(8, user.getEndereco().getNumero());
             ps.setString(9, user.getEndereco().getRua());
@@ -121,10 +121,10 @@ public class Usuario_Ctrl {
     public int alt_User(Usuario user) throws Exception{
         int retorno = 0;
         String sql_updt_us = "UPDATE usuario SET usu_nome = " + user.getNome()
-                           + " usu_data_natalidade = " + Date.valueOf(user.getData_natalidade())
+                           + " usu_data_natalidade = " + Date.valueOf(user.getDataNatalidade())
                             + " usu_login = " + user.getEmail()
                             + " usu_senha = " + user.getSenha()
-                            + " usu_numero_telefone = " + user.getNumero_Telefone()
+                            + " usu_numero_telefone = " + user.getNumeroTelefone()
                             + " usu_admin = " + (user.isAdmin() ? "TRUE" : "FALSE")
                             + " pla_id = " + (user.getPlano()==null ? null : user.getPlano().getId())
                             + " WHERE usu_cpf = " + user.getCpf(),
