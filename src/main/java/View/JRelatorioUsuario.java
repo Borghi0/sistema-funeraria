@@ -5,14 +5,21 @@ import Control.Usuario_Ctrl;
 import Model.Endereco;
 import Model.Usuario;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class JRelatorioUsuario extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JRelatorioUsuario.class.getName());
     private NavegadorUI navegador;
+    private Usuario usuario;
     
-    public JRelatorioUsuario(NavegadorUI navegador) {
+    public JRelatorioUsuario(){
+        initComponents();
+    }
+    
+    public JRelatorioUsuario(NavegadorUI navegador, Usuario usuario) {
         this.navegador = navegador;
+        this.usuario = usuario;
         initComponents();       
         tbUsers.getColumnModel().removeColumn(tbUsers.getColumnModel().getColumn(8));
     }
@@ -59,6 +66,11 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbUsersMouseClicked(evt);
             }
+        ));
+        tbUsers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbUsersMouseClicked(evt);
+            }
         });
         jScrollPane1.setViewportView(tbUsers);
 
@@ -99,18 +111,43 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         listar_tabela();
     }//GEN-LAST:event_formWindowActivated
 
-    private void miRestaurar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRestaurar1ActionPerformed
-        listar_tabela();
-    }//GEN-LAST:event_miRestaurar1ActionPerformed
-
-    private void miFechar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miFechar1ActionPerformed
-        dispose();
-    }//GEN-LAST:event_miFechar1ActionPerformed
-
     private void tbUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbUsersMouseClicked
-        selecTab();
-    }//GEN-LAST:event_tbUsersMouseClicked
+        int linha = 0,
+            delecao = 0,
+            opcao = 0;
+        String cpf = "";
+        Usuario del = null;
+        JTable fonte = (JTable) evt.getSource();
         
+        linha = fonte.rowAtPoint(evt.getPoint());
+        cpf = (String) fonte.getModel().getValueAt(linha, 2);
+        
+        opcao = JOptionPane.showConfirmDialog(null, "Deseja excluir usuário selecionado?", 
+                    "Exclusão", JOptionPane.YES_NO_OPTION);
+        
+        if(opcao == JOptionPane.YES_OPTION){
+            try{
+                if(cpf != usuario.getCpf()){
+                    del = Usuario_Ctrl.getInstancia().ler_User(cpf);
+                    delecao = Usuario_Ctrl.getInstancia().del_User(del);
+                    
+                    JOptionPane.showMessageDialog(null, "Deletados " + delecao + "usuarios",
+                            "Deleção concluída", JOptionPane.INFORMATION_MESSAGE);
+                } else{
+                    JOptionPane.showMessageDialog(null, "Impossível deletar usuário atual",
+                            "Deleção mal-sucedida", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Erro: " + e.toString(),
+                        "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_tbUsersMouseClicked
+
+    /**
+     * @param args the command line arguments
+     */
+    
     private void listar_tabela(){
         int linha = 0;
         DefaultTableModel modelo = (DefaultTableModel) tbUsers.getModel();
@@ -189,38 +226,6 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         }
     }
     
-    private void tornarAdmin(Usuario user){
-        if(user.isAdmin()) return;
-        
-        int o = JOptionPane.showOptionDialog(
-                        null, "Deseja realmente tonar o usuário um administrador?", "CPF do usuário: "+user.getCpf(),
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, 
-                        null, new Object[]{"Sim...", "Não"}, "Não"
-                );
-        if(o==0){
-            try {
-                user.setAdmin(true);
-                if(Usuario_Ctrl.getInstancia().del_User(user)>0)
-                    JOptionPane.showMessageDialog(
-                            null, "Usuário atualizado!",
-                            "Sucesso!", JOptionPane.INFORMATION_MESSAGE
-                    );
-                else{
-                    JOptionPane.showMessageDialog(
-                            null, "Usuário não encontrado!",
-                            "Erro!", JOptionPane.ERROR_MESSAGE
-                    );
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(
-                    null, "Erro na busca:\n" + e,
-                    "Erro!", JOptionPane.ERROR_MESSAGE
-                );
-            }
-        }
-    }
-    
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -240,7 +245,7 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new JRelatorioUsuario(new NavegadorUI()).setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new JRelatorioUsuario().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
