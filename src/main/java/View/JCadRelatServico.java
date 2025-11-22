@@ -2,12 +2,19 @@ package View;
 
 import Control.Servico_Ctrl;
 import Model.Servico;
+import java.awt.Component;
+import java.awt.Font;
 import java.sql.SQLException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 
@@ -81,6 +88,32 @@ public class JCadRelatServico extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(tbServicos);
+        //minhas configs
+        tbServicos.getColumnModel().getColumn(0).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbServicos.getColumnModel().getColumn(1).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbServicos.getColumnModel().getColumn(2).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+
+        TableCellRenderer centerHeaderRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int column){
+                JLabel lbl = (JLabel) tbServicos.getTableHeader().getDefaultRenderer().getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, column
+                );
+                lbl.setHorizontalAlignment(SwingConstants.CENTER);
+                return lbl;
+            }
+        };
+        tbServicos.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);
+        tbServicos.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        //fim
 
         opcaoSelec.add(rbGenericos);
         rbGenericos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N

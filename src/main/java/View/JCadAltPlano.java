@@ -1,7 +1,6 @@
 package View;
 
 
-import Control.NavegadorUI;
 import Control.Plano_Ctrl;
 import Control.Produto_Ctrl;
 import Control.Servico_Ctrl;
@@ -9,8 +8,15 @@ import Model.Ofertavel;
 import Model.Plano;
 import Model.Produto;
 import Model.Servico;
+import java.awt.Component;
+import java.awt.Font;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 
 public class JCadAltPlano extends javax.swing.JFrame {
@@ -98,6 +104,32 @@ public class JCadAltPlano extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tbSerProIn);
+        //minhas configs
+        tbSerProIn.getColumnModel().getColumn(0).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbSerProIn.getColumnModel().getColumn(1).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbSerProIn.getColumnModel().getColumn(2).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+
+        TableCellRenderer centerHeaderRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int column){
+                JLabel lbl = (JLabel) tbSerProIn.getTableHeader().getDefaultRenderer().getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, column
+                );
+                lbl.setHorizontalAlignment(SwingConstants.CENTER);
+                return lbl;
+            }
+        };
+        tbSerProIn.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);
+        tbSerProIn.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        //fim
 
         rtServicos.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtServicos.setText("Serviços e produtos inclusos:");
@@ -130,6 +162,20 @@ public class JCadAltPlano extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(tbServicos);
+        //minhas configs
+        tbServicos.getColumnModel().getColumn(0).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbServicos.getColumnModel().getColumn(1).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbServicos.getColumnModel().getColumn(2).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+
+        tbServicos.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);
+        tbServicos.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        //fim
 
         tbProdutos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tbProdutos.setModel(new javax.swing.table.DefaultTableModel(
@@ -158,6 +204,20 @@ public class JCadAltPlano extends javax.swing.JFrame {
             }
         });
         jScrollPane4.setViewportView(tbProdutos);
+        //minhas configs
+        tbProdutos.getColumnModel().getColumn(0).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbProdutos.getColumnModel().getColumn(1).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbProdutos.getColumnModel().getColumn(2).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+
+        tbProdutos.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);
+        tbProdutos.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        //fim
 
         rtServicos1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtServicos1.setText("Incluir serviço");

@@ -154,9 +154,9 @@
               </Table>
             </Property>
             <Property name="autoResizeMode" type="int" value="4"/>
-            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="//minhas configs&#xa;        tbPlanos.getColumnModel().getColumn(0).setCellRenderer(&#xa;            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}&#xa;        );&#xa;        tbPlanos.getColumnModel().getColumn(2).setCellRenderer(&#xa;            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}&#xa;        );&#xa;        tbPlanos.getTableHeader().setFont(new Font(&quot;Segoe UI&quot;, Font.BOLD, 18));&#xa;//fim">
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="//minhas configs&#xa;        tbPlanos.getColumnModel().getColumn(0).setCellRenderer(&#xa;            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}&#xa;        );        &#xa;        tbPlanos.getColumnModel().getColumn(1).setCellRenderer(&#xa;            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}&#xa;        );        &#xa;        tbPlanos.getColumnModel().getColumn(2).setCellRenderer(&#xa;            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}&#xa;        );        &#xa;        &#xa;        TableCellRenderer centerHeaderRenderer = new DefaultTableCellRenderer() {&#xa;            @Override&#xa;            public Component getTableCellRendererComponent(&#xa;                    JTable table, Object value, boolean isSelected,&#xa;                    boolean hasFocus, int row, int column){&#xa;                JLabel lbl = (JLabel) tbPlanos.getTableHeader().getDefaultRenderer().getTableCellRendererComponent(&#xa;                        table, value, isSelected, hasFocus, row, column&#xa;                );&#xa;                lbl.setHorizontalAlignment(SwingConstants.CENTER);&#xa;                return lbl;&#xa;            }&#xa;        };&#xa;        tbPlanos.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);&#xa;        tbPlanos.getTableHeader().setFont(new Font(&quot;Segoe UI&quot;, Font.BOLD, 16));&#xa;//fim">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="15" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -265,7 +265,7 @@
             </Property>
             <Property name="autoResizeMode" type="int" value="4"/>
             <Property name="autoscrolls" type="boolean" value="false"/>
-            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="//minhas configs&#xa;        tbServicos.getColumnModel().getColumn(0).setCellRenderer(&#xa;            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}&#xa;        );        &#xa;        tbServicos.getColumnModel().getColumn(1).setCellRenderer(&#xa;            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}&#xa;        );        &#xa;        tbServicos.getColumnModel().getColumn(2).setCellRenderer(&#xa;            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}&#xa;        );        &#xa;                &#xa;        tbServicos.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);&#xa;        tbServicos.getColumnModel().getColumn(1).setHeaderRenderer(centerHeaderRenderer);&#xa;        tbServicos.getColumnModel().getColumn(2).setHeaderRenderer(centerHeaderRenderer);&#xa;        tbServicos.getTableHeader().setFont(new Font(&quot;Segoe UI&quot;, Font.BOLD, 16));&#xa;//fim">
               <TableColumnModel selectionModel="0">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
@@ -318,7 +318,7 @@
               </Table>
             </Property>
             <Property name="autoResizeMode" type="int" value="4"/>
-            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="//minhas configs&#xa;        tbProdutos.getColumnModel().getColumn(0).setCellRenderer(&#xa;            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}&#xa;        );        &#xa;        tbProdutos.getColumnModel().getColumn(1).setCellRenderer(&#xa;            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}&#xa;        );        &#xa;        tbProdutos.getColumnModel().getColumn(2).setCellRenderer(&#xa;            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}&#xa;        );               &#xa;        &#xa;        tbProdutos.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);&#xa;        tbProdutos.getColumnModel().getColumn(1).setHeaderRenderer(centerHeaderRenderer);&#xa;        tbProdutos.getColumnModel().getColumn(2).setHeaderRenderer(centerHeaderRenderer);&#xa;        tbProdutos.getTableHeader().setFont(new Font(&quot;Segoe UI&quot;, Font.BOLD, 16));&#xa;//fim">
               <TableColumnModel selectionModel="0">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>

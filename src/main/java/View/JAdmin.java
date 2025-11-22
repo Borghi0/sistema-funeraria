@@ -2,21 +2,22 @@ package View;
 
 
 import Control.NavegadorUI;
-import Control.Sala_Ctrl;
 import Control.Velorio_Ctrl;
 import Interfaces.I_JanelaRaiz;
 import Model.Defunto;
 import Model.Sala;
 import Model.Usuario;
 import Model.Velorio;
+import java.awt.Component;
 import java.awt.Font;
 import java.time.LocalDateTime;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 
 public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{    
@@ -95,6 +96,32 @@ public class JAdmin extends javax.swing.JFrame implements I_JanelaRaiz{
             }
         });
         jScrollPane1.setViewportView(tbVelorio);
+        //minhas configs
+        tbVelorio.getColumnModel().getColumn(0).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbVelorio.getColumnModel().getColumn(1).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbVelorio.getColumnModel().getColumn(2).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+
+        TableCellRenderer centerHeaderRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int column){
+                JLabel lbl = (JLabel) tbVelorio.getTableHeader().getDefaultRenderer().getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, column
+                );
+                lbl.setHorizontalAlignment(SwingConstants.CENTER);
+                return lbl;
+            }
+        };
+        tbVelorio.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);
+        tbVelorio.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        //fim
 
         mnOpcoes.setText("Opções");
         mnOpcoes.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
