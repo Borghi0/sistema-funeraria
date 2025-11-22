@@ -3,15 +3,15 @@ package View;
 import Control.NavegadorUI;
 import Model.Usuario;
 import javax.swing.JOptionPane;
-import Interfaces.I_JanelaRaiz;
 import Model.Plano;
 import Model.Produto;
 import Model.Servico;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Font;
+import Interfaces.JanelaRaiz;
 
 
-public class JMenuUsuario extends javax.swing.JFrame implements I_JanelaRaiz{
+public class JMenuUsuario extends javax.swing.JFrame implements JanelaRaiz{
     private NavegadorUI navegador;
     private Usuario usuario;
     

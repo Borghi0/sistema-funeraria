@@ -6,14 +6,14 @@ import Model.Usuario;
 import java.time.LocalDate;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import Interfaces.I_JanelaRaiz;
+import Interfaces.JanelaRaiz;
 
 
 public class JAlterarUsuario extends javax.swing.JFrame {    
-    private final I_JanelaRaiz janelaRaiz;
+    private final JanelaRaiz janelaRaiz;
     private Usuario usuario;
 
-    public JAlterarUsuario(I_JanelaRaiz janelaRaiz, Usuario usuario) {
+    public JAlterarUsuario(JanelaRaiz janelaRaiz, Usuario usuario) {
         if(janelaRaiz==null||usuario==null) throw new IllegalArgumentException("Args não podem ser null");
         this.janelaRaiz = janelaRaiz;
         this.usuario = usuario;
