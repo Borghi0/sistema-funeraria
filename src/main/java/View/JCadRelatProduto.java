@@ -1,9 +1,7 @@
 package View;
 
 import Control.Produto_Ctrl;
-import Control.Servico_Ctrl;
 import Model.Produto;
-import Model.Servico;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -102,7 +100,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nome", "Preço", "Perecível", "Estoque"
+                "Id", "Produto", "Preço", "Perecível", "Estoque"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -307,7 +305,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
             modelo.insertRow(lin, new Object[]{                    
                 produto.getId(),
                 produto.getNome(),
-                produto.getPreco(),
+                String.format("R$ %.2f", produto.getPreco()),
                 produto.isPerecivel() ? "Sim" : "Não",
                 produto.getQuantEstoque()
             });
