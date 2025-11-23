@@ -193,10 +193,10 @@ public class NavegadorUI {
     }
     
     public void mostrarJRelatorioDefunto(){
-        if(jRelatorioUsuario == null) jRelatorioUsuario = new JRelatorioUsuario(this);
+        //if(jRelatorioUsuario == null) jRelatorioUsuario = new JRelatorioUsuario(this);
         
-        jRelatorioUsuario.setVisible(true);
-        jRelatorioUsuario.toFront();
+        //jRelatorioUsuario.setVisible(true);
+        //jRelatorioUsuario.toFront();
     }
     
     public void atualizarMenuUsuario(Usuario usuario){

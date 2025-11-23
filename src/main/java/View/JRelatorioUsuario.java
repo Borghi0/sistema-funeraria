@@ -4,6 +4,7 @@ import Control.NavegadorUI;
 import Control.Usuario_Ctrl;
 import Model.Endereco;
 import Model.Usuario;
+import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -66,11 +67,6 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbUsersMouseClicked(evt);
             }
-        ));
-        tbUsers.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbUsersMouseClicked(evt);
-            }
         });
         jScrollPane1.setViewportView(tbUsers);
 
@@ -112,36 +108,7 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void tbUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbUsersMouseClicked
-        int linha = 0,
-            delecao = 0,
-            opcao = 0;
-        String cpf = "";
-        Usuario del = null;
-        JTable fonte = (JTable) evt.getSource();
-        
-        linha = fonte.rowAtPoint(evt.getPoint());
-        cpf = (String) fonte.getModel().getValueAt(linha, 2);
-        
-        opcao = JOptionPane.showConfirmDialog(null, "Deseja excluir usuário selecionado?", 
-                    "Exclusão", JOptionPane.YES_NO_OPTION);
-        
-        if(opcao == JOptionPane.YES_OPTION){
-            try{
-                if(cpf != usuario.getCpf()){
-                    del = Usuario_Ctrl.getInstancia().ler_User(cpf);
-                    delecao = Usuario_Ctrl.getInstancia().del_User(del);
-                    
-                    JOptionPane.showMessageDialog(null, "Deletados " + delecao + "usuarios",
-                            "Deleção concluída", JOptionPane.INFORMATION_MESSAGE);
-                } else{
-                    JOptionPane.showMessageDialog(null, "Impossível deletar usuário atual",
-                            "Deleção mal-sucedida", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Erro: " + e.toString(),
-                        "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+        selecTab();
     }//GEN-LAST:event_tbUsersMouseClicked
 
     /**
@@ -226,6 +193,9 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         }
     }
     
+    void tornarAdmin(Usuario user){
+        //Não implementado ainda
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -256,4 +226,12 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
     private javax.swing.JMenuItem miRestaurar1;
     private javax.swing.JTable tbUsers;
     // End of variables declaration//GEN-END:variables
+
+    private void miRestaurar1ActionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void miFechar1ActionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

@@ -91,13 +91,13 @@ public class Usuario_Ctrl {
     }
     
     public Usuario ler_User(String cpf) throws Exception{
-        String sql = "SELECT * FROM usuario WHERE usu_cpf = ?";
+        String sql = "SELECT * FROM usuario WHERE usu_cpf = " + cpf;
         
-        try{
-            con = Banco_Ctrl.getInstancia().getConexao();
-            ps = con.prepareStatement(sql);
-            ps.setString(1, cpf);
-            rs = ps.executeQuery();
+        try(
+            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+        ){
             
             while(rs.next()){
                 if(rs.getString("usu_cpf").equals(cpf)) 
