@@ -69,11 +69,11 @@ public class Produto_Ctrl {
         return produto;
     }
     
-    public void alt_Produto(Produto produto){
+    public void alt_Produto(Produto produto) throws SQLException, ClassNotFoundException{
         //Ainda não implementado
     }
     
-    public void del_Produto(Produto produto){
-        //Ainda não implementado
+    public int del_Produto(Produto produto){
+        return 0;
     }
 }

@@ -221,6 +221,11 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
 
         miCadProduto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         miCadProduto.setText("Produto...");
+        miCadProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCadProdutoActionPerformed(evt);
+            }
+        });
         mnCadOfertavel.add(miCadProduto);
 
         mnCadastrar.add(mnCadOfertavel);
@@ -353,8 +358,12 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
     }//GEN-LAST:event_miRelatUsuariosActionPerformed
 
     private void miRelatProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatProdutosActionPerformed
-        // TODO add your handling code here:
+        navegador.mostrarJCadRelatProduto();
     }//GEN-LAST:event_miRelatProdutosActionPerformed
+
+    private void miCadProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadProdutoActionPerformed
+        navegador.mostrarJCadRelatProduto();
+    }//GEN-LAST:event_miCadProdutoActionPerformed
     
     private void jAlterarUsuario(){        
         setVisible(false);
