@@ -1,15 +1,18 @@
 package Control;
 
-
 import Model.Servico;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Servico_Ctrl {
     private static Servico_Ctrl instancia;
+    private Calculadora calc;
     
-    private Servico_Ctrl(){}
+    private Servico_Ctrl(){
+        calc = new Calculadora(new DescontoServico());
+    }
     
     public static Servico_Ctrl getInstancia(){
         if(instancia == null) instancia = new Servico_Ctrl();
@@ -124,18 +127,59 @@ public class Servico_Ctrl {
         return servicos;
     }
     
-    public void alt_Servico(Servico servico){
-        //Ainda não implementado
+    public int alt_Servico(Servico servico) throws SQLException, ClassNotFoundException{
+        String sql = "UPDATE servico SET ser_nome = ? "
+                + "ser_preco = ? "
+                + "ser_tipo = ? "
+                + "ser_prestacao = ? "
+                + "WHERE ser_id = ?";
+        
+        try(
+            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            PreparedStatement ps = con.prepareStatement(sql)
+        ){
+            ps.setString(1, servico.getNome());
+            ps.setDouble(2, servico.getPreco());
+            ps.setString(3, servico.getTipo());
+            ps.setDate(4, Date.valueOf(servico.getPrestacao()));
+            ps.setInt(5, servico.getId());
+            
+            return ps.executeUpdate();
+        }
     }
     
     public int del_Servico(Servico servico) throws SQLException, ClassNotFoundException{
-        String sql = "DELETE FROM servico WHERE ser_id = ?";
+        int retorno = 0;
+        String sql_del_ponte = "DELETE FROM plano_servico p_s WHERE "
+                             + " p_s.ser_id IN (SELECT s.ser_id FROM servico s"
+                             + " WHERE s.ser_id = " + servico.getId(),
+                
+               sql_del_ser = "DELETE FROM servico WHERE ser_id = " + servico.getId(),
+               
+               sql_up_plano = "UPDATE FROM plano p SET pla_preco = pla_preco - " +
+                              calc.calcularValor(servico.getPreco()) + " WHERE"
+                            + " p.pla_id IN (SELECT p_s.pla_id FROM plano_servico p_s"
+                            + " WHERE p_s.ser_id = " + servico.getId();
         
-        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
-                PreparedStatement ps = con.prepareStatement(sql)){
-            
-            ps.setInt(1, servico.getId());
-            return ps.executeUpdate();
+        Connection con = null;        
+        try{
+            con = Banco_Ctrl.getInstancia().getConexao();
+            try(Statement st = con.createStatement()){
+        
+                con.setAutoCommit(false);
+
+                retorno += st.executeUpdate(sql_up_plano);
+                retorno += st.executeUpdate(sql_del_ponte);
+                retorno += st.executeUpdate(sql_del_ser);
+
+                con.commit();
+                return retorno;
+            }
+        }catch(SQLException e){
+            if(con!=null) try{con.rollback();} catch(SQLException ex){}
+            throw e;
+        }finally{
+            if(con!=null) try{con.close();} catch(SQLException ex){}            
         }
     }
 }

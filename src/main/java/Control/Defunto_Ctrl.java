@@ -5,17 +5,11 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+
 public class Defunto_Ctrl {
     private static Defunto_Ctrl instancia;
-    private static Connection con;
-    private static PreparedStatement ps;
-    private static ResultSet rs;
-    
-    private Defunto_Ctrl(){
-        con = null;
-        ps = null;
-        rs = null;
-    }
+        
+    private Defunto_Ctrl(){}
     
     public static Defunto_Ctrl getInstancia(){
         if(instancia == null) instancia = new Defunto_Ctrl();
@@ -23,12 +17,11 @@ public class Defunto_Ctrl {
         return instancia;
     }
     
-    public void cad_Defunto(Defunto defunto) throws Exception{
+    public void cad_Defunto(Defunto defunto) throws SQLException, ClassNotFoundException{
         String sql = "INSERT INTO defunto VALUES (NULL, ?, ?, ?, ?, ?)";
         
-        try{
-            con = Banco_Ctrl.getInstancia().getConexao();
-            ps = con.prepareStatement(sql);
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql)){            
 
             ps.setString(1, defunto.getNome());            
             ps.setDate(2, Date.valueOf(defunto.getDataNatalidade()));
@@ -37,42 +30,33 @@ public class Defunto_Ctrl {
             ps.setString(5, defunto.getCemiterio());
             
             ps.executeUpdate();
-        }
-        finally{
-            rs.close();
-            ps.close();
-            con.close();
-        }
+        }        
     }
     
-    public Defunto ler_Defunto(int id) throws Exception{
+    public Defunto ler_Defunto(int id) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM defunto WHERE def_id = ?";
         
-        try{
-            con = Banco_Ctrl.getInstancia().getConexao();
-            ps = con.prepareStatement(sql);
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql)){
+            
             ps.setInt(1, id);
-            rs = ps.executeQuery();
             
-            while(rs.next()){
-                return new Defunto(rs.getDate("def_data_obito").toLocalDate(),
-                                   rs.getString("def_tipo_obito"),
-                                   rs.getString("def_cemiterio"),
-                                   rs.getString("def_nome"),
-                                   rs.getDate("def_data_natalidade").toLocalDate(),
-                                   rs.getInt("def_id")
-                );
+            try(ResultSet rs = ps.executeQuery()){            
+                while(rs.next()){
+                    return new Defunto(rs.getDate("def_data_obito").toLocalDate(),
+                                       rs.getString("def_tipo_obito"),
+                                       rs.getString("def_cemiterio"),
+                                       rs.getString("def_nome"),
+                                       rs.getDate("def_data_natalidade").toLocalDate(),
+                                       rs.getInt("def_id")
+                    );
+                }
+                return null;
             }
-            
-            return null;
-        } finally{
-            rs.close();
-            ps.close();
-            con.close();
         }
     }
     
-    public List<Defunto> ler_Defunto() throws Exception{
+    public List<Defunto> ler_Defunto() throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM defunto";
         List<Defunto> retorno = new LinkedList<>();
         
@@ -95,7 +79,7 @@ public class Defunto_Ctrl {
         }
     }
     
-    public int alt_Defunto(Defunto defunto) throws Exception{
+    public int alt_Defunto(Defunto defunto) throws SQLException, ClassNotFoundException{
         int id = defunto.getId();
         String sql = "UPDATE defunto SET def_nome = ?,"
                 + "def_data_natalidade = ?,"
@@ -104,9 +88,8 @@ public class Defunto_Ctrl {
                 + "def_cemiterio = ?"
                 + " WHERE def_id = ?";
         
-        try{
-            con = Banco_Ctrl.getInstancia().getConexao();
-            ps = con.prepareStatement(sql);
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql)){            
             
             ps.setString(1, defunto.getNome());
             ps.setDate(2, Date.valueOf(defunto.getDataNatalidade()));
@@ -116,37 +99,33 @@ public class Defunto_Ctrl {
             ps.setInt(6, id);
             
             return ps.executeUpdate();
-        } finally{
-            ps.close();
-            con.close(); 
         }
     }
     
-    public int del_Defunto(Defunto defunto) throws Exception{
+    public int del_Defunto(Defunto defunto) throws SQLException, ClassNotFoundException{
         int id = defunto.getId(),
             retorno = 0;
         String sql_del_def = "DELETE FROM defunto WHERE def_id = " + id,
                sql_del_vel = "DELETE FROM velorio WHERE def_id = " + id;
-        Connection con = null;
-        Statement st = null;
         
+        Connection con = null;
         try{
             con = Banco_Ctrl.getInstancia().getConexao();
-            st = con.createStatement();
+            try(Statement st = con.createStatement()){
             
-            con.setAutoCommit(false);
-            
-            retorno += st.executeUpdate(sql_del_vel);
-            retorno += st.executeUpdate(sql_del_def);
-            
-            con.commit();
-        } catch(SQLException sqle){
-            con.rollback();
+                con.setAutoCommit(false);
+
+                retorno += st.executeUpdate(sql_del_vel);
+                retorno += st.executeUpdate(sql_del_def);
+
+                con.commit();
+                return retorno;
+            }
+        }catch(SQLException e){
+            if(con!=null) try{con.rollback();} catch(SQLException ex){}
+            throw e;
         }finally{
-            st.close();
-            con.close();
-            
-            return retorno;
+            if(con!=null) try{con.close();} catch(SQLException ex){}            
         }
     }
 }

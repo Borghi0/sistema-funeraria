@@ -18,7 +18,7 @@ public class MySQLInicializadorBD implements InicializadorBD{
     }
     
     @Override
-    public void criarTabelas() throws Exception{
+    public void criarTabelas() throws SQLException, ClassNotFoundException{
         Connection con = Banco_Ctrl.getInstancia().getConexao();
         Statement st = con.createStatement();
         
