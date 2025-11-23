@@ -426,7 +426,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
         Servico servicoSelec = new Servico(
                 null,
                 (String) tbServicos.getValueAt(linSelec, 3),
-                (Integer) tbServicos.getValueAt(linSelec, 2),
+                (Double) tbServicos.getValueAt(linSelec, 2),
                 (String) tbServicos.getValueAt(linSelec, 1),
                 (Integer) tbServicos.getValueAt(linSelec, 0)
         );

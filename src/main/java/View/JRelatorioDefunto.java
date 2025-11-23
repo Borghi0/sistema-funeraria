@@ -6,13 +6,13 @@ import Model.Defunto;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class JRelatorioDefunto extends javax.swing.JFrame{
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JRelatorioDefunto.class.getName());
+public class JRelatorioDefunto extends javax.swing.JFrame{    
     private NavegadorUI navegador;
     
     public JRelatorioDefunto(NavegadorUI navegador){
         this.navegador = navegador;
-        initComponents();        
+        initComponents();
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -21,16 +21,17 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDef = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        rtId = new javax.swing.JLabel();
         cxId = new javax.swing.JTextField();
         btAtualizar = new javax.swing.JButton();
         btDeletar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        mbOpcoes = new javax.swing.JMenu();
         mniFechar = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Relatório de defuntos");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -48,17 +49,20 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
             new String [] {
                 "Código Defunto", "Nome do Defunto", "Cemiterio", "Data Nascimento", "Data Obito", "Tipo Obito"
             }
-        ));
-        tbDef.setEnabled(false);
-        tbDef.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbDefMouseClicked(evt);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        tbDef.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbDef);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("ID:");
+        rtId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rtId.setText("ID:");
 
         btAtualizar.setText("Atualizar");
         btAtualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -81,8 +85,8 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
             }
         });
 
-        jMenu1.setText("Opções");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        mbOpcoes.setText("Opções");
+        mbOpcoes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         mniFechar.setText("Fechar...");
         mniFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -90,9 +94,9 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
                 mniFecharActionPerformed(evt);
             }
         });
-        jMenu1.add(mniFechar);
+        mbOpcoes.add(mniFechar);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(mbOpcoes);
 
         setJMenuBar(jMenuBar1);
 
@@ -106,7 +110,7 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jLabel1)
+                        .addComponent(rtId)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cxId, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
@@ -125,13 +129,13 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(rtId)
                     .addComponent(cxId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btAtualizar)
                     .addComponent(btDeletar))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addGap(49, 49, 49)
                 .addComponent(btCancelar)
                 .addGap(16, 16, 16))
         );
@@ -139,12 +143,8 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tbDefMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDefMouseClicked
-
-    }//GEN-LAST:event_tbDefMouseClicked
-
     private void mniFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniFecharActionPerformed
-        sair();
+        dispose();
     }//GEN-LAST:event_mniFecharActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -160,7 +160,7 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
     }//GEN-LAST:event_btDeletarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
-        sair();
+        dispose();
     }//GEN-LAST:event_btCancelarActionPerformed
     
     private void atualizar(){
@@ -180,7 +180,7 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
             Defunto altDef = Defunto_Ctrl.getInstancia().ler_Defunto(id); 
 
             if (altDef != null) {
-                //navegador.mostrarJAlterarDefunto();
+                navegador.mostrarJAlterarDefunto(altDef);
                 //Ligar JRelatorioDefunto ao JAlterarDefunto ao clicar "atualizar".
             } else {
                 JOptionPane.showMessageDialog(
@@ -198,8 +198,7 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
                     "Erro de Entrada",
                     JOptionPane.ERROR_MESSAGE
             );
-        } catch (Exception ex) {
-            logger.log(java.util.logging.Level.SEVERE, "Erro ao buscar defunto para alteração", ex);
+        } catch (Exception ex) {            
             JOptionPane.showMessageDialog(
                     this,
                     "Erro ao buscar defunto: " + ex.getMessage(),
@@ -260,8 +259,7 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
                     "Erro de Entrada",
                     JOptionPane.ERROR_MESSAGE
             );
-        } catch (Exception ex) {
-            logger.log(java.util.logging.Level.SEVERE, "Erro ao deletar defunto", ex);
+        } catch (Exception ex) {            
             JOptionPane.showMessageDialog(
                     this,
                     "Erro ao deletar defunto: " + ex.getMessage(),
@@ -275,7 +273,8 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
     private void listarTabela(){
         int linha = 0;
         DefaultTableModel modelo = (DefaultTableModel) tbDef.getModel();
-        tbDef.setDefaultEditor(Object.class, null);
+        
+        modelo.setRowCount(linha);
         
         try{
             for(Defunto d : Defunto_Ctrl.getInstancia().ler_Defunto()){
@@ -291,23 +290,11 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
                     "Não foi possível encontrar defuntos",
                     "Erro",
                     JOptionPane.ERROR_MESSAGE
-            );
-            //navegador.fecharJRelatorioDefunto();
+            );           
             dispose();
         }
     }
     
-    public void sair(){
-        int resp = JOptionPane.showConfirmDialog(
-                null,
-                "Deseja realmente sair?",
-                "SAIDA",
-                JOptionPane.YES_NO_OPTION
-        );
-        if (resp == 0) {
-            dispose();
-        }
-    }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -315,16 +302,7 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        
         //</editor-fold>
 
         /* Create and display the form */
@@ -336,11 +314,11 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btDeletar;
     private javax.swing.JTextField cxId;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenu mbOpcoes;
     private javax.swing.JMenuItem mniFechar;
+    private javax.swing.JLabel rtId;
     private javax.swing.JTable tbDef;
     // End of variables declaration//GEN-END:variables
 }

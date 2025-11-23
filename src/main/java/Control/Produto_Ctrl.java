@@ -47,11 +47,11 @@ public class Produto_Ctrl {
         
             while(rs.next()){
                 produtos.add(new Produto(
-                                rs.getBoolean("ser_perecivel"),
-                                rs.getInt("usu_quant_estoque"),
-                                rs.getInt("usu_preco"),
-                                rs.getString("usu_nome"),
-                                rs.getInt("usu_id")                                 
+                                rs.getBoolean("pro_perecivel"),
+                                rs.getInt("pro_quant_estoque"),
+                                rs.getInt("pro_preco"),
+                                rs.getString("pro_nome"),
+                                rs.getInt("pro_id")                                 
                             ));
             }        
         }
@@ -59,7 +59,7 @@ public class Produto_Ctrl {
     }
     
     public Produto ler_Produto(int id) throws SQLException, ClassNotFoundException{
-        String sql = "SELECT * FROM produto WHERE ser_id = ?";
+        String sql = "SELECT * FROM produto WHERE pro_id = ?";
                 
         try(Connection con = Banco_Ctrl.getInstancia().getConexao();
                 PreparedStatement ps = con.prepareStatement(sql)){
