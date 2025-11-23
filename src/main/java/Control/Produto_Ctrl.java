@@ -18,8 +18,21 @@ public class Produto_Ctrl {
         return instancia;
     }
     
-    public void cad_Produto(Produto produto){
-        //Ainda não implementado
+    public void cad_Produto(Produto produto) throws SQLException, ClassNotFoundException{
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao()){
+            
+            String sql = "INSERT INTO produto (pro_nome, pro_perecivel, pro_quant_estoque, pro_preco) "
+                    + "VALUES (?, ?, ?, ?)";
+            
+            try(PreparedStatement ps = con.prepareStatement(sql)){
+                ps.setString(1, produto.getNome());                
+                ps.setBoolean(2, produto.isPerecivel());                
+                ps.setInt(3, produto.getQuantEstoque());
+                ps.setDouble(4, produto.getPreco());
+                
+                ps.executeUpdate();
+            }            
+        }
     }
     
     public List<Produto> ler_Produto() throws Exception{
@@ -69,11 +82,35 @@ public class Produto_Ctrl {
         return produto;
     }
     
-    public void alt_Produto(Produto produto) throws SQLException, ClassNotFoundException{
-        //Ainda não implementado
+    public int alt_Produto(Produto produto) throws SQLException, ClassNotFoundException{
+        String sql = "UPDATE produto SET pro_nome = ? "
+                + "pro_perecivel = ? "
+                + "pro_quant_estoque = ? "
+                + "pro_preco = ? "
+                + "WHERE pro_id = ?";
+        
+        try(
+            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            PreparedStatement ps = con.prepareStatement(sql)
+        ){
+            ps.setString(1, produto.getNome());
+            ps.setBoolean(2, produto.isPerecivel());
+            ps.setInt(3, produto.getQuantEstoque());
+            ps.setDouble(4, produto.getPreco());
+            ps.setInt(5, produto.getId());
+            
+            return ps.executeUpdate();
+        }
     }
     
-    public int del_Produto(Produto produto){
-        return 0;
+    public int del_Produto(Produto produto) throws SQLException, ClassNotFoundException{
+        String sql = "DELETE FROM produto WHERE pro_id = ?";
+        
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql)){
+            
+            ps.setInt(1, produto.getId());
+            return ps.executeUpdate();
+        }
     }
 }
