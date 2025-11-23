@@ -19,17 +19,17 @@ public class Banco_Ctrl {
         return instancia;
     }        
     
-    public void testarConexao() throws Exception{
+    public void testarConexao() throws SQLException, ClassNotFoundException{
         Class.forName(banco.getDriver());
         Connection con = DriverManager.getConnection(banco.getUrl(), banco.getUser(), banco.getSenha());        
         con.close();
     }
     
-    public void criarTabelas() throws Exception{
+    public void criarTabelas() throws SQLException, ClassNotFoundException{
         inicializadorBD.criarTabelas();
     }
     
-    public Connection getConexao() throws ClassNotFoundException, SQLException{
+    public Connection getConexao() throws SQLException, ClassNotFoundException{
         Class.forName(banco.getDriver());
         return DriverManager.getConnection(banco.getUrl(), banco.getUser(), banco.getSenha());
     }

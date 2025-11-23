@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.List;
 import java.util.LinkedList;
 
+
 public class Usuario_Ctrl {
     private static Usuario_Ctrl instancia;    
     
@@ -18,7 +19,7 @@ public class Usuario_Ctrl {
         return instancia;
     }
     
-    private void cad_User(Usuario user, Connection con) throws Exception{
+    private void cad_User(Usuario user, Connection con) throws SQLException, ClassNotFoundException{
         String sql = "INSERT INTO usuario VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL)";
         
         try(PreparedStatement ps = con.prepareStatement(sql)){
@@ -38,7 +39,7 @@ public class Usuario_Ctrl {
         }
     }
     
-    public void cad_User(Usuario user, Endereco ender) throws Exception{
+    public void cad_User(Usuario user, Endereco ender) throws SQLException, ClassNotFoundException{
         Connection con = null;
         try{
             con = Banco_Ctrl.getInstancia().getConexao();
@@ -48,15 +49,15 @@ public class Usuario_Ctrl {
             cad_User(user, con);
             
             con.commit();
-        }catch(Exception e){
-            if(con!=null) con.rollback();
+        }catch(SQLException e){
+            if(con!=null) try{con.rollback();} catch(SQLException ex){}
             throw e;
         }finally{
-            if(con!=null) con.close();
+            if(con!=null) try{con.close();} catch(SQLException ex){}            
         }
     }
     
-    public List<Usuario> ler_User() throws Exception{        
+    public List<Usuario> ler_User() throws SQLException, ClassNotFoundException{        
         String sql = "SELECT * FROM usuario NATURAL JOIN plano";
         Endereco intermediarioE = new Endereco();
         Plano intermediarioP = new Plano();
@@ -90,7 +91,7 @@ public class Usuario_Ctrl {
         }
     }
     
-    public Usuario ler_User(String cpf) throws Exception{
+    public Usuario ler_User(String cpf) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM usuario WHERE usu_cpf = " + cpf;
         
         try(
@@ -117,7 +118,7 @@ public class Usuario_Ctrl {
         }       
     }
     
-    public Usuario ler_User_Login(String email) throws Exception{
+    public Usuario ler_User_Login(String email) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM usuario WHERE usu_login = ?";
         
         try(Connection con = Banco_Ctrl.getInstancia().getConexao();
@@ -145,7 +146,7 @@ public class Usuario_Ctrl {
         }       
     }
     
-    public int alt_User(Usuario user) throws Exception{
+    public int alt_User(Usuario user) throws SQLException, ClassNotFoundException{
         int retorno = 0;
         String sql_updt_us = "UPDATE usuario SET usu_nome = " + user.getNome()
                            + " usu_data_natalidade = " + Date.valueOf(user.getDataNatalidade())
@@ -175,15 +176,15 @@ public class Usuario_Ctrl {
                 con.commit();
             }
             return retorno;
-        } catch(Exception e){
-            if(con!=null) con.rollback();
+        }catch(SQLException e){
+            if(con!=null) try{con.rollback();} catch(SQLException ex){}
             throw e;
-        } finally{
-            if(con!=null) con.close();
+        }finally{
+            if(con!=null) try{con.close();} catch(SQLException ex){}            
         }
     }
     
-    public int alt_User_setAdmin(Usuario user) throws Exception{        
+    public int alt_User_setAdmin(Usuario user) throws SQLException, ClassNotFoundException{        
         String sql = "UPDATE usuario SET usu_admin = " + (user.isAdmin() ? "TRUE" : "FALSE")                            
                             + " WHERE usu_cpf = " + user.getCpf();                
         
@@ -195,10 +196,9 @@ public class Usuario_Ctrl {
         }
     }
 
-    public int del_User(Usuario user) throws Exception{
+    public int del_User(Usuario user) throws SQLException, ClassNotFoundException{
         int retorno = 0;
-        String cpf = user.getCpf(),
-               sql_del_us = "DELETE FROM usuario WHERE usu_cpf = " + user.getCpf(),
+        String sql_del_us = "DELETE FROM usuario WHERE usu_cpf = " + user.getCpf(),
                sql_del_end = "DELETE FROM endereco WHERE end_numero = " +
                 user.getEndereco().getNumero() + " AND end_rua = " + user.getEndereco().getRua()
                 + " AND end_cep = " + user.getEndereco().getCep();
@@ -216,15 +216,15 @@ public class Usuario_Ctrl {
                 con.commit();
             }
             return retorno;            
-        } catch(Exception e){
-            if(con!=null) con.rollback();
+        }catch(SQLException e){
+            if(con!=null) try{con.rollback();} catch(SQLException ex){}
             throw e;
-        } finally{
-            if(con!=null) con.close();
+        }finally{
+            if(con!=null) try{con.close();} catch(SQLException ex){}            
         }
     }
     
-    public int adquirir_plano(Usuario user, Plano plano) throws Exception{
+    public int adquirir_plano(Usuario user, Plano plano) throws SQLException, ClassNotFoundException{
         String sql = "UPDATE usuario SET pla_id = ? WHERE usu_cpf = ?";
         
         try(

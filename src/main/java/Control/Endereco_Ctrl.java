@@ -7,16 +7,9 @@ import java.util.List;
 
 
 public class Endereco_Ctrl {
-    private static Endereco_Ctrl instancia;
-    private static Connection con;
-    private static PreparedStatement ps;
-    private static ResultSet rs;
+    private static Endereco_Ctrl instancia;    
     
-    private Endereco_Ctrl(){
-        con = null;
-        ps = null;
-        rs = null;
-    }
+    private Endereco_Ctrl(){}
     
     public static Endereco_Ctrl getInstancia(){
         if(instancia == null) instancia = new Endereco_Ctrl();
@@ -24,48 +17,38 @@ public class Endereco_Ctrl {
         return instancia;
     }
     
-    public void cad_Endereco(Endereco endereco, Connection con) throws Exception{
+    public void cad_Endereco(Endereco endereco, Connection con) throws SQLException, ClassNotFoundException{
         String sql = "INSERT INTO endereco VALUES (?, ?, ?)";
         
-        try{            
-            ps = con.prepareStatement(sql);
-
+        try(PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, endereco.getNumero());
             ps.setString(2, endereco.getRua());
             ps.setString(3, endereco.getCep());
             
             ps.executeUpdate();
-        }
-        finally{
-            ps.close();            
-        }
+        }        
     }
     
-    public boolean ler_Endereco(Endereco endereco) throws Exception{
+    public boolean ler_Endereco(Endereco endereco) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM endereco WHERE end_numero = ? AND"
                 + " end_rua = ? AND"
                 + " end_cep = ?";
         
-        try{
-            con = Banco_Ctrl.getInstancia().getConexao();
-            ps = con.prepareStatement(sql);
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql)){
+            
             ps.setString(1, Integer.toString(endereco.getNumero()));
             ps.setString(2, endereco.getRua());
             ps.setString(2, endereco.getCep());
             
-            rs = ps.executeQuery();
-            rs.last();
-            
-            return rs.getRow() >= 1 ? true : false;
-        }
-        finally{
-            rs.close();
-            ps.close();
-            con.close();
-        }
+            try(ResultSet rs = ps.executeQuery()){
+                rs.last();
+                return rs.getRow() >= 1;
+            }
+        }       
     }
     
-    public List<Endereco> ler_Endereco() throws Exception{
+    public List<Endereco> ler_Endereco() throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM endereco";
         List<Endereco> retorno = new LinkedList<>();
         
@@ -85,7 +68,7 @@ public class Endereco_Ctrl {
         }
     }
     
-    public int alt_Endereco(Endereco novo, Endereco antigo) throws Exception{
+    public int alt_Endereco(Endereco novo, Endereco antigo) throws SQLException, ClassNotFoundException{
         String sql = "UPDATE endereco SET end_numero = ?,"
               + "end_cep = ?,"
               + "end_rua = ?,"
@@ -93,9 +76,8 @@ public class Endereco_Ctrl {
               + " AND end_cep = ?"
               + " AND end_rua = ?";
         
-        try{
-            con = Banco_Ctrl.getInstancia().getConexao();
-            ps = con.prepareStatement(sql);
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql)){            
 
             ps.setInt(1, novo.getNumero());
             ps.setString(2, novo.getCep());
@@ -105,14 +87,10 @@ public class Endereco_Ctrl {
             ps.setString(6, antigo.getRua());
             
             return ps.executeUpdate();
-        }
-        finally{
-            ps.close();
-            con.close();
-        }
+        }        
     }
     
-    public boolean del_Endereco(Endereco endereco) throws Exception{
+    public boolean del_Endereco(Endereco endereco) throws SQLException, ClassNotFoundException{
         String sql_del = "DELETE FROM endereco WHERE end_numero = ?"
                        + " AND end_rua = ?"
                        + " AND end_cep = ?",
@@ -120,30 +98,27 @@ public class Endereco_Ctrl {
                           + " end_rua = ? AND"
                           + " end_cep = ?";
         
-        try{
-            con = Banco_Ctrl.getInstancia().getConexao();
-            ps = con.prepareStatement(sql_busca);
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+                PreparedStatement ps_busca = con.prepareStatement(sql_busca)){            
             
-            ps.setInt(1, endereco.getNumero());
-            ps.setString(2, endereco.getRua());
-            ps.setString(3, endereco.getCep());
+            ps_busca.setInt(1, endereco.getNumero());
+            ps_busca.setString(2, endereco.getRua());
+            ps_busca.setString(3, endereco.getCep());
             
-            rs = ps.executeQuery();
+            try(ResultSet rs = ps_busca.executeQuery()){
             
-            if(!rs.next()) return false;
-            else{
-                ps = con.prepareStatement(sql_del);
-                ps.setInt(1, endereco.getNumero());
-                ps.setString(2, endereco.getRua());
-                ps.setString(3, endereco.getCep());
-                ps.executeUpdate();
-                
-                return true;
+                if(!rs.next()) return false;
+                else{
+                    try(PreparedStatement ps_del = con.prepareStatement(sql_del)){
+                        ps_del.setInt(1, endereco.getNumero());
+                        ps_del.setString(2, endereco.getRua());
+                        ps_del.setString(3, endereco.getCep());
+                        ps_del.executeUpdate();
+
+                        return true;
+                    }
+                }
             }
-        } finally{
-            rs.close();
-            ps.close();
-            con.close();
         }
     }
 }

@@ -1,6 +1,5 @@
 package Control;
 
-
 import Model.Produto;
 import java.sql.*;
 import java.util.ArrayList;
@@ -63,7 +62,8 @@ public class Produto_Ctrl {
         String sql = "SELECT * FROM produto WHERE ser_id = ?";
                 
         try(Connection con = Banco_Ctrl.getInstancia().getConexao();
-        PreparedStatement ps = con.prepareStatement(sql)){
+                PreparedStatement ps = con.prepareStatement(sql)){
+            
             ps.setInt(1, id);
             
             try(ResultSet rs = ps.executeQuery()){                
@@ -103,7 +103,7 @@ public class Produto_Ctrl {
         }
     }
     
-    public int del_Produto(Produto produto) throws Exception{
+    public int del_Produto(Produto produto) throws SQLException, ClassNotFoundException{
         int retorno = 0;
         String sql_del_ponte = "DELETE FROM plano_produto p_p WHERE "
                              + " p_p.pro_id IN (SELECT p.pro_id FROM produto p"
@@ -113,28 +113,26 @@ public class Produto_Ctrl {
                               calc.calcularValor(produto.getPreco()) + " WHERE"
                             + " p.pla_id IN (SELECT p_p.pla_id FROM plano_produto p_p"
                             + " WHERE p_p.pro_id = " + produto.getId();
-        Connection con = null;
-        Statement st = null;
         
+        Connection con = null;        
         try{
             con = Banco_Ctrl.getInstancia().getConexao();
-            st = con.createStatement();
+            try(Statement st = con.createStatement()){
         
-            con.setAutoCommit(false);
-            
-            retorno += st.executeUpdate(sql_up_plano);
-            retorno += st.executeUpdate(sql_del_ponte);
-            retorno += st.executeUpdate(sql_del_prod);
-            
-            con.commit();
-            
-        } catch(SQLException sqle){
-            con.rollback();
-        } finally{
-            con.close();
-            st.close();
-            
-            return retorno;
+                con.setAutoCommit(false);
+
+                retorno += st.executeUpdate(sql_up_plano);
+                retorno += st.executeUpdate(sql_del_ponte);
+                retorno += st.executeUpdate(sql_del_prod);
+
+                con.commit();
+                return retorno;
+            }
+        }catch(SQLException e){
+            if(con!=null) try{con.rollback();} catch(SQLException ex){}
+            throw e;
+        }finally{
+            if(con!=null) try{con.close();} catch(SQLException ex){}            
         }
     }
 }
