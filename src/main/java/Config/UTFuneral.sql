@@ -21,13 +21,13 @@ CREATE TABLE IF NOT EXISTS produto(
                 pro_nome VARCHAR(255),
                 pro_perecivel BOOLEAN NOT NULL DEFAULT false,
                 pro_quant_estoque INT NOT NULL DEFAULT 0,
-                ser_preco DECIMAL(10,2) NOT NULL DEFAULT 0.00
+                pro_preco DECIMAL(10,2) NOT NULL DEFAULT 0.00
 );
                 
 CREATE TABLE IF NOT EXISTS plano(
                 pla_id INT AUTO_INCREMENT PRIMARY KEY,
                 pla_nome VARCHAR(255),
-                ser_preco DECIMAL(10,2) NOT NULL DEFAULT 0.00
+                pla_preco DECIMAL(10,2) NOT NULL DEFAULT 0.00
 );
 
 CREATE TABLE IF NOT EXISTS plano_produto(                

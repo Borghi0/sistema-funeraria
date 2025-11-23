@@ -117,6 +117,33 @@ public class Usuario_Ctrl {
         }       
     }
     
+    public Usuario ler_User_Login(String email) throws Exception{
+        String sql = "SELECT * FROM usuario WHERE usu_login = ?";
+        
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql)){
+            
+            ps.setString(1, email);
+            
+            try(ResultSet rs = ps.executeQuery()){            
+                while(rs.next()){
+                    if(rs.getString("usu_login").equals(email)) 
+                        return new Usuario(
+                                rs.getString("usu_login"),
+                                rs.getString("usu_senha"),
+                                rs.getString("usu_numero_telefone"),
+                                rs.getBoolean("usu_admin"),
+                                new Endereco(rs.getInt("end_numero"), rs.getString("end_rua"), rs.getString("end_cep")),
+                                Plano_Ctrl.getInstancia().ler_Plano(rs.getInt("pla_id")),
+                                rs.getString("usu_cpf"),
+                                rs.getString("usu_nome"),
+                                rs.getDate("usu_data_natalidade").toLocalDate()
+                        );
+                }
+            }
+            return null;
+        }       
+    }
     
     public int alt_User(Usuario user) throws Exception{
         int retorno = 0;
