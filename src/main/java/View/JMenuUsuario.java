@@ -260,7 +260,7 @@ public class JMenuUsuario extends javax.swing.JFrame implements JanelaRaiz{
 
     private void jAlterarUsuario(){        
         setVisible(false);
-        new JAlterarUsuario(this, usuario).setVisible(true);
+        navegador.mostrarJAlterarUsuario(this, usuario);
     }
     
     private void sair(){

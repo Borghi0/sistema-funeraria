@@ -36,9 +36,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         tbSerProIn.getColumnModel().removeColumn(tbSerProIn.getColumnModel().getColumn(3));                
         
         if(modoCadastro){
-            this.plano = new Plano();
-            this.plano.setListaServicos(new ArrayList<>());
-            this.plano.setListaProdutos(new ArrayList<>());
+            this.plano = new Plano();            
             rtTitulo.setText("Cadastrar plano");
             this.setTitle("Cadastrar plano");
             atualizarInfo();

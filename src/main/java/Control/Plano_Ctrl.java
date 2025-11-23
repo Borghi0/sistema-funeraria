@@ -100,7 +100,7 @@ public class Plano_Ctrl {
             con = Banco_Ctrl.getInstancia().getConexao();
             con.setAutoCommit(false);
             
-            String sql = "UPDATE plano SET pla_nome = ?, pla_preco = ?";
+            String sql = "UPDATE plano SET pla_nome = ?, pla_preco = ? WHERE pla_id = ?";
             
             try(PreparedStatement ps = con.prepareStatement(sql)){            
                 ps.setString(1, plano.getNome());

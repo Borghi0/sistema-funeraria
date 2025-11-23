@@ -9,8 +9,8 @@ public class Plano extends Ofertavel{
 
     public Plano(){
         super();
-        this.listaServicos = null;
-        this.listaProdutos = null;
+        this.listaServicos = new ArrayList<>();
+        this.listaProdutos = new ArrayList<>();
     }
     public Plano(ArrayList<Servico> listaServico, ArrayList<Produto> listaProduto, double preco, String nome, int id) {
         super(preco, nome, id);
