@@ -59,27 +59,24 @@ public class Produto_Ctrl {
     public Produto ler_Produto(int id) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM produto WHERE ser_id = ?";
                 
-        Connection con = Banco_Ctrl.getInstancia().getConexao();
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
-
-        Produto produto = null;
-        
-        if(rs.next())
-            produto = new Produto(
-                    rs.getBoolean("pro_perecivel"),                
-                    rs.getInt("pro_quant_estoque"),
-                    rs.getInt("pro_preco"),
-                    rs.getString("pro_nome"),
-                    rs.getInt("pro_id")
-            );
-        
-        rs.close();
-        ps.close();
-        con.close();
-        
-        return produto;
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+        PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, id);
+            
+            try(ResultSet rs = ps.executeQuery()){                
+                Produto produto = null;
+                
+                if(rs.next())
+                    produto = new Produto(
+                            rs.getBoolean("pro_perecivel"),                
+                            rs.getInt("pro_quant_estoque"),
+                            rs.getInt("pro_preco"),
+                            rs.getString("pro_nome"),
+                            rs.getInt("pro_id")
+                    );                                
+                return produto;
+            }
+        }
     }
     
     public int alt_Produto(Produto produto) throws SQLException, ClassNotFoundException{
