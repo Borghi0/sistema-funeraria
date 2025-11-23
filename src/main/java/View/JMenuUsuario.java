@@ -21,6 +21,7 @@ public class JMenuUsuario extends javax.swing.JFrame implements JanelaRaiz{
         initComponents();        
         setLocationRelativeTo(null);
         
+        rtTitulo.setText("Bem vindo(a), "+usuario.getNome());
         if(usuario.getPlano()==null){
             rtPlano.setText("Você ainda não tem um plano :(");
             btPlano.setVisible(true);
@@ -49,7 +50,7 @@ public class JMenuUsuario extends javax.swing.JFrame implements JanelaRaiz{
         mnOpcoes = new javax.swing.JMenu();
         miAdqPlano = new javax.swing.JMenuItem();
         miAltInfo = new javax.swing.JMenuItem();
-        miAltInfo1 = new javax.swing.JMenuItem();
+        miRestaurar = new javax.swing.JMenuItem();
         miSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -157,14 +158,14 @@ public class JMenuUsuario extends javax.swing.JFrame implements JanelaRaiz{
         });
         mnOpcoes.add(miAltInfo);
 
-        miAltInfo1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miAltInfo1.setText("Restaurar tebelas");
-        miAltInfo1.addActionListener(new java.awt.event.ActionListener() {
+        miRestaurar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        miRestaurar.setText("Restaurar tabelas");
+        miRestaurar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miAltInfo1ActionPerformed(evt);
+                miRestaurarActionPerformed(evt);
             }
         });
-        mnOpcoes.add(miAltInfo1);
+        mnOpcoes.add(miRestaurar);
 
         miSair.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         miSair.setText("Sair...");
@@ -253,9 +254,9 @@ public class JMenuUsuario extends javax.swing.JFrame implements JanelaRaiz{
         listarTab();
     }//GEN-LAST:event_formWindowActivated
 
-    private void miAltInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAltInfo1ActionPerformed
+    private void miRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRestaurarActionPerformed
         listarTab();
-    }//GEN-LAST:event_miAltInfo1ActionPerformed
+    }//GEN-LAST:event_miRestaurarActionPerformed
 
     private void jAlterarUsuario(){        
         setVisible(false);
@@ -324,7 +325,7 @@ public class JMenuUsuario extends javax.swing.JFrame implements JanelaRaiz{
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JMenuItem miAdqPlano;
     private javax.swing.JMenuItem miAltInfo;
-    private javax.swing.JMenuItem miAltInfo1;
+    private javax.swing.JMenuItem miRestaurar;
     private javax.swing.JMenuItem miSair;
     private javax.swing.JMenuBar mnBar;
     private javax.swing.JMenu mnOpcoes;
