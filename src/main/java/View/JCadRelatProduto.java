@@ -29,7 +29,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
         cxEstoque = new javax.swing.JTextField();
         btConfirmar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tbServicos = new javax.swing.JTable();
+        tbProdutos = new javax.swing.JTable();
         rbPerecivel = new javax.swing.JRadioButton();
         rtNome = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
@@ -96,8 +96,8 @@ public class JCadRelatProduto extends javax.swing.JFrame {
             }
         });
 
-        tbServicos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        tbServicos.setModel(new javax.swing.table.DefaultTableModel(
+        tbProdutos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tbProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -113,18 +113,18 @@ public class JCadRelatProduto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tbServicos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tbServicos.setAutoscrolls(false);
-        tbServicos.setMinimumSize(new java.awt.Dimension(380, 0));
-        tbServicos.setPreferredSize(new java.awt.Dimension(380, 0));
-        tbServicos.setRowHeight(30);
-        tbServicos.getTableHeader().setReorderingAllowed(false);
-        tbServicos.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbProdutos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tbProdutos.setAutoscrolls(false);
+        tbProdutos.setMinimumSize(new java.awt.Dimension(380, 0));
+        tbProdutos.setPreferredSize(new java.awt.Dimension(380, 0));
+        tbProdutos.setRowHeight(30);
+        tbProdutos.getTableHeader().setReorderingAllowed(false);
+        tbProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbServicosMouseClicked(evt);
+                tbProdutosMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(tbServicos);
+        jScrollPane3.setViewportView(tbProdutos);
 
         rbPerecivel.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rbPerecivel.setText("Perecível");
@@ -242,9 +242,9 @@ public class JCadRelatProduto extends javax.swing.JFrame {
         confirmar();
     }//GEN-LAST:event_btConfirmarActionPerformed
 
-    private void tbServicosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbServicosMouseClicked
+    private void tbProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProdutosMouseClicked
         selecTabProdutos();
-    }//GEN-LAST:event_tbServicosMouseClicked
+    }//GEN-LAST:event_tbProdutosMouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         try{listarTabProdutos();} catch(Exception e){}
@@ -298,7 +298,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
     }
     
     private void listarTabProdutos() throws Exception{        
-        DefaultTableModel modelo = (DefaultTableModel) tbServicos.getModel();       
+        DefaultTableModel modelo = (DefaultTableModel) tbProdutos.getModel();       
 
         int lin = 0;
         modelo.setRowCount(lin);
@@ -316,16 +316,16 @@ public class JCadRelatProduto extends javax.swing.JFrame {
     }
     
     private void selecTabProdutos(){
-        int linSelec = tbServicos.getSelectedRow();
+        int linSelec = tbProdutos.getSelectedRow();
 
         if(linSelec<0) return;
                 
         Produto produtoSelec = new Produto(
-                tbServicos.getValueAt(linSelec, 3).toString().equals("Sim"),
-                (Integer) tbServicos.getValueAt(linSelec, 4),
-                (Double) tbServicos.getValueAt(linSelec, 2),
-                (String) tbServicos.getValueAt(linSelec, 1),
-                (Integer) tbServicos.getValueAt(linSelec, 0)
+                tbProdutos.getValueAt(linSelec, 3).toString().equals("Sim"),
+                (Integer) tbProdutos.getValueAt(linSelec, 4),
+                (Double) tbProdutos.getValueAt(linSelec, 2),
+                (String) tbProdutos.getValueAt(linSelec, 1),
+                (Integer) tbProdutos.getValueAt(linSelec, 0)
         );        
                         
         int o = JOptionPane.showOptionDialog(
@@ -459,6 +459,6 @@ public class JCadRelatProduto extends javax.swing.JFrame {
     private javax.swing.JLabel rtEstoque;
     private javax.swing.JLabel rtNome;
     private javax.swing.JLabel rtPreco;
-    private javax.swing.JTable tbServicos;
+    private javax.swing.JTable tbProdutos;
     // End of variables declaration//GEN-END:variables
 }
