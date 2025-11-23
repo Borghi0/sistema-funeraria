@@ -65,7 +65,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nome", "Preço", "Tipo", "Prestação"
+                "Id", "Serviço", "Preço", "Tipo", "Prestação"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -385,7 +385,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
             modelo.insertRow(lin, new Object[]{                    
                 servico.getId(),
                 servico.getNome(),
-                servico.getPreco(),
+                String.format("R$ %.2f", servico.getPreco()),
                 servico.getTipo()
             });
             lin++;
@@ -404,7 +404,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
             modelo.insertRow(lin, new Object[]{                    
                 servico.getId(),
                 servico.getNome(),
-                servico.getPreco(),
+                String.format("R$ %.2f", servico.getPreco()),
                 servico.getTipo(),
                 servico.getPrestacao()
             });
