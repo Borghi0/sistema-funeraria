@@ -385,11 +385,11 @@ public class JCadRelatProduto extends javax.swing.JFrame {
         if(o==0){            
             try{
                 produto.setQuantEstoque(Integer.parseInt(cxQuantE.getText()));                
-                Produto_Ctrl.getInstancia().alt_Produto(produto);                
-                JOptionPane.showMessageDialog(
-                            null, "Estoque atualizado!",
-                            "Sucesso!", JOptionPane.INFORMATION_MESSAGE
-                );                
+                if(Produto_Ctrl.getInstancia().alt_Produto(produto)>0)
+                    JOptionPane.showMessageDialog(
+                                null, "Estoque atualizado!",
+                                "Sucesso!", JOptionPane.INFORMATION_MESSAGE
+                    );                
             }catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(
                     null, "Erro no formato do número:\n" + e,
