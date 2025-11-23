@@ -466,7 +466,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
                 );
         if(o==0){
             try {
-                if(Servico_Ctrl.getInstancia().del_Servico(servico))
+                if(Servico_Ctrl.getInstancia().del_Servico(servico)>0)
                     JOptionPane.showMessageDialog(
                             null, "Serviço deletado!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE

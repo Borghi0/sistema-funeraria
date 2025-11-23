@@ -19,7 +19,7 @@ public class Plano_Ctrl {
         return instancia;
     }
     
-    public void cad_Plano(Plano plano) throws Exception{
+    public void cad_Plano(Plano plano) throws SQLException, ClassNotFoundException{
         Connection con = null;
         try{
             con = Banco_Ctrl.getInstancia().getConexao();
@@ -50,7 +50,7 @@ public class Plano_Ctrl {
         }
     }
     
-    public List<Plano> ler_Plano() throws Exception{        
+    public List<Plano> ler_Plano() throws SQLException, ClassNotFoundException{        
         String sql = "SELECT * FROM plano";
         List<Plano> planos = new ArrayList();
         
@@ -71,33 +71,30 @@ public class Plano_Ctrl {
         return planos;        
     }
     
-    public Plano ler_Plano(int id) throws Exception{
+    public Plano ler_Plano(int id) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM plano WHERE pla_id = ?";
                 
-        Connection con = Banco_Ctrl.getInstancia().getConexao();
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
-      
-        Plano plano = null;
-        
-        if(rs.next())
-            plano = new Plano(
-                    getServicos(rs.getInt("pla_id")),
-                    getProdutos(rs.getInt("pla_id")),
-                    rs.getDouble("pla_preco"),
-                    rs.getString("pla_nome"),
-                    rs.getInt("pla_id")
-            );
-        
-        rs.close();
-        ps.close();
-        con.close();
-        
-        return plano;
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, id);
+            
+            try(ResultSet rs = ps.executeQuery()){
+                Plano plano = null;
+                
+                if(rs.next())
+                    plano = new Plano(
+                            getServicos(rs.getInt("pla_id")),
+                            getProdutos(rs.getInt("pla_id")),
+                            rs.getDouble("pla_preco"),
+                            rs.getString("pla_nome"),
+                            rs.getInt("pla_id")
+                    );
+                return plano;
+            }            
+        }
     }
     
-    public void alt_Plano(Plano plano) throws Exception{
+    public void alt_Plano(Plano plano) throws SQLException, ClassNotFoundException{
         Connection con = null;
         try{
             con = Banco_Ctrl.getInstancia().getConexao();
@@ -124,7 +121,7 @@ public class Plano_Ctrl {
         }
     }
     
-    public boolean del_Plano(Plano plano) throws Exception{
+    public boolean del_Plano(Plano plano) throws SQLException, ClassNotFoundException{
         Connection con = null;
         try{
             con = Banco_Ctrl.getInstancia().getConexao();
@@ -154,44 +151,43 @@ public class Plano_Ctrl {
         }
     }
     
-    public ArrayList<Servico> getServicos(int id) throws Exception{
+    public ArrayList<Servico> getServicos(int id) throws SQLException, ClassNotFoundException{
         ArrayList<Servico> Servicos = new ArrayList();
         
         String sql = "SELECT * FROM plano_servico WHERE pla_id = ?";
              
-        Connection con = Banco_Ctrl.getInstancia().getConexao();
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
-
-        while(rs.next()){            
-            Servicos.add(Servico_Ctrl.getInstancia().ler_Servico(rs.getInt("ser_id")));
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, id);
+            
+            try(ResultSet rs = ps.executeQuery()){
+                while(rs.next()){            
+                    Servicos.add(Servico_Ctrl.getInstancia().ler_Servico(rs.getInt("ser_id")));
+                }
+                return Servicos;
+            }
         }
-        
-        return Servicos;
     }
-    public ArrayList<Produto> getProdutos(int id) throws Exception{
+    
+    public ArrayList<Produto> getProdutos(int id) throws SQLException, ClassNotFoundException{
         ArrayList<Produto> Produtos = new ArrayList();
         
         String sql = "SELECT * FROM plano_produto WHERE pla_id = ?";
              
-        Connection con = Banco_Ctrl.getInstancia().getConexao();
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
-
-        while(rs.next()){            
-            Produtos.add(Produto_Ctrl.getInstancia().ler_Produto(rs.getInt("pro_id")));
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();                
+                PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, id);
+            
+            try(ResultSet rs = ps.executeQuery()){
+                while(rs.next()){            
+                    Produtos.add(Produto_Ctrl.getInstancia().ler_Produto(rs.getInt("pro_id")));
+                }
+            }
+            return Produtos;
         }
-        
-        rs.close();
-        ps.close();
-        con.close();
-        
-        return Produtos;
     }
 
-    private void cad_Relacionamentos(Plano plano, Connection con) throws Exception{
+    private void cad_Relacionamentos(Plano plano, Connection con) throws SQLException, ClassNotFoundException{
         if(plano.getListaServicos()!=null){        
             String sqlSer = "INSERT INTO plano_servico (pla_id, ser_id) VALUES (?, ?)";
                 
@@ -221,7 +217,7 @@ public class Plano_Ctrl {
         }
     }
 
-    private void del_Relacionamentos(Plano plano, Connection con) throws Exception{
+    private void del_Relacionamentos(Plano plano, Connection con) throws SQLException, ClassNotFoundException{
         String sqlSer = "DELETE FROM plano_servico WHERE pla_id = ?";
         
         try(PreparedStatement ps = con.prepareStatement(sqlSer)){

@@ -82,7 +82,6 @@ public class Servico_Ctrl {
         }
     }
     
-
     public List<Servico> ler_ServicoGenerico() throws SQLException, ClassNotFoundException{        
         String sql = "SELECT * FROM servico WHERE ser_prestacao IS NULL";
         List<Servico> servicos = new ArrayList();
@@ -129,14 +128,14 @@ public class Servico_Ctrl {
         //Ainda não implementado
     }
     
-    public boolean del_Servico(Servico servico) throws SQLException, ClassNotFoundException{
+    public int del_Servico(Servico servico) throws SQLException, ClassNotFoundException{
         String sql = "DELETE FROM servico WHERE ser_id = ?";
         
         try(Connection con = Banco_Ctrl.getInstancia().getConexao();
                 PreparedStatement ps = con.prepareStatement(sql)){
             
             ps.setInt(1, servico.getId());
-            return ps.executeUpdate()>0;
+            return ps.executeUpdate();
         }
     }
 }
