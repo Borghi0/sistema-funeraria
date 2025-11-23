@@ -35,7 +35,7 @@ public class Produto_Ctrl {
         }
     }
     
-    public List<Produto> ler_Produto() throws Exception{
+    public List<Produto> ler_Produto() throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM produto";
         List<Produto> produtos = new ArrayList();
                 
@@ -56,7 +56,7 @@ public class Produto_Ctrl {
         return produtos;                                         
     }
     
-    public Produto ler_Produto(int id) throws Exception{
+    public Produto ler_Produto(int id) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM produto WHERE ser_id = ?";
                 
         Connection con = Banco_Ctrl.getInstancia().getConexao();
