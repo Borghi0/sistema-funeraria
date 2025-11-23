@@ -4,18 +4,24 @@ import Control.NavegadorUI;
 import Control.Usuario_Ctrl;
 import Model.Endereco;
 import Model.Usuario;
+import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class JRelatorioUsuario extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JRelatorioUsuario.class.getName());
     private NavegadorUI navegador;
+    private Usuario usuario;
     
-    public JRelatorioUsuario(NavegadorUI navegador) {
-        this.navegador = navegador;        
+    public JRelatorioUsuario(){
+        initComponents();
+    }
+    
+    public JRelatorioUsuario(NavegadorUI navegador, Usuario usuario) {
+        this.navegador = navegador;
+        this.usuario = usuario;
         initComponents();       
-        setLocationRelativeTo(null);
-        
         tbUsers.getColumnModel().removeColumn(tbUsers.getColumnModel().getColumn(8));
     }
 
@@ -28,8 +34,8 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         tbUsers = new javax.swing.JTable();
         barraMenu = new javax.swing.JMenuBar();
         mbOpcoes1 = new javax.swing.JMenu();
-        miRestaurar = new javax.swing.JMenuItem();
-        miFechar = new javax.swing.JMenuItem();
+        miRestaurar1 = new javax.swing.JMenuItem();
+        miFechar1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -67,15 +73,15 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         mbOpcoes1.setText("Opções");
         mbOpcoes1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
 
-        miRestaurar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miRestaurar.setText("Restaurar Tabela");
-        miRestaurar.addActionListener(this::miRestaurarActionPerformed);
-        mbOpcoes1.add(miRestaurar);
+        miRestaurar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        miRestaurar1.setText("Restaurar Tabela");
+        miRestaurar1.addActionListener(this::miRestaurar1ActionPerformed);
+        mbOpcoes1.add(miRestaurar1);
 
-        miFechar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miFechar.setText("Fechar");
-        miFechar.addActionListener(this::miFecharActionPerformed);
-        mbOpcoes1.add(miFechar);
+        miFechar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        miFechar1.setText("Fechar");
+        miFechar1.addActionListener(this::miFechar1ActionPerformed);
+        mbOpcoes1.add(miFechar1);
 
         barraMenu.add(mbOpcoes1);
 
@@ -101,18 +107,14 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         listar_tabela();
     }//GEN-LAST:event_formWindowActivated
 
-    private void miRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRestaurarActionPerformed
-        listar_tabela();
-    }//GEN-LAST:event_miRestaurarActionPerformed
-
-    private void miFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miFecharActionPerformed
-        dispose();
-    }//GEN-LAST:event_miFecharActionPerformed
-
     private void tbUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbUsersMouseClicked
         selecTab();
     }//GEN-LAST:event_tbUsersMouseClicked
-        
+
+    /**
+     * @param args the command line arguments
+     */
+    
     private void listar_tabela(){
         int linha = 0;
         DefaultTableModel modelo = (DefaultTableModel) tbUsers.getModel();
@@ -191,38 +193,9 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         }
     }
     
-    private void tornarAdmin(Usuario user){
-        if(user.isAdmin()) return;
-        
-        int o = JOptionPane.showOptionDialog(
-                        null, "Deseja realmente tonar o usuário um administrador?", "CPF do usuário: "+user.getCpf(),
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, 
-                        null, new Object[]{"Sim...", "Não"}, "Não"
-                );
-        if(o==0){
-            try {
-                user.setAdmin(true);
-                if(Usuario_Ctrl.getInstancia().del_User(user)>0)
-                    JOptionPane.showMessageDialog(
-                            null, "Usuário atualizado!",
-                            "Sucesso!", JOptionPane.INFORMATION_MESSAGE
-                    );
-                else{
-                    JOptionPane.showMessageDialog(
-                            null, "Usuário não encontrado!",
-                            "Erro!", JOptionPane.ERROR_MESSAGE
-                    );
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(
-                    null, "Erro na busca:\n" + e,
-                    "Erro!", JOptionPane.ERROR_MESSAGE
-                );
-            }
-        }
+    void tornarAdmin(Usuario user){
+        //Não implementado ainda
     }
-    
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -242,15 +215,23 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new JRelatorioUsuario(new NavegadorUI()).setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new JRelatorioUsuario().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu mbOpcoes1;
-    private javax.swing.JMenuItem miFechar;
-    private javax.swing.JMenuItem miRestaurar;
+    private javax.swing.JMenuItem miFechar1;
+    private javax.swing.JMenuItem miRestaurar1;
     private javax.swing.JTable tbUsers;
     // End of variables declaration//GEN-END:variables
+
+    private void miRestaurar1ActionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void miFechar1ActionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

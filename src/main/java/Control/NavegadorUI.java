@@ -183,8 +183,8 @@ public class NavegadorUI {
         jCadRelatServico.toFront();
     }
     
-    public void mostrarJRelatorioUsuario(){
-        if(jRelatorioUsuario == null) jRelatorioUsuario = new JRelatorioUsuario(this);
+    public void mostrarJRelatorioUsuario(Usuario usuario){
+        if(jRelatorioUsuario == null) jRelatorioUsuario = new JRelatorioUsuario(this, usuario);
         
         jRelatorioUsuario.setVisible(true);
         jRelatorioUsuario.toFront();
@@ -198,10 +198,10 @@ public class NavegadorUI {
     }
     
     public void mostrarJRelatorioDefunto(){
-        if(jRelatorioUsuario == null) jRelatorioUsuario = new JRelatorioUsuario(this);
+        //if(jRelatorioUsuario == null) jRelatorioUsuario = new JRelatorioUsuario(this);
         
-        jRelatorioUsuario.setVisible(true);
-        jRelatorioUsuario.toFront();
+        //jRelatorioUsuario.setVisible(true);
+        //jRelatorioUsuario.toFront();
     }
     public void mostrarJCadRelatProduto(){
         if(jCadRelatProduto == null) jCadRelatProduto = new JCadRelatProduto();

@@ -354,7 +354,7 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
     }//GEN-LAST:event_miRelatDefuntosActionPerformed
 
     private void miRelatUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatUsuariosActionPerformed
-        navegador.mostrarJRelatorioUsuario();
+        navegador.mostrarJRelatorioUsuario(usuario);
     }//GEN-LAST:event_miRelatUsuariosActionPerformed
 
     private void miRelatProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatProdutosActionPerformed
