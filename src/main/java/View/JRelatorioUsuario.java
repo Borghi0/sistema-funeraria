@@ -46,17 +46,17 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
 
         tbUsers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nome", "CPF", "email", "Telefone", "Admin", "Logradouro", "Numero", "Plano", "Endereco"
+                "Nome", "CPF", "email", "Telefone", "Admin", "Logradouro", "Numero", "Plano"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -228,7 +228,7 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void miRestaurar1ActionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        listar_tabela();
     }
 
     private void miFechar1ActionPerformed(ActionEvent e) {

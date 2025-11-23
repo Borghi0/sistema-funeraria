@@ -9,8 +9,11 @@ import java.util.List;
 
 public class Produto_Ctrl {
     private static Produto_Ctrl instancia;
+    private Calculadora calc;
     
-    private Produto_Ctrl(){}
+    private Produto_Ctrl(){
+        calc = new Calculadora(new DescontoProduto());
+    }
     
     public static Produto_Ctrl getInstancia(){
         if(instancia == null) instancia = new Produto_Ctrl();
@@ -73,7 +76,38 @@ public class Produto_Ctrl {
         //Ainda não implementado
     }
     
-    public void del_Produto(Produto produto){
-        //Ainda não implementado
+    public int del_Produto(Produto produto) throws Exception{
+        int retorno = 0;
+        String sql_del_ponte = "DELETE FROM plano_produto p_p WHERE "
+                             + " p_p.pro_id IN (SELECT p.pro_id FROM produto p"
+                             + " WHERE p.pro_id = " + produto.getId(),
+               sql_del_prod = "DELETE FROM produto WHERE pro_id = " + produto.getId(),
+               sql_up_plano = "UPDATE FROM plano p SET pla_preco = pla_preco - " +
+                              calc.calcularValor(produto.getPreco()) + " WHERE"
+                            + " p.pla_id IN (SELECT p_p.pla_id FROM plano_produto p_p"
+                            + " WHERE p_p.pro_id = " + produto.getId();
+        Connection con = null;
+        Statement st = null;
+        
+        try{
+            con = Banco_Ctrl.getInstancia().getConexao();
+            st = con.createStatement();
+        
+            con.setAutoCommit(false);
+            
+            retorno += st.executeUpdate(sql_up_plano);
+            retorno += st.executeUpdate(sql_del_ponte);
+            retorno += st.executeUpdate(sql_del_prod);
+            
+            con.commit();
+            
+        } catch(SQLException sqle){
+            con.rollback();
+        } finally{
+            con.close();
+            st.close();
+            
+            return retorno;
+        }
     }
 }
