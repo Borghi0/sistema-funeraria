@@ -2,7 +2,7 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-CREATE SCHEMA IF NOT EXISTS `UTFuneral` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+CREATE SCHEMA IF NOT EXISTS `UTFuneral`;
 USE `UTFuneral` ;
 
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`defunto` (
@@ -12,37 +12,25 @@ CREATE TABLE IF NOT EXISTS `UTFuneral`.`defunto` (
   `def_data_obito` DATE NULL DEFAULT NULL,
   `def_tipo_obito` VARCHAR(100) NULL DEFAULT NULL,
   `def_cemiterio` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`def_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`def_id`));
 
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`endereco` (
   `end_numero` INT NOT NULL,
   `end_rua` VARCHAR(255) NOT NULL,
   `end_cep` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`end_numero`, `end_rua`, `end_cep`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`end_numero`, `end_rua`, `end_cep`));
 
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`plano` (
   `pla_id` INT NOT NULL AUTO_INCREMENT,
   `pla_preco` DOUBLE NOT NULL DEFAULT '0',
-  PRIMARY KEY (`pla_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`pla_id`));
 
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`produto` (
   `pro_id` INT NOT NULL AUTO_INCREMENT,
   `pro_perecivel` TINYINT(1) NOT NULL DEFAULT '0',
   `pro_quant_estoque` INT NOT NULL DEFAULT '0',
   `pro_preco` DOUBLE NOT NULL DEFAULT '0',
-  PRIMARY KEY (`pro_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`pro_id`));
 
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`plano_produto` (
   `pla_id` INT NOT NULL,
@@ -66,15 +54,8 @@ CREATE TABLE IF NOT EXISTS `UTFuneral`.`servico` (
   `ser_prestacao` DATE NULL DEFAULT NULL,
   `ser_preco` DOUBLE NOT NULL DEFAULT '0',
   `ser_tipo` VARCHAR(100) NULL DEFAULT NULL,
-  PRIMARY KEY (`ser_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`ser_id`));
 
-
--- -----------------------------------------------------
--- Table `UTFuneral`.`plano_servico`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`plano_servico` (
   `pla_id` INT NOT NULL,
   `SER_id` INT NOT NULL,
@@ -94,15 +75,8 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`sala` (
   `sal_numero` INT NOT NULL AUTO_INCREMENT,
   `sal_capacidade` INT NULL DEFAULT '0',
-  PRIMARY KEY (`sal_numero`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`sal_numero`));
 
-
--- -----------------------------------------------------
--- Table `UTFuneral`.`usuario`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`usuario` (
   `usu_cpf` VARCHAR(50) NOT NULL,
   `usu_nome` VARCHAR(255) NOT NULL,
@@ -124,10 +98,7 @@ CREATE TABLE IF NOT EXISTS `UTFuneral`.`usuario` (
     REFERENCES `UTFuneral`.`endereco` (`end_numero` , `end_rua` , `end_cep`),
   CONSTRAINT `fk_usuario_plano`
     FOREIGN KEY (`pla_id`)
-    REFERENCES `UTFuneral`.`plano` (`pla_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+    REFERENCES `UTFuneral`.`plano` (`pla_id`));
 
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`velorio` (
   `sal_numero` INT NOT NULL,
@@ -142,10 +113,7 @@ CREATE TABLE IF NOT EXISTS `UTFuneral`.`velorio` (
     ON UPDATE RESTRICT,
   CONSTRAINT `fk_velorio_sala`
     FOREIGN KEY (`sal_numero`)
-    REFERENCES `UTFuneral`.`sala` (`sal_numero`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+    REFERENCES `UTFuneral`.`sala` (`sal_numero`));
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
