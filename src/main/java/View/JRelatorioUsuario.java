@@ -12,8 +12,10 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
     private NavegadorUI navegador;
     
     public JRelatorioUsuario(NavegadorUI navegador) {
-        this.navegador = navegador;
+        this.navegador = navegador;        
         initComponents();       
+        setLocationRelativeTo(null);
+        
         tbUsers.getColumnModel().removeColumn(tbUsers.getColumnModel().getColumn(8));
     }
 
@@ -26,8 +28,8 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         tbUsers = new javax.swing.JTable();
         barraMenu = new javax.swing.JMenuBar();
         mbOpcoes1 = new javax.swing.JMenu();
-        miRestaurar1 = new javax.swing.JMenuItem();
-        miFechar1 = new javax.swing.JMenuItem();
+        miRestaurar = new javax.swing.JMenuItem();
+        miFechar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -65,15 +67,15 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         mbOpcoes1.setText("Opções");
         mbOpcoes1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
 
-        miRestaurar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miRestaurar1.setText("Restaurar Tabela");
-        miRestaurar1.addActionListener(this::miRestaurar1ActionPerformed);
-        mbOpcoes1.add(miRestaurar1);
+        miRestaurar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        miRestaurar.setText("Restaurar Tabela");
+        miRestaurar.addActionListener(this::miRestaurarActionPerformed);
+        mbOpcoes1.add(miRestaurar);
 
-        miFechar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miFechar1.setText("Fechar");
-        miFechar1.addActionListener(this::miFechar1ActionPerformed);
-        mbOpcoes1.add(miFechar1);
+        miFechar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        miFechar.setText("Fechar");
+        miFechar.addActionListener(this::miFecharActionPerformed);
+        mbOpcoes1.add(miFechar);
 
         barraMenu.add(mbOpcoes1);
 
@@ -99,13 +101,13 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         listar_tabela();
     }//GEN-LAST:event_formWindowActivated
 
-    private void miRestaurar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRestaurar1ActionPerformed
+    private void miRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRestaurarActionPerformed
         listar_tabela();
-    }//GEN-LAST:event_miRestaurar1ActionPerformed
+    }//GEN-LAST:event_miRestaurarActionPerformed
 
-    private void miFechar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miFechar1ActionPerformed
+    private void miFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miFecharActionPerformed
         dispose();
-    }//GEN-LAST:event_miFechar1ActionPerformed
+    }//GEN-LAST:event_miFecharActionPerformed
 
     private void tbUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbUsersMouseClicked
         selecTab();
@@ -247,8 +249,8 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu mbOpcoes1;
-    private javax.swing.JMenuItem miFechar1;
-    private javax.swing.JMenuItem miRestaurar1;
+    private javax.swing.JMenuItem miFechar;
+    private javax.swing.JMenuItem miRestaurar;
     private javax.swing.JTable tbUsers;
     // End of variables declaration//GEN-END:variables
 }

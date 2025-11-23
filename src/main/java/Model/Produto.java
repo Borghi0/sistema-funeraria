@@ -10,10 +10,10 @@ public class Produto extends Ofertavel{
         this.perecivel = false;
         this.quantEstoque = 0;
     }
-    public Produto(boolean perecivel, int quant_Estoque, double preco, String nome, int id) {
+    public Produto(boolean perecivel, int quantEstoque, double preco, String nome, int id) {
         super(preco, nome, id);
         this.perecivel = perecivel;
-        this.quantEstoque = quant_Estoque;
+        this.quantEstoque = quantEstoque;
     }        
     
     public boolean isPerecivel() {
@@ -28,8 +28,8 @@ public class Produto extends Ofertavel{
         this.perecivel = perecivel;
     }
 
-    public void setQuantEstoque(int quant_Estoque) {
-        this.quantEstoque = quant_Estoque;
+    public void setQuantEstoque(int quantEstoque) {
+        this.quantEstoque = quantEstoque;
     }
     
     @Override
