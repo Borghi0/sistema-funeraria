@@ -12,10 +12,10 @@ public class Plano extends Ofertavel{
         this.listaServicos = null;
         this.listaProdutos = null;
     }
-    public Plano(ArrayList<Servico> lista_Servico, ArrayList<Produto> lista_Produto, double preco, String nome, int id) {
+    public Plano(ArrayList<Servico> listaServico, ArrayList<Produto> listaProduto, double preco, String nome, int id) {
         super(preco, nome, id);
-        this.listaServicos = lista_Servico;
-        this.listaProdutos = lista_Produto;
+        this.listaServicos = listaServico;
+        this.listaProdutos = listaProduto;
     }
 
 
@@ -27,11 +27,11 @@ public class Plano extends Ofertavel{
         return listaProdutos;
     }
 
-    public void setListaServicos(ArrayList<Servico> lista_Servico) {
-        this.listaServicos = lista_Servico;
+    public void setListaServicos(ArrayList<Servico> listaServico) {
+        this.listaServicos = listaServico;
     }
 
-    public void setListaProdutos(ArrayList<Produto> lista_Produto) {
-        this.listaProdutos = lista_Produto;
+    public void setListaProdutos(ArrayList<Produto> listaProduto) {
+        this.listaProdutos = listaProduto;
     }    
 }

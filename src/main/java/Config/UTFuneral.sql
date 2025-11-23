@@ -22,14 +22,16 @@ CREATE TABLE IF NOT EXISTS `UTFuneral`.`endereco` (
 
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`plano` (
   `pla_id` INT NOT NULL AUTO_INCREMENT,
-  `pla_preco` DOUBLE NOT NULL DEFAULT '0',
+  `pla_nome` VARCHAR(255) NULL DEFAULT NULL,
+  `pla_preco` DOUBLE NOT NULL DEFAULT '0',  
   PRIMARY KEY (`pla_id`));
 
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`produto` (
   `pro_id` INT NOT NULL AUTO_INCREMENT,
+  `pro_nome` VARCHAR(255) NULL DEFAULT NULL,
   `pro_perecivel` TINYINT(1) NOT NULL DEFAULT '0',
   `pro_quant_estoque` INT NOT NULL DEFAULT '0',
-  `pro_preco` DOUBLE NOT NULL DEFAULT '0',
+  `pro_preco` DOUBLE NOT NULL DEFAULT '0',  
   PRIMARY KEY (`pro_id`));
 
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`plano_produto` (
@@ -56,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `UTFuneral`.`servico` (
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`plano_servico` (
   `pla_id` INT NOT NULL,
   `ser_id` INT NOT NULL,
-  PRIMARY KEY (`pla_id`, `SER_id`),
+  PRIMARY KEY (`pla_id`, `ser_id`),
   INDEX `pla_id` (`pla_id` ASC) VISIBLE,
   INDEX `ser_id` (`ser_id` ASC) VISIBLE,
   CONSTRAINT `plano_servico_ibfk_1`
