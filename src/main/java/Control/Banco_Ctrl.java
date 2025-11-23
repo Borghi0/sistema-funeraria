@@ -1,13 +1,13 @@
 package Control;
 
 import Model.Banco;
-import Interfaces.I_InicializadorBD;
 import java.sql.*;
+import Interfaces.InicializadorBD;
 
 public class Banco_Ctrl {
     private static Banco_Ctrl instancia;
     private Banco banco;
-    private I_InicializadorBD inicializadorBD;
+    private InicializadorBD inicializadorBD;
     
     private Banco_Ctrl(){
         banco = null;
@@ -38,7 +38,7 @@ public class Banco_Ctrl {
         return banco;
     }
     
-    public I_InicializadorBD getInicializadorBD(){
+    public InicializadorBD getInicializadorBD(){
         return inicializadorBD;
     }
     
@@ -46,7 +46,7 @@ public class Banco_Ctrl {
         this.banco = banco;
     }
     
-    public void setInicializadorBD(I_InicializadorBD inicializadorBD){
+    public void setInicializadorBD(InicializadorBD inicializadorBD){
         this.inicializadorBD = inicializadorBD;
     }    
     

@@ -8,11 +8,15 @@ import Model.Plano;
 import Model.Servico;
 import Model.Produto;
 import Model.Usuario;
+import java.awt.Component;
 import java.awt.Font;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 
 public class JRelatorioPlano extends javax.swing.JFrame {
@@ -29,7 +33,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         if(!usuario.isAdmin()){
             btDelAdq.setText("Adquirir...");
             btAtualizar.setVisible(false);
-        }
+        }                        
     }        
     
     
@@ -91,14 +95,34 @@ public class JRelatorioPlano extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tbPlanos);
+        if (tbPlanos.getColumnModel().getColumnCount() > 0) {
+            tbPlanos.getColumnModel().getColumn(0).setPreferredWidth(15);
+        }
         //minhas configs
         tbPlanos.getColumnModel().getColumn(0).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbPlanos.getColumnModel().getColumn(1).setCellRenderer(
             new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
         );
         tbPlanos.getColumnModel().getColumn(2).setCellRenderer(
             new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
         );
-        tbPlanos.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 18));
+
+        TableCellRenderer centerHeaderRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int column){
+                JLabel lbl = (JLabel) tbPlanos.getTableHeader().getDefaultRenderer().getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, column
+                );
+                lbl.setHorizontalAlignment(SwingConstants.CENTER);
+                return lbl;
+            }
+        };
+        tbPlanos.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);
+        tbPlanos.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
         //fim
 
         cxCodigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -163,6 +187,22 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         tbServicos.setRowHeight(30);
         tbServicos.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tbServicos);
+        //minhas configs
+        tbServicos.getColumnModel().getColumn(0).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbServicos.getColumnModel().getColumn(1).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbServicos.getColumnModel().getColumn(2).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+
+        tbServicos.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);
+        tbServicos.getColumnModel().getColumn(1).setHeaderRenderer(centerHeaderRenderer);
+        tbServicos.getColumnModel().getColumn(2).setHeaderRenderer(centerHeaderRenderer);
+        tbServicos.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        //fim
 
         tbProdutos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tbProdutos.setModel(new javax.swing.table.DefaultTableModel(
@@ -187,6 +227,22 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         tbProdutos.setRowHeight(30);
         tbProdutos.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tbProdutos);
+        //minhas configs
+        tbProdutos.getColumnModel().getColumn(0).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbProdutos.getColumnModel().getColumn(1).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbProdutos.getColumnModel().getColumn(2).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+
+        tbProdutos.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);
+        tbProdutos.getColumnModel().getColumn(1).setHeaderRenderer(centerHeaderRenderer);
+        tbProdutos.getColumnModel().getColumn(2).setHeaderRenderer(centerHeaderRenderer);
+        tbProdutos.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        //fim
 
         rtServicos.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtServicos.setText("Serviços inclusos");
@@ -509,7 +565,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
     
     private void atualizar(Plano plano){
         if(plano==null) return;
-        navegador.mostrarJAltPlano(plano);
+        navegador.mostrarJCadAltPlano(plano, false);
     }
     
     private void adquirir(Plano plano){

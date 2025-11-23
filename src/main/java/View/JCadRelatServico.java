@@ -2,12 +2,19 @@ package View;
 
 import Control.Servico_Ctrl;
 import Model.Servico;
+import java.awt.Component;
+import java.awt.Font;
 import java.sql.SQLException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 
@@ -41,8 +48,8 @@ public class JCadRelatServico extends javax.swing.JFrame {
         btConfirmar = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         mbOpcoes1 = new javax.swing.JMenu();
-        miRestaurar1 = new javax.swing.JMenuItem();
-        miFechar1 = new javax.swing.JMenuItem();
+        miRestaurar = new javax.swing.JMenuItem();
+        miFechar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Serviços");
@@ -81,6 +88,32 @@ public class JCadRelatServico extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(tbServicos);
+        //minhas configs
+        tbServicos.getColumnModel().getColumn(0).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbServicos.getColumnModel().getColumn(1).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+        tbServicos.getColumnModel().getColumn(2).setCellRenderer(
+            new DefaultTableCellRenderer(){{setHorizontalAlignment(SwingConstants.CENTER);}}
+        );
+
+        TableCellRenderer centerHeaderRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int column){
+                JLabel lbl = (JLabel) tbServicos.getTableHeader().getDefaultRenderer().getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, column
+                );
+                lbl.setHorizontalAlignment(SwingConstants.CENTER);
+                return lbl;
+            }
+        };
+        tbServicos.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);
+        tbServicos.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        //fim
 
         opcaoSelec.add(rbGenericos);
         rbGenericos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -159,23 +192,23 @@ public class JCadRelatServico extends javax.swing.JFrame {
         mbOpcoes1.setText("Opções");
         mbOpcoes1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
 
-        miRestaurar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miRestaurar1.setText("Restaurar Tabela");
-        miRestaurar1.addActionListener(new java.awt.event.ActionListener() {
+        miRestaurar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        miRestaurar.setText("Restaurar Tabela");
+        miRestaurar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miRestaurar1ActionPerformed(evt);
+                miRestaurarActionPerformed(evt);
             }
         });
-        mbOpcoes1.add(miRestaurar1);
+        mbOpcoes1.add(miRestaurar);
 
-        miFechar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miFechar1.setText("Fechar");
-        miFechar1.addActionListener(new java.awt.event.ActionListener() {
+        miFechar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        miFechar.setText("Fechar");
+        miFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miFechar1ActionPerformed(evt);
+                miFecharActionPerformed(evt);
             }
         });
-        mbOpcoes1.add(miFechar1);
+        mbOpcoes1.add(miFechar);
 
         barraMenu.add(mbOpcoes1);
 
@@ -222,25 +255,25 @@ public class JCadRelatServico extends javax.swing.JFrame {
                     .addComponent(rtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cxPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btConfirmar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addGap(79, 79, 79)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbGenericos)
                     .addComponent(rbProgramados))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
                 .addGap(39, 39, 39))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void miRestaurar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRestaurar1ActionPerformed
+    private void miRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRestaurarActionPerformed
         restaurar();
-    }//GEN-LAST:event_miRestaurar1ActionPerformed
+    }//GEN-LAST:event_miRestaurarActionPerformed
 
-    private void miFechar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miFechar1ActionPerformed
+    private void miFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miFecharActionPerformed
         dispose();
-    }//GEN-LAST:event_miFechar1ActionPerformed
+    }//GEN-LAST:event_miFecharActionPerformed
 
     private void tbServicosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbServicosMouseClicked
         selecTabServicos();
@@ -267,7 +300,8 @@ public class JCadRelatServico extends javax.swing.JFrame {
     }//GEN-LAST:event_cxNomeKeyPressed
 
     private void cxPrecoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cxPrecoFocusLost
-        // TODO add your handling code here:
+        cxPreco.setText(cxPreco.getText().replaceAll("[^0-9]", ""));
+        cxPreco.setText(cxPreco.getText().replaceAll(",", "."));
     }//GEN-LAST:event_cxPrecoFocusLost
 
     private void cxPrecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cxPrecoKeyPressed
@@ -300,11 +334,13 @@ public class JCadRelatServico extends javax.swing.JFrame {
     private void confirmar(){
         cxNome.setText(cxNome.getText().trim());
         cxTipo.setText(cxTipo.getText().trim());
+        cxPreco.setText(cxPreco.getText().replaceAll("[^0-9]", ""));
+        cxPreco.setText(cxPreco.getText().replaceAll(",", "."));
         
         Servico servico = new Servico(
                 null,
                 cxTipo.getText(),
-                Integer.parseInt(cxPreco.getText()),
+                Double.parseDouble(cxPreco.getText()),
                 cxNome.getText(),
                 0
         );
@@ -430,7 +466,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
                 );
         if(o==0){
             try {
-                if(Servico_Ctrl.getInstancia().del_Servico(servico))
+                if(Servico_Ctrl.getInstancia().del_Servico(servico)>0)
                     JOptionPane.showMessageDialog(
                             null, "Serviço deletado!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE
@@ -547,8 +583,8 @@ public class JCadRelatServico extends javax.swing.JFrame {
     private javax.swing.JTextField cxTipo;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JMenu mbOpcoes1;
-    private javax.swing.JMenuItem miFechar1;
-    private javax.swing.JMenuItem miRestaurar1;
+    private javax.swing.JMenuItem miFechar;
+    private javax.swing.JMenuItem miRestaurar;
     private javax.swing.ButtonGroup opcaoSelec;
     private javax.swing.JRadioButton rbGenericos;
     private javax.swing.JRadioButton rbProgramados;

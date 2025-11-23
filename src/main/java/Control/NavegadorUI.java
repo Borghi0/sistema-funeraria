@@ -1,8 +1,8 @@
 package Control;
 
-import Interfaces.I_JanelaRaiz;
 import View.*;
 import Model.*;
+import Interfaces.JanelaRaiz;
 
 
 public class NavegadorUI {    
@@ -17,7 +17,11 @@ public class NavegadorUI {
     private JCadAltPlano jCadPlano;
     private JCadAltPlano jAltPlano;
     private JCadRelatServico jCadRelatServico;
-    private JCadVelorio jCadVelorio;
+    private JCadAltVelorio jCadVelorio;
+    private JCadAltVelorio jAltVelorio;
+    private JRelatorioUsuario jRelatorioUsuario;
+    private JRelatorioDefunto jRelatorioDefunto;
+    private JCadRelatProduto jCadRelatProduto;
     
     // janelas do usuario
     
@@ -115,14 +119,26 @@ public class NavegadorUI {
             jCadRelatServico.dispose();
             jCadRelatServico = null;
         }
+        if(jRelatorioUsuario != null){
+            jRelatorioUsuario.dispose();
+            jRelatorioUsuario = null;
+        }
         if(jCadVelorio!=null){
             jCadVelorio.dispose();
             jCadVelorio = null;
         }
-    }
-    
-    public void atualizarMenuUsuario(Usuario usuario){
-        jMenuUsuario.setUsuario(usuario);
+        if(jAltVelorio!=null){
+            jAltVelorio.dispose();
+            jAltVelorio = null;
+        }        
+        if(jRelatorioDefunto!=null){
+            jRelatorioDefunto.dispose();
+            jRelatorioDefunto = null;
+        }        
+        if(jCadRelatProduto!=null){
+            jCadRelatProduto.dispose();
+            jCadRelatProduto = null;
+        }
     }
     
     public void mostrarJRelatorioPlano(Usuario usuario){
@@ -132,18 +148,32 @@ public class NavegadorUI {
         jRelatorioPlano.toFront();
     }
     
-    public void mostrarJAltPlano(Plano plano){
-        if(jAltPlano != null) jAltPlano.dispose();
-        
-        jAltPlano = new JCadAltPlano(plano, false);        
-        jAltPlano.setVisible(true);        
+    public void mostrarJCadAltPlano(Plano plano, boolean modoCadastro){
+        if(modoCadastro){
+            if(jCadPlano == null) jCadPlano = new JCadAltPlano(null, true);
+                    
+            jCadPlano.setVisible(true);            
+            jCadPlano.toFront();
+        }else{
+            if(jAltPlano != null) jAltPlano.dispose();
+            
+            jAltPlano = new JCadAltPlano(plano, false);
+            jAltPlano.setVisible(true);
+        }
     }
     
-    public void mostrarJCadPlano(){
-        if(jCadPlano != null) jCadPlano.dispose();
+    public void mostrarJCadAltVelorio(Velorio velorio, boolean modoCadastro){
+        if(modoCadastro){
+            if(jCadVelorio == null) jCadVelorio = new JCadAltVelorio(velorio, true);
+
+            jCadVelorio.setVisible(true);        
+            jCadVelorio.toFront();
+        }else{
+            if(jAltVelorio != null) jAltVelorio.dispose();
         
-        jCadPlano = new JCadAltPlano(null, true);        
-        jCadPlano.setVisible(true);        
+            jAltVelorio = new JCadAltVelorio(velorio, false);        
+            jAltVelorio.setVisible(true);  
+        }
     }
     
     public void mostrarJCadRelatServico(){
@@ -153,17 +183,34 @@ public class NavegadorUI {
         jCadRelatServico.toFront();
     }
     
-    public void mostrarJCadVelorio(){
-        if(jCadVelorio == null) jCadVelorio = new JCadVelorio();
+    public void mostrarJRelatorioUsuario(Usuario usuario){
+        if(jRelatorioUsuario == null) jRelatorioUsuario = new JRelatorioUsuario(this, usuario);
         
-        jCadVelorio.setVisible(true);        
-        jCadVelorio.toFront();
-    }
+        jRelatorioUsuario.setVisible(true);
+        jRelatorioUsuario.toFront();
+    }        
     
-    public void mostrarJAlterarUsuario(I_JanelaRaiz janelaRaiz, Usuario usuario){
+    public void mostrarJAlterarUsuario(JanelaRaiz janelaRaiz, Usuario usuario){
         if(jAlterarUsuario != null) jAlterarUsuario.dispose();
         
         jAlterarUsuario = new JAlterarUsuario(janelaRaiz, usuario);
         jAlterarUsuario.setVisible(true);               
+    }
+    
+    public void mostrarJRelatorioDefunto(){
+        //if(jRelatorioUsuario == null) jRelatorioUsuario = new JRelatorioUsuario(this);
+        
+        //jRelatorioUsuario.setVisible(true);
+        //jRelatorioUsuario.toFront();
+    }
+    public void mostrarJCadRelatProduto(){
+        if(jCadRelatProduto == null) jCadRelatProduto = new JCadRelatProduto();
+        
+        jCadRelatProduto.setVisible(true);
+        jCadRelatProduto.toFront();
+    }
+    
+    public void atualizarMenuUsuario(Usuario usuario){
+        jMenuUsuario.setUsuario(usuario);
     }
 }

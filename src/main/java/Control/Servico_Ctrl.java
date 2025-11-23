@@ -30,7 +30,7 @@ public class Servico_Ctrl {
                 if(servico.getPrestacao()!=null) ps.setDate(2, Date.valueOf(servico.getPrestacao()));
                 else ps.setDate(2, null);
                 
-                ps.setInt(3, servico.getPreco());
+                ps.setDouble(3, servico.getPreco());
                 ps.setString(4, servico.getTipo());
                 
                 ps.executeUpdate();
@@ -38,7 +38,7 @@ public class Servico_Ctrl {
         }
     }
     
-    public List<Servico> ler_Servico() throws Exception{
+    public List<Servico> ler_Servico() throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM servico";
         List<Servico> servicos = new ArrayList();
                 
@@ -50,7 +50,7 @@ public class Servico_Ctrl {
                 servicos.add(new Servico(
                                 rs.getDate("ser_prestacao")==null ? null : rs.getDate("ser_prestacao").toLocalDate(),
                                 rs.getString("ser_tipo"),
-                                rs.getInt("ser_preco"),
+                                rs.getDouble("ser_preco"),
                                 rs.getString("ser_nome"),
                                 rs.getInt("ser_id")                                
                             ));
@@ -59,34 +59,30 @@ public class Servico_Ctrl {
         return servicos;                            
     }
     
-    public Servico ler_Servico(int id) throws Exception{
+    public Servico ler_Servico(int id) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM servico WHERE ser_id = ?";
                 
-        Connection con = Banco_Ctrl.getInstancia().getConexao();
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
-      
-        Servico servico = null;
+        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+            PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, id);
+            
+            try(ResultSet rs = ps.executeQuery()){
+                Servico servico = null;
         
-        if(rs.next())
-            servico = new Servico(
-                    rs.getDate("ser_prestacao")==null ? null : rs.getDate("ser_prestacao").toLocalDate(),
-                    rs.getString("ser_tipo"),
-                    rs.getInt("ser_preco"),
-                    rs.getString("ser_nome"),
-                    rs.getInt("ser_id")
-            );
-        
-        rs.close();
-        ps.close();
-        con.close();
-        
-        return servico;
+                if(rs.next())
+                    servico = new Servico(
+                            rs.getDate("ser_prestacao")==null ? null : rs.getDate("ser_prestacao").toLocalDate(),
+                            rs.getString("ser_tipo"),
+                            rs.getDouble("ser_preco"),
+                            rs.getString("ser_nome"),
+                            rs.getInt("ser_id")
+                    );
+                return servico;
+            }
+        }
     }
     
-
-    public List<Servico> ler_ServicoGenerico() throws Exception{        
+    public List<Servico> ler_ServicoGenerico() throws SQLException, ClassNotFoundException{        
         String sql = "SELECT * FROM servico WHERE ser_prestacao IS NULL";
         List<Servico> servicos = new ArrayList();
                 
@@ -98,7 +94,7 @@ public class Servico_Ctrl {
                 servicos.add(new Servico(
                                 null,
                                 rs.getString("ser_tipo"),
-                                rs.getInt("ser_preco"),
+                                rs.getDouble("ser_preco"),
                                 rs.getString("ser_nome"),
                                 rs.getInt("ser_id")                                
                             ));
@@ -107,7 +103,7 @@ public class Servico_Ctrl {
         return servicos;                            
     }
     
-    public List<Servico> ler_ServicoProgramado() throws Exception{        
+    public List<Servico> ler_ServicoProgramado() throws SQLException, ClassNotFoundException{        
         String sql = "SELECT * FROM servico WHERE ser_prestacao IS NOT NULL";
         List<Servico> servicos = new ArrayList();
                 
@@ -119,7 +115,7 @@ public class Servico_Ctrl {
                 servicos.add(new Servico(
                                 rs.getDate("ser_prestacao").toLocalDate(),
                                 rs.getString("ser_tipo"),
-                                rs.getInt("ser_preco"),
+                                rs.getDouble("ser_preco"),
                                 rs.getString("ser_nome"),
                                 rs.getInt("ser_id")                                
                             ));
@@ -132,14 +128,14 @@ public class Servico_Ctrl {
         //Ainda não implementado
     }
     
-    public boolean del_Servico(Servico servico) throws Exception{
+    public int del_Servico(Servico servico) throws SQLException, ClassNotFoundException{
         String sql = "DELETE FROM servico WHERE ser_id = ?";
         
         try(Connection con = Banco_Ctrl.getInstancia().getConexao();
                 PreparedStatement ps = con.prepareStatement(sql)){
             
             ps.setInt(1, servico.getId());
-            return ps.executeUpdate()>0;
+            return ps.executeUpdate();
         }
     }
 }

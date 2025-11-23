@@ -29,19 +29,26 @@ public class JSala extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        rtSalas = new javax.swing.JLabel();
-        rtSelecaoSala = new javax.swing.JLabel();
-        cbSala = new javax.swing.JComboBox<>();
+        tbSalas = new javax.swing.JTable();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        pmOpcoesTabela = new javax.swing.JPopupMenu();
+        pmiEditar = new javax.swing.JMenuItem();
+        pmiDeletar = new javax.swing.JMenuItem();
         spInfoSala = new javax.swing.JScrollPane();
         tbInfoSala = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         mnBar = new javax.swing.JMenuBar();
         mnSala = new javax.swing.JMenu();
         mniSala1 = new javax.swing.JMenuItem();
         mniSala2 = new javax.swing.JMenuItem();
         mniSala3 = new javax.swing.JMenuItem();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbSalas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -52,30 +59,66 @@ public class JSala extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbSalas);
+
+        pmiEditar.setText("jMenuItem1");
+        pmOpcoesTabela.add(pmiEditar);
+
+        pmiDeletar.setText("jMenuItem1");
+        pmOpcoesTabela.add(pmiDeletar);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        rtSalas.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        rtSalas.setText("Salas");
-
-        rtSelecaoSala.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        rtSelecaoSala.setText("Selecione a sala desejada:");
-
-        cbSala.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sala 1", "Sala 2", "Sala 3" }));
-
         tbInfoSala.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Sala", "Nome do Defunto", "Capacidade", "Disponibilidade", "Inicio do Velorio", "Fim do Velorio"
+                "Sala", "Capacidade"
             }
         ));
+        tbInfoSala.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbInfoSalaMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbInfoSalaMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbInfoSalaMouseReleased(evt);
+            }
+        });
         spInfoSala.setViewportView(tbInfoSala);
+
+        jLabel1.setText("Código: ");
+
+        jLabel2.setText("Capacidade");
+
+        jTextField1.setText("jTextField1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jTextField2.setText("jTextField2");
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         mnSala.setText("Opções");
 
@@ -102,32 +145,43 @@ public class JSala extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(spInfoSala, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(spInfoSala, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(rtSelecaoSala)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(310, 310, 310)
-                        .addComponent(rtSalas)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rtSalas)
-                .addGap(79, 79, 79)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rtSelecaoSala)
-                    .addComponent(cbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(spInfoSala, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addGap(18, 18, 18)
+                .addComponent(spInfoSala, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -137,6 +191,33 @@ public class JSala extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_mniSala1ActionPerformed
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tbInfoSalaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbInfoSalaMouseClicked
+        if(evt.getButton() == java.awt.event.MouseEvent.BUTTON1) menu_suspenso();
+    }//GEN-LAST:event_tbInfoSalaMouseClicked
+
+    private void tbInfoSalaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbInfoSalaMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbInfoSalaMousePressed
+
+    private void tbInfoSalaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbInfoSalaMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbInfoSalaMouseReleased
+    
+    private void menu_suspenso(){
+        tbSalas.setComponentPopupMenu(pmOpcoesTabela);
+    }
     /**
      * @param args the command line arguments
      */
@@ -163,17 +244,24 @@ public class JSala extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbSala;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JMenuBar mnBar;
     private javax.swing.JMenu mnSala;
     private javax.swing.JMenuItem mniSala1;
     private javax.swing.JMenuItem mniSala2;
     private javax.swing.JMenuItem mniSala3;
-    private javax.swing.JLabel rtSalas;
-    private javax.swing.JLabel rtSelecaoSala;
+    private javax.swing.JPopupMenu pmOpcoesTabela;
+    private javax.swing.JMenuItem pmiDeletar;
+    private javax.swing.JMenuItem pmiEditar;
     private javax.swing.JScrollPane spInfoSala;
     private javax.swing.JTable tbInfoSala;
+    private javax.swing.JTable tbSalas;
     // End of variables declaration//GEN-END:variables
 }

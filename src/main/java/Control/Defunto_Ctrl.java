@@ -31,9 +31,9 @@ public class Defunto_Ctrl {
             ps = con.prepareStatement(sql);
 
             ps.setString(1, defunto.getNome());            
-            ps.setDate(2, Date.valueOf(defunto.getData_natalidade()));
-            ps.setDate(3, Date.valueOf(defunto.getData_Obito()));
-            ps.setString(4, defunto.getTipo_Obito());
+            ps.setDate(2, Date.valueOf(defunto.getDataNatalidade()));
+            ps.setDate(3, Date.valueOf(defunto.getDataObito()));
+            ps.setString(4, defunto.getTipoObito());
             ps.setString(5, defunto.getCemiterio());
             
             ps.executeUpdate();
@@ -109,9 +109,9 @@ public class Defunto_Ctrl {
             ps = con.prepareStatement(sql);
             
             ps.setString(1, defunto.getNome());
-            ps.setDate(2, Date.valueOf(defunto.getData_natalidade()));
-            ps.setDate(3, Date.valueOf(defunto.getData_Obito()));
-            ps.setString(4, defunto.getTipo_Obito());
+            ps.setDate(2, Date.valueOf(defunto.getDataNatalidade()));
+            ps.setDate(3, Date.valueOf(defunto.getDataObito()));
+            ps.setString(4, defunto.getTipoObito());
             ps.setString(5, defunto.getCemiterio());
             ps.setInt(6, id);
             
@@ -123,19 +123,30 @@ public class Defunto_Ctrl {
     }
     
     public int del_Defunto(Defunto defunto) throws Exception{
-        int id = defunto.getId();
-        String sql_del = "DELETE FROM defunto WHERE def_id = ?";
+        int id = defunto.getId(),
+            retorno = 0;
+        String sql_del_def = "DELETE FROM defunto WHERE def_id = " + id,
+               sql_del_vel = "DELETE FROM velorio WHERE def_id = " + id;
+        Connection con = null;
+        Statement st = null;
         
         try{
             con = Banco_Ctrl.getInstancia().getConexao();
-            ps = con.prepareStatement(sql_del);
+            st = con.createStatement();
             
-            ps.setInt(1, id);
+            con.setAutoCommit(false);
             
-            return ps.executeUpdate();
-        } finally{
-            ps.close();
+            retorno += st.executeUpdate(sql_del_vel);
+            retorno += st.executeUpdate(sql_del_def);
+            
+            con.commit();
+        } catch(SQLException sqle){
+            con.rollback();
+        }finally{
+            st.close();
             con.close();
+            
+            return retorno;
         }
     }
 }

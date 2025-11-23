@@ -4,40 +4,34 @@ import java.util.ArrayList;
 
 
 public class Plano extends Ofertavel{
-    private ArrayList<Servico> lista_Servico;
-    private ArrayList<Produto> lista_Produto;
+    private ArrayList<Servico> listaServicos;
+    private ArrayList<Produto> listaProdutos;
 
     public Plano(){
         super();
-        this.lista_Servico = null;
-        this.lista_Produto = null;
+        this.listaServicos = null;
+        this.listaProdutos = null;
     }
-    public Plano(ArrayList<Servico> lista_Servico, ArrayList<Produto> lista_Produto, int preco, String nome, int id) {
+    public Plano(ArrayList<Servico> lista_Servico, ArrayList<Produto> lista_Produto, double preco, String nome, int id) {
         super(preco, nome, id);
-        this.lista_Servico = lista_Servico;
-        this.lista_Produto = lista_Produto;
+        this.listaServicos = lista_Servico;
+        this.listaProdutos = lista_Produto;
     }
 
 
-    public ArrayList<Servico> getLista_Servico() {
-        return lista_Servico;
+    public ArrayList<Servico> getListaServicos() {
+        return listaServicos;
     }
 
-    public ArrayList<Produto> getLista_Produto() {
-        return lista_Produto;
+    public ArrayList<Produto> getListaProdutos() {
+        return listaProdutos;
     }
 
-    public void setLista_Servico(ArrayList<Servico> lista_Servico) {
-        this.lista_Servico = lista_Servico;
+    public void setListaServicos(ArrayList<Servico> lista_Servico) {
+        this.listaServicos = lista_Servico;
     }
 
-    public void setLista_Produto(ArrayList<Produto> lista_Produto) {
-        this.lista_Produto = lista_Produto;
-    }
-    
-    public void removerOfertavel(Ofertavel ofertavel){
-        if (ofertavel==null);
-        else if(ofertavel instanceof Servico) lista_Servico.remove((Servico) ofertavel);
-        else if(ofertavel instanceof Produto) lista_Produto.remove((Produto) ofertavel);
-    }
+    public void setListaProdutos(ArrayList<Produto> lista_Produto) {
+        this.listaProdutos = lista_Produto;
+    }    
 }

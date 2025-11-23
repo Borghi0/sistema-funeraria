@@ -61,9 +61,9 @@ public class Velorio_Ctrl {
                 intermediarioD.setCemiterio(rs.getString("end_cemiterio"));
                 intermediarioD.setId(rs.getInt("def_id"));
                 intermediarioD.setNome(rs.getString("def_nome"));
-                intermediarioD.setData_natalidade(rs.getDate("def_data_natalidade").toLocalDate());
-                intermediarioD.setData_Obito(rs.getDate("def_data_obito").toLocalDate());
-                intermediarioD.setTipo_Obito(rs.getString("def_tipo_obito"));
+                intermediarioD.setDataNatalidade(rs.getDate("def_data_natalidade").toLocalDate());
+                intermediarioD.setDataObito(rs.getDate("def_data_obito").toLocalDate());
+                intermediarioD.setTipoObito(rs.getString("def_tipo_obito"));
                 
                 return new Velorio(intermediarioS, data, intermediarioD);
             }
@@ -127,6 +127,20 @@ public class Velorio_Ctrl {
         ){
             ps.setInt(1, velorio.getSala().getNumero());
             ps.setTimestamp(2, Timestamp.valueOf(velorio.getData()));
+            
+            return ps.executeUpdate();
+        }
+    }
+    
+    public int del_Velorio(int numero, LocalDateTime data) throws Exception{
+        String sql = "DELETE FROM velorio WHERE sal_numero = ? AND vel_data_horario = ?";
+        
+        try(
+            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            PreparedStatement ps = con.prepareStatement(sql);
+        ){
+            ps.setInt(1, numero);
+            ps.setTimestamp(2, Timestamp.valueOf(data));
             
             return ps.executeUpdate();
         }
