@@ -37,8 +37,8 @@ public class JCadAltPlano extends javax.swing.JFrame {
         
         if(modoCadastro){
             this.plano = new Plano();
-            plano.setListaServicos(new ArrayList<>());
-            plano.setListaProdutos(new ArrayList<>());
+            this.plano.setListaServicos(new ArrayList<>());
+            this.plano.setListaProdutos(new ArrayList<>());
             rtTitulo.setText("Cadastrar plano");
             this.setTitle("Cadastrar plano");
             atualizarInfo();
