@@ -13,6 +13,7 @@ import Model.Produto;
 import Model.Servico;
 import java.awt.Component;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -35,9 +36,12 @@ public class JCadAltPlano extends javax.swing.JFrame {
         tbSerProIn.getColumnModel().removeColumn(tbSerProIn.getColumnModel().getColumn(3));                
         
         if(modoCadastro){
-            this.plano = new Plano();            
+            this.plano = new Plano();
+            plano.setListaServicos(new ArrayList<>());
+            plano.setListaProdutos(new ArrayList<>());
             rtTitulo.setText("Cadastrar plano");
             this.setTitle("Cadastrar plano");
+            atualizarInfo();
         }
         else {
             initInfo();            
