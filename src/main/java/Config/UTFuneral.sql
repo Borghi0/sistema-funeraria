@@ -43,10 +43,7 @@ CREATE TABLE IF NOT EXISTS `UTFuneral`.`plano_produto` (
     REFERENCES `UTFuneral`.`plano` (`pla_id`),
   CONSTRAINT `plano_produto_ibfk_2`
     FOREIGN KEY (`pro_id`)
-    REFERENCES `UTFuneral`.`produto` (`pro_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+    REFERENCES `UTFuneral`.`produto` (`pro_id`));
 
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`servico` (
   `ser_id` INT NOT NULL AUTO_INCREMENT,
@@ -58,19 +55,16 @@ CREATE TABLE IF NOT EXISTS `UTFuneral`.`servico` (
 
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`plano_servico` (
   `pla_id` INT NOT NULL,
-  `SER_id` INT NOT NULL,
+  `ser_id` INT NOT NULL,
   PRIMARY KEY (`pla_id`, `SER_id`),
   INDEX `pla_id` (`pla_id` ASC) VISIBLE,
-  INDEX `SER_id` (`SER_id` ASC) VISIBLE,
+  INDEX `ser_id` (`ser_id` ASC) VISIBLE,
   CONSTRAINT `plano_servico_ibfk_1`
     FOREIGN KEY (`pla_id`)
     REFERENCES `UTFuneral`.`plano` (`pla_id`),
   CONSTRAINT `plano_servico_ibfk_2`
-    FOREIGN KEY (`SER_id`)
-    REFERENCES `UTFuneral`.`servico` (`ser_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+    FOREIGN KEY (`ser_id`)
+    REFERENCES `UTFuneral`.`servico` (`ser_id`));
 
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`sala` (
   `sal_numero` INT NOT NULL AUTO_INCREMENT,
