@@ -234,7 +234,7 @@ public final class JLogin extends javax.swing.JFrame {
     public void entrar(){
         cxEmail.setText(cxEmail.getText().replaceAll("\\s+", ""));
         try {
-            Usuario usuario = Usuario_Ctrl.getInstancia().ler_User(cxEmail.getText());            
+            Usuario usuario = Usuario_Ctrl.getInstancia().ler_User_Login(cxEmail.getText());            
             
             if(usuario!=null && usuario.getSenha().equals(String.valueOf(csSenha.getPassword()))){
                 dispose();
