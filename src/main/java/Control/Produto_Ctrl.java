@@ -78,14 +78,14 @@ public class Produto_Ctrl {
     
     public int del_Produto(Produto produto) throws Exception{
         int retorno = 0;
-        String sql_del_ponte = "DELETE FROM plano_produto p_p WHERE "
-                             + " p_p.pro_id IN (SELECT p.pro_id FROM produto p"
-                             + " WHERE p.pro_id = " + produto.getId(),
+        String sql_del_ponte = "DELETE FROM plano_produto WHERE"
+                             + " pro_id IN (SELECT p.pro_id FROM produto p"
+                             + " WHERE p.pro_id = " + produto.getId() + ")",
                sql_del_prod = "DELETE FROM produto WHERE pro_id = " + produto.getId(),
-               sql_up_plano = "UPDATE FROM plano p SET pla_preco = pla_preco - " +
+               sql_up_plano = "UPDATE plano SET pla_preco = pla_preco - " +
                               calc.calcularValor(produto.getPreco()) + " WHERE"
-                            + " p.pla_id IN (SELECT p_p.pla_id FROM plano_produto p_p"
-                            + " WHERE p_p.pro_id = " + produto.getId();
+                            + " pla_id IN (SELECT p_p.pla_id FROM plano_produto p_p"
+                            + " WHERE p_p.pro_id = " + produto.getId() + ")";
         Connection con = null;
         Statement st = null;
         
