@@ -60,7 +60,7 @@ public class Produto_Ctrl {
     }
     
     public Produto ler_Produto(int id) throws SQLException, ClassNotFoundException{
-        String sql = "SELECT * FROM produto WHERE ser_id = ?";
+        String sql = "SELECT * FROM produto WHERE pro_id = ?";
                 
         try(Connection con = Banco_Ctrl.getInstancia().getConexao();
         PreparedStatement ps = con.prepareStatement(sql)){
