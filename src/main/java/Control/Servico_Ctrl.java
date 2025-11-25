@@ -156,10 +156,10 @@ public class Servico_Ctrl {
                 
                sql_del_ser = "DELETE FROM servico WHERE ser_id = " + servico.getId(),
                
-               sql_up_plano = "UPDATE FROM plano p SET pla_preco = pla_preco - " +
+               sql_up_plano = "UPDATE FROM plano SET pla_preco = pla_preco - " +
                               calc.calcularValor(servico.getPreco()) + " WHERE"
-                            + " p.pla_id IN (SELECT p_s.pla_id FROM plano_servico p_s"
-                            + " WHERE p_s.ser_id = " + servico.getId();
+                            + " pla_id IN (SELECT p_s.pla_id FROM plano_servico p_s"
+                            + " WHERE p_s.ser_id = " + servico.getId() + ")";
         
         Connection con = null;        
         try{
