@@ -1,31 +1,36 @@
 package View;
 
+import Control.NavegadorUI;
 import Control.Defunto_Ctrl;
 import Model.Defunto;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
-public class JRelatorioDefunto extends javax.swing.JFrame {
+public class JRelatorioDefunto extends javax.swing.JFrame{    
+    private NavegadorUI navegador;
     
-    public JRelatorioDefunto() {
+    public JRelatorioDefunto(NavegadorUI navegador){
+        this.navegador = navegador;
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tbDefuntos = new javax.swing.JTable();
-        barraMenu = new javax.swing.JMenuBar();
-        mbOpcoes1 = new javax.swing.JMenu();
-        miRestaurar = new javax.swing.JMenuItem();
-        miFechar = new javax.swing.JMenuItem();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbDef = new javax.swing.JTable();
+        rtId = new javax.swing.JLabel();
+        cxId = new javax.swing.JTextField();
+        btAtualizar = new javax.swing.JButton();
+        btDeletar = new javax.swing.JButton();
+        btCancelar = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mbOpcoes = new javax.swing.JMenu();
+        mniFechar = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Relatório de defuntos");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -33,13 +38,16 @@ public class JRelatorioDefunto extends javax.swing.JFrame {
             }
         });
 
-        tbDefuntos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        tbDefuntos.setModel(new javax.swing.table.DefaultTableModel(
+        tbDef.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        tbDef.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nome", "Nascimento", "Data de óbito", "Tipo de óbito", "Cemitério"
+                "Código Defunto", "Nome do Defunto", "Cemiterio", "Data Nascimento", "Data Obito", "Tipo Obito"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -50,138 +58,242 @@ public class JRelatorioDefunto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tbDefuntos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tbDefuntos.setAutoscrolls(false);
-        tbDefuntos.setMinimumSize(new java.awt.Dimension(380, 0));
-        tbDefuntos.setPreferredSize(new java.awt.Dimension(380, 0));
-        tbDefuntos.setRowHeight(30);
-        tbDefuntos.getTableHeader().setReorderingAllowed(false);
-        tbDefuntos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbDefuntosMouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(tbDefuntos);
+        tbDef.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tbDef);
 
-        mbOpcoes1.setText("Opções");
-        mbOpcoes1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        rtId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rtId.setText("ID:");
 
-        miRestaurar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miRestaurar.setText("Restaurar Tabela");
-        miRestaurar.addActionListener(new java.awt.event.ActionListener() {
+        btAtualizar.setText("Atualizar");
+        btAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miRestaurarActionPerformed(evt);
+                btAtualizarActionPerformed(evt);
             }
         });
-        mbOpcoes1.add(miRestaurar);
 
-        miFechar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miFechar.setText("Fechar");
-        miFechar.addActionListener(new java.awt.event.ActionListener() {
+        btDeletar.setText("Deletar");
+        btDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miFecharActionPerformed(evt);
+                btDeletarActionPerformed(evt);
             }
         });
-        mbOpcoes1.add(miFechar);
 
-        barraMenu.add(mbOpcoes1);
+        btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
 
-        setJMenuBar(barraMenu);
+        mbOpcoes.setText("Opções");
+        mbOpcoes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        mniFechar.setText("Fechar...");
+        mniFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniFecharActionPerformed(evt);
+            }
+        });
+        mbOpcoes.add(mniFechar);
+
+        jMenuBar1.add(mbOpcoes);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1083, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(rtId)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cxId, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(btAtualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btDeletar)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btCancelar)
+                        .addGap(8, 8, 8)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rtId)
+                    .addComponent(cxId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btAtualizar)
+                    .addComponent(btDeletar))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addGap(49, 49, 49)
+                .addComponent(btCancelar)
+                .addGap(16, 16, 16))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void miRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRestaurarActionPerformed
-        listar_tabela();
-    }//GEN-LAST:event_miRestaurarActionPerformed
-
-    private void miFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miFecharActionPerformed
+    private void mniFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniFecharActionPerformed
         dispose();
-    }//GEN-LAST:event_miFecharActionPerformed
-
-    private void tbDefuntosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDefuntosMouseClicked
-        selecTab();
-    }//GEN-LAST:event_tbDefuntosMouseClicked
+    }//GEN-LAST:event_mniFecharActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        listar_tabela();
+        listarTabela();
     }//GEN-LAST:event_formWindowActivated
 
-    private void listar_tabela(){
-        int linha = 0;
-        DefaultTableModel modelo = (DefaultTableModel) tbDefuntos.getModel();
+    private void btAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtualizarActionPerformed
+        atualizar();
+    }//GEN-LAST:event_btAtualizarActionPerformed
+
+    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
+        deletar();
+    }//GEN-LAST:event_btDeletarActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btCancelarActionPerformed
+    
+    private void atualizar(){
+        String codigo = cxId.getText().trim();
+        if (codigo.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Insira um ID para atualizar.",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(codigo);
+            Defunto altDef = Defunto_Ctrl.getInstancia().ler_Defunto(id); 
+
+            if (altDef != null) {
+                navegador.mostrarJAlterarDefunto(altDef);
+            } else {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "ID não encontrado no banco de dados.",
+                        "Erro de Busca",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "O ID deve ser um número inteiro válido.",
+                    "Erro de Entrada",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        } catch (Exception ex) {            
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro ao buscar defunto: " + ex.getMessage(),
+                    "Erro no BD",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+    
+    private void deletar(){
+        String codigo = cxId.getText().trim();
+        if (codigo.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Insira um ID para deletar.",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(codigo);
+            Defunto delDef = new Defunto();
+            delDef.setId(id);
+
+            int confirmacao = JOptionPane.showConfirmDialog(
+                    this,
+                    "Tem certeza que deseja deletar o defunto com ID: " + id + "?", 
+                    "Confirmar Exclusão",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                int linhasAfetadas = Defunto_Ctrl.getInstancia().del_Defunto(delDef);
+
+                if (linhasAfetadas > 0) {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Defunto excluído com sucesso!"
+                    );
+                    listarTabela();
+                    cxId.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "ID não encontrado ou nenhuma linha excluída.",
+                            "Erro de Exclusão",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "O ID deve ser um número inteiro válido.",
+                    "Erro de Entrada",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        } catch (Exception ex) {            
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro ao deletar defunto: " + ex.getMessage(),
+                    "Erro no BD",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
         
-        tbDefuntos.setDefaultEditor(Object.class, null);
+    }
+    
+    private void listarTabela(){
+        int linha = 0;
+        DefaultTableModel modelo = (DefaultTableModel) tbDef.getModel();
+        
+        modelo.setRowCount(linha);
         
         try{
             for(Defunto d : Defunto_Ctrl.getInstancia().ler_Defunto()){
                 modelo.insertRow(linha, new Object[]{
-                    d.getId(), d.getNome(), d.getDataNatalidade(), d.getDataObito(),
-                    d.getTipoObito(), d.getCemiterio()                    
+                    d.getId(), d.getNome(), d.getCemiterio(), d.getDataNatalidade(), d.getDataObito(), d.getTipoObito()
                 });
 
                 linha++;
             }
         } catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Não foi possível encontrar defuntos",
-                    "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Não foi possível encontrar defuntos",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+            );           
             dispose();
         }
     }
     
-    private void selecTab(){
-        int linSelec = tbDefuntos.getSelectedRow();
-
-        if(linSelec<0) return;
-                
-        
-        Defunto defSelec = new Defunto();       
-        defSelec.setId((Integer) tbDefuntos.getValueAt(linSelec, 0));                                                
-        
-        deletar(defSelec);   
-        
-    }
-    
-    private void deletar(Defunto def){
-        int o = JOptionPane.showOptionDialog(null, "Deseja deletar o defunto?", "Id do defunto: "+def.getId(),
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, 
-                        null, new Object[]{"Sim...", "Não"}, "Não"
-                );
-        if(o==0){
-            try {
-                if(Defunto_Ctrl.getInstancia().del_Defunto(def)>0)
-                    JOptionPane.showMessageDialog(
-                            null, "Defunto deletado!",
-                            "Sucesso!", JOptionPane.INFORMATION_MESSAGE
-                    );
-                else{
-                    JOptionPane.showMessageDialog(
-                            null, "Defunto não encontrado!",
-                            "Erro!", JOptionPane.ERROR_MESSAGE
-                    );
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(
-                    null, "Erro na busca:\n" + e,
-                    "Erro!", JOptionPane.ERROR_MESSAGE
-                );
-            }
-        }
-    }
-        
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -189,38 +301,23 @@ public class JRelatorioDefunto extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JRelatorioDefunto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JRelatorioDefunto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JRelatorioDefunto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JRelatorioDefunto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JRelatorioDefunto().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new JRelatorioDefunto(new NavegadorUI()).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar barraMenu;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JMenu mbOpcoes1;
-    private javax.swing.JMenuItem miFechar;
-    private javax.swing.JMenuItem miRestaurar;
-    private javax.swing.JTable tbDefuntos;
+    private javax.swing.JButton btAtualizar;
+    private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btDeletar;
+    private javax.swing.JTextField cxId;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenu mbOpcoes;
+    private javax.swing.JMenuItem mniFechar;
+    private javax.swing.JLabel rtId;
+    private javax.swing.JTable tbDef;
     // End of variables declaration//GEN-END:variables
 }

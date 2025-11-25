@@ -23,11 +23,11 @@ public class Usuario extends Pessoa {
         this.cpf = "";
     }
 
-    public Usuario(String email, String senha, String numero_Telefone, boolean admin, Endereco endereco, Plano plano, String cpf, String nome, LocalDate data_natalidade) {
-        super(nome, data_natalidade);
+    public Usuario(String email, String senha, String numeroTelefone, boolean admin, Endereco endereco, Plano plano, String cpf, String nome, LocalDate dataNatalidade) {
+        super(nome, dataNatalidade);
         this.email = email;
         this.senha = senha;
-        this.numeroTelefone = numero_Telefone;
+        this.numeroTelefone = numeroTelefone;
         this.admin = admin;
         this.endereco = endereco;
         this.plano = plano;
@@ -70,8 +70,8 @@ public class Usuario extends Pessoa {
         this.senha = senha;
     }
 
-    public void setNumeroTelefone(String numero_Telefone) {
-        this.numeroTelefone = numero_Telefone;
+    public void setNumeroTelefone(String numeroTelefone) {
+        this.numeroTelefone = numeroTelefone;
     }
 
     public void setAdmin(boolean admin) {

@@ -5,42 +5,42 @@ import Model.Defunto;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
-public class JCadastroDefunto extends javax.swing.JFrame {        
+public class JAlterarDefunto extends javax.swing.JFrame {        
+    private Defunto defunto;
 
-    public JCadastroDefunto() {
-        initComponents();              
-        setLocationRelativeTo(null);              
+    public JAlterarDefunto(Defunto defunto) {      
+        this.defunto = defunto;
+        initComponents();
+        setLocationRelativeTo(null);
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        rtTitulo = new javax.swing.JLabel();
         rtNomeDefunto = new javax.swing.JLabel();
         rtDataNascimento = new javax.swing.JLabel();
         rtDataObito = new javax.swing.JLabel();
         rtCemiterio = new javax.swing.JLabel();
-        rtCadastroDefunto = new javax.swing.JLabel();
         rtTipoObito = new javax.swing.JLabel();
         cxNomeDefunto = new javax.swing.JTextField();
         cxCemiterio = new javax.swing.JTextField();
-        cbTipoObito = new javax.swing.JComboBox<>();
         cbDiaNasc = new javax.swing.JComboBox<>();
         cbMesNasc = new javax.swing.JComboBox<>();
         cbAnoNasc = new javax.swing.JComboBox<>();
         cbDiaObito = new javax.swing.JComboBox<>();
         cbMesObito = new javax.swing.JComboBox<>();
         cbAnoObito = new javax.swing.JComboBox<>();
-        btCadastrar = new javax.swing.JButton();
+        cbTipoObito = new javax.swing.JComboBox<>();
+        btAtualizar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
-        btLimpar = new javax.swing.JButton();
-
-        jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de defunto");
+        setTitle("Atualizar defunto");
+
+        rtTitulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        rtTitulo.setText("Atualizar Defunto");
 
         rtNomeDefunto.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtNomeDefunto.setText("Nome do defunto:");
@@ -54,13 +54,8 @@ public class JCadastroDefunto extends javax.swing.JFrame {
         rtCemiterio.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtCemiterio.setText("Cemitério:");
 
-        rtCadastroDefunto.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        rtCadastroDefunto.setText("Cadastro de defunto");
-
         rtTipoObito.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         rtTipoObito.setText("Tipo de obito:");
-
-        cbTipoObito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Natural", "Violenta", "Indeterminado", "Pendente" }));
 
         cbDiaNasc.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         cbDiaNasc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dia", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
@@ -80,10 +75,12 @@ public class JCadastroDefunto extends javax.swing.JFrame {
         cbAnoObito.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         cbAnoObito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ano", "1925", "1926", "1927", "1928", "1929", "1930", "1931", "1932", "1933", "1934", "1935", "1936", "1937", "1938", "1939", "1940", "1941", "1942", "1943", "1944", "1945", "1946", "1947", "1948", "1949", "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025" }));
 
-        btCadastrar.setText("Cadastrar");
-        btCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        cbTipoObito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Natural", "Violenta", "Indeterminado", "Pendente" }));
+
+        btAtualizar.setText("Atualizar");
+        btAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btCadastrarActionPerformed(evt);
+                btAtualizarActionPerformed(evt);
             }
         });
 
@@ -94,39 +91,21 @@ public class JCadastroDefunto extends javax.swing.JFrame {
             }
         });
 
-        btLimpar.setText("Limpar");
-        btLimpar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btLimparActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rtCadastroDefunto)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(rtCemiterio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rtDataObito, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rtDataNascimento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rtNomeDefunto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rtTipoObito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btCadastrar)
+                        .addContainerGap(107, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(rtCemiterio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rtDataObito, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rtDataNascimento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rtNomeDefunto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rtTipoObito, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btLimpar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btCancelar))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cxNomeDefunto, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -143,20 +122,27 @@ public class JCadastroDefunto extends javax.swing.JFrame {
                                 .addComponent(cbAnoObito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(cbTipoObito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cxCemiterio, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 158, Short.MAX_VALUE)))
+                        .addGap(0, 240, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btAtualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btCancelar)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rtTitulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addComponent(rtCadastroDefunto)
-                .addGap(24, 24, 24)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(41, Short.MAX_VALUE)
+                .addComponent(rtTitulo)
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rtNomeDefunto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cxNomeDefunto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(rtNomeDefunto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,15 +159,15 @@ public class JCadastroDefunto extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rtCemiterio, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cxCemiterio, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(42, 42, 42))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(rtTipoObito, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbTipoObito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rtTipoObito, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbTipoObito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cxNomeDefunto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btCadastrar)
                     .addComponent(btCancelar)
-                    .addComponent(btLimpar))
+                    .addComponent(btAtualizar))
                 .addContainerGap())
         );
 
@@ -189,26 +175,70 @@ public class JCadastroDefunto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
-        dispose();
+        sair();
     }//GEN-LAST:event_btCancelarActionPerformed
 
-    private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
-        cadastrar();
-    }//GEN-LAST:event_btCadastrarActionPerformed
+    private void btAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtualizarActionPerformed
+        atualizar();
+    }//GEN-LAST:event_btAtualizarActionPerformed
 
-    private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
-        limpar();
-    }//GEN-LAST:event_btLimparActionPerformed
-    
-    private void limpar(){
-        cxNomeDefunto.setText("");
-        cxCemiterio.setText("");        
-    }
-    
-    private void cadastrar(){
+    private void atualizar(){
         cxNomeDefunto.setText(cxNomeDefunto.getText().replaceAll("\\s+", ""));
         cxCemiterio.setText(cxCemiterio.getText().replaceAll("\\s+", ""));
-                
+        
+        LocalDate data_natalidade = validarDataNasc();
+        if(data_natalidade == null) return;
+        LocalDate data_Obito = validarDataObito();
+        if(data_Obito == null) return;
+        String opOb = (String) cbTipoObito.getSelectedItem();
+        
+        try {
+            if (data_natalidade.equals(data_Obito)) {
+                throw new IllegalArgumentException("A data de nascimento não pode ser igual à data de óbito.");
+            }
+            if (data_Obito.isBefore(data_natalidade)) {
+                 throw new IllegalArgumentException("A data de óbito não pode ser anterior à data de nascimento.");
+            }
+        } catch (IllegalArgumentException e) {
+             JOptionPane.showMessageDialog(
+                null,
+                "Erro de Validação:\n" + e.getMessage(),
+                "Erro",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+        
+        Defunto defuntoAlt = new Defunto(
+                data_Obito,
+                opOb,
+                cxCemiterio.getText().isBlank() ? defunto.getCemiterio() : cxCemiterio.getText(),
+                cxNomeDefunto.getText().isBlank() ? defunto.getNome() : cxNomeDefunto.getText(),
+                data_natalidade,
+                defunto.getId()
+        );
+        
+        try{
+            Defunto_Ctrl.getInstancia().alt_Defunto(defuntoAlt);
+            JOptionPane.showMessageDialog(
+                null,
+                "Defunto atualizado com sucesso!",
+                "Sucesso",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+            defunto = defuntoAlt;
+            initInfo();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(
+                null,
+                "Erro ao atualizar defunto:\n" + e,
+                "Erro",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+    
+    private LocalDate validarDataNasc(){
         LocalDate data_natalidade;
         try{
             data_natalidade = LocalDate.of(
@@ -223,15 +253,18 @@ public class JCadastroDefunto extends javax.swing.JFrame {
                 "Erro",
                 JOptionPane.ERROR_MESSAGE
             );
-            return;
+            return null;
         }
-        
+        return data_natalidade;
+    }
+    
+    private LocalDate validarDataObito(){
         LocalDate data_Obito;
         try{
             data_Obito = LocalDate.of(
-                    Integer.parseInt((String) cbAnoObito.getSelectedItem()),
-                    Integer.parseInt((String) cbMesObito.getSelectedItem()),
-                    Integer.parseInt((String) cbDiaObito.getSelectedItem())
+                    Integer.parseInt(cbAnoObito.getSelectedItem().toString()),
+                    Integer.parseInt(cbMesObito.getSelectedItem().toString()),
+                    Integer.parseInt(cbDiaObito.getSelectedItem().toString())
             );
         }catch(Exception e){
             JOptionPane.showMessageDialog(
@@ -240,35 +273,60 @@ public class JCadastroDefunto extends javax.swing.JFrame {
                 "Erro",
                 JOptionPane.ERROR_MESSAGE
             );
+            return null;
+        }
+        return data_Obito;
+    }
+    
+    private void carregarData(LocalDate data, javax.swing.JComboBox<String> cbDia, javax.swing.JComboBox<String> cbMes, javax.swing.JComboBox<String> cbAno) {
+        if (data != null) {
+            cbDia.setSelectedItem(String.valueOf(data.getDayOfMonth()));
+            cbMes.setSelectedItem(String.valueOf(data.getMonthValue()));
+            cbAno.setSelectedItem(String.valueOf(data.getYear()));
+        }
+    }
+
+    public void carregarDefunto(Defunto defunto) {
+        if (defunto == null) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Alteração de defunto não encontrada.",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+            );
             return;
         }
-        
-        Defunto defunto = new Defunto(
-                data_Obito,
-                (String) cbTipoObito.getSelectedItem(),
-                cxCemiterio.getText(),                
-                cxNomeDefunto.getText(),
-                data_natalidade,
-                0
+        this.defunto = defunto;
+
+        cxNomeDefunto.setText(defunto.getNome());
+        cxCemiterio.setText(defunto.getCemiterio());
+        carregarData(defunto.getDataNatalidade(), cbDiaNasc, cbMesNasc, cbAnoNasc);
+        carregarData(defunto.getDataObito(), cbDiaObito, cbMesObito, cbAnoObito);
+        cbTipoObito.setSelectedItem(defunto.getTipoObito());
+    }
+    
+    private void initInfo(){
+        cxNomeDefunto.setText(defunto.getNome());
+        cbDiaNasc.setSelectedItem(defunto.getDataNatalidade());
+        cbMesNasc.setSelectedItem(defunto.getDataNatalidade());
+        cbAnoNasc.setSelectedItem(defunto.getDataNatalidade());
+        cbDiaObito.setSelectedItem(defunto.getDataObito());
+        cbMesObito.setSelectedItem(defunto.getDataObito());
+        cbAnoObito.setSelectedItem(defunto.getDataObito());
+        cxCemiterio.setText(defunto.getCemiterio());        
+    }
+    
+    public void sair(){
+        int resp = JOptionPane.showConfirmDialog(
+                null,
+                "Deseja realmente sair?",
+                "SAIDA",
+                JOptionPane.YES_NO_OPTION
         );
-        
-        try {
-            Defunto_Ctrl.getInstancia().cad_Defunto(defunto);
-            JOptionPane.showMessageDialog(
-                null,
-                "Defunto cadastrado com sucesso!",
-                "Sucesso",
-                JOptionPane.INFORMATION_MESSAGE
-            );
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(
-                null,
-                "Erro ao cadastrar defunto:\n" + e,
-                "Erro",
-                JOptionPane.ERROR_MESSAGE
-            );
-        }        
-    }               
+        if (resp == 0) {
+            dispose();
+        }
+    }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -280,13 +338,12 @@ public class JCadastroDefunto extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new JCadastroDefunto().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new JAlterarDefunto(new Defunto()).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btCadastrar;
+    private javax.swing.JButton btAtualizar;
     private javax.swing.JButton btCancelar;
-    private javax.swing.JButton btLimpar;
     private javax.swing.JComboBox<String> cbAnoNasc;
     private javax.swing.JComboBox<String> cbAnoObito;
     private javax.swing.JComboBox<String> cbDiaNasc;
@@ -296,12 +353,11 @@ public class JCadastroDefunto extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbTipoObito;
     private javax.swing.JTextField cxCemiterio;
     private javax.swing.JTextField cxNomeDefunto;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel rtCadastroDefunto;
     private javax.swing.JLabel rtCemiterio;
     private javax.swing.JLabel rtDataNascimento;
     private javax.swing.JLabel rtDataObito;
     private javax.swing.JLabel rtNomeDefunto;
     private javax.swing.JLabel rtTipoObito;
+    private javax.swing.JLabel rtTitulo;
     // End of variables declaration//GEN-END:variables
 }

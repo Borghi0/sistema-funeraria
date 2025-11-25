@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
+
 public class Velorio_Ctrl {
     private static Velorio_Ctrl instancia;
     
@@ -19,7 +20,7 @@ public class Velorio_Ctrl {
         return instancia;
     }
     
-    public int cad_Velorio(Velorio velorio) throws Exception{
+    public int cad_Velorio(Velorio velorio) throws SQLException, ClassNotFoundException{
         String sql = "INSERT INTO velorio VALUES ((SELECT sal_numero FROM sala s"
                 + " WHERE s.sal_numero = ?), ?, (SELECT def_id FROM "
                 + "defunto d WHERE d.def_id = ?))";
@@ -36,14 +37,13 @@ public class Velorio_Ctrl {
         }
     }
     
-    public Velorio ler_Velorio(int numero, LocalDateTime data) throws Exception{
+    public Velorio ler_Velorio(int numero, LocalDateTime data) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM velorio AS ve NATURAL JOIN sala  "
                    + "NATURAL JOIN defunto WHERE "
                    + "ve.sal_numero = ? AND "
                    + "vel_data_horario = ?";
         Sala intermediarioS = new Sala();
         Defunto intermediarioD = new Defunto();
-        ResultSet rs = null;
         
         try(
             Connection con = Banco_Ctrl.getInstancia().getConexao();
@@ -52,26 +52,27 @@ public class Velorio_Ctrl {
             ps.setInt(1, numero);
             ps.setTimestamp(2, Timestamp.valueOf(data));
             
-            rs = ps.executeQuery();
+            try(ResultSet rs = ps.executeQuery()){
             
-            while(rs.next()){
-                intermediarioS.setCapacidade(rs.getInt("sal_capacidade"));
-                intermediarioS.setNumero(numero);
-                
-                intermediarioD.setCemiterio(rs.getString("end_cemiterio"));
-                intermediarioD.setId(rs.getInt("def_id"));
-                intermediarioD.setNome(rs.getString("def_nome"));
-                intermediarioD.setDataNatalidade(rs.getDate("def_data_natalidade").toLocalDate());
-                intermediarioD.setDataObito(rs.getDate("def_data_obito").toLocalDate());
-                intermediarioD.setTipoObito(rs.getString("def_tipo_obito"));
-                
-                return new Velorio(intermediarioS, data, intermediarioD);
+                while(rs.next()){
+                    intermediarioS.setCapacidade(rs.getInt("sal_capacidade"));
+                    intermediarioS.setNumero(numero);
+
+                    intermediarioD.setCemiterio(rs.getString("end_cemiterio"));
+                    intermediarioD.setId(rs.getInt("def_id"));
+                    intermediarioD.setNome(rs.getString("def_nome"));
+                    intermediarioD.setDataNatalidade(rs.getDate("def_data_natalidade").toLocalDate());
+                    intermediarioD.setDataObito(rs.getDate("def_data_obito").toLocalDate());
+                    intermediarioD.setTipoObito(rs.getString("def_tipo_obito"));
+
+                    return new Velorio(intermediarioS, data, intermediarioD);
+                }
+                return null;
             }
-        }
-        return null;
+        }        
     }
     
-    public List<Velorio> ler_Velorio() throws Exception{
+    public List<Velorio> ler_Velorio() throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM velorio NATURAL JOIN sala NATURAL JOIN defunto";
         Sala intermediarioS = null;
         Defunto intermediarioD = null;
@@ -100,7 +101,7 @@ public class Velorio_Ctrl {
         }
     }
     
-    public int alt_Velorio(Velorio velorio) throws Exception{
+    public int alt_Velorio(Velorio velorio) throws SQLException, ClassNotFoundException{
         String sql = "UPDATE velorio SET sal_numero = (SELECT sal_numero"
                 + " FROM sala s WHERE s.sal_numero = ?), "
                 + "vel_data_horario = ? WHERE def_id = ?";
@@ -117,8 +118,7 @@ public class Velorio_Ctrl {
         }
     }
     
-
-    public int del_Velorio(Velorio velorio) throws Exception{
+    public int del_Velorio(Velorio velorio) throws SQLException, ClassNotFoundException{
         String sql = "DELETE FROM velorio WHERE sal_numero = ? AND vel_data_horario = ?";
         
         try(
@@ -132,7 +132,7 @@ public class Velorio_Ctrl {
         }
     }
     
-    public int del_Velorio(int numero, LocalDateTime data) throws Exception{
+    public int del_Velorio(int numero, LocalDateTime data) throws SQLException, ClassNotFoundException{
         String sql = "DELETE FROM velorio WHERE sal_numero = ? AND vel_data_horario = ?";
         
         try(
