@@ -181,7 +181,6 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
 
             if (altDef != null) {
                 navegador.mostrarJAlterarDefunto(altDef);
-                //Ligar JRelatorioDefunto ao JAlterarDefunto ao clicar "atualizar".
             } else {
                 JOptionPane.showMessageDialog(
                         this,
