@@ -5,17 +5,11 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+
 public class DefuntoCtrl {
     private static DefuntoCtrl instancia;
-    private static Connection con;
-    private static PreparedStatement ps;
-    private static ResultSet rs;
-    
-    private DefuntoCtrl(){
-        con = null;
-        ps = null;
-        rs = null;
-    }
+        
+    private DefuntoCtrl(){}
     
     public static DefuntoCtrl getInstancia(){
         if(instancia == null) instancia = new DefuntoCtrl();
@@ -26,9 +20,8 @@ public class DefuntoCtrl {
     public void cadDefunto(Defunto defunto) throws SQLException, ClassNotFoundException{
         String sql = "INSERT INTO defunto VALUES (NULL, ?, ?, ?, ?, ?)";
         
-        try{
-            con = BancoCtrl.getInstancia().getConexao();
-            ps = con.prepareStatement(sql);
+        try(Connection con = BancoCtrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql)){            
 
             ps.setString(1, defunto.getNome());            
             ps.setDate(2, Date.valueOf(defunto.getDataNatalidade()));
@@ -37,38 +30,29 @@ public class DefuntoCtrl {
             ps.setString(5, defunto.getCemiterio());
             
             ps.executeUpdate();
-        }
-        finally{
-            rs.close();
-            ps.close();
-            con.close();
-        }
+        }        
     }
     
     public Defunto lerDefunto(int id) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM defunto WHERE def_id = ?";
         
-        try{
-            con = BancoCtrl.getInstancia().getConexao();
-            ps = con.prepareStatement(sql);
+        try(Connection con = BancoCtrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql)){
+            
             ps.setInt(1, id);
-            rs = ps.executeQuery();
             
-            while(rs.next()){
-                return new Defunto(rs.getDate("def_data_obito").toLocalDate(),
-                                   rs.getString("def_tipo_obito"),
-                                   rs.getString("def_cemiterio"),
-                                   rs.getString("def_nome"),
-                                   rs.getDate("def_data_natalidade").toLocalDate(),
-                                   rs.getInt("def_id")
-                );
+            try(ResultSet rs = ps.executeQuery()){            
+                while(rs.next()){
+                    return new Defunto(rs.getDate("def_data_obito").toLocalDate(),
+                                       rs.getString("def_tipo_obito"),
+                                       rs.getString("def_cemiterio"),
+                                       rs.getString("def_nome"),
+                                       rs.getDate("def_data_natalidade").toLocalDate(),
+                                       rs.getInt("def_id")
+                    );
+                }
+                return null;
             }
-            
-            return null;
-        } finally{
-            rs.close();
-            ps.close();
-            con.close();
         }
     }
     
@@ -104,9 +88,8 @@ public class DefuntoCtrl {
                 + "def_cemiterio = ?"
                 + " WHERE def_id = ?";
         
-        try{
-            con = BancoCtrl.getInstancia().getConexao();
-            ps = con.prepareStatement(sql);
+        try(Connection con = BancoCtrl.getInstancia().getConexao();
+                PreparedStatement ps = con.prepareStatement(sql)){            
             
             ps.setString(1, defunto.getNome());
             ps.setDate(2, Date.valueOf(defunto.getDataNatalidade()));
@@ -116,9 +99,6 @@ public class DefuntoCtrl {
             ps.setInt(6, id);
             
             return ps.executeUpdate();
-        } finally{
-            ps.close();
-            con.close(); 
         }
     }
     
@@ -127,26 +107,25 @@ public class DefuntoCtrl {
             retorno = 0;
         String sqlDelDef = "DELETE FROM defunto WHERE def_id = " + id,
                sqlDelVel = "DELETE FROM velorio WHERE def_id = " + id;
-        Connection con = null;
-        Statement st = null;
         
+        Connection con = null;
         try{
             con = BancoCtrl.getInstancia().getConexao();
-            st = con.createStatement();
+            try(Statement st = con.createStatement()){
             
-            con.setAutoCommit(false);
-            
-            retorno += st.executeUpdate(sqlDelVel);
-            retorno += st.executeUpdate(sqlDelDef);
-            
-            con.commit();
-        } catch(SQLException sqle){
-            con.rollback();
+                con.setAutoCommit(false);
+
+                retorno += st.executeUpdate(sqlDelVel);
+                retorno += st.executeUpdate(sqlDelDef);
+
+                con.commit();
+                return retorno;
+            }
+        }catch(SQLException e){
+            if(con!=null) try{con.rollback();} catch(SQLException ex){}
+            throw e;
         }finally{
-            st.close();
-            con.close();
-            
-            return retorno;
+            if(con!=null) try{con.close();} catch(SQLException ex){}            
         }
     }
 }
