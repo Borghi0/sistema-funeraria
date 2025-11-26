@@ -48,11 +48,11 @@ public class ProdutoCtrl {
         
             while(rs.next()){
                 produtos.add(new Produto(
-                                rs.getBoolean("ser_perecivel"),
-                                rs.getInt("usu_quant_estoque"),
-                                rs.getInt("usu_preco"),
-                                rs.getString("usu_nome"),
-                                rs.getInt("usu_id")                                 
+                                rs.getBoolean("pro_perecivel"),
+                                rs.getInt("pro_quant_estoque"),
+                                rs.getInt("pro_preco"),
+                                rs.getString("pro_nome"),
+                                rs.getInt("pro_id")                                 
                             ));
             }        
         }
@@ -83,9 +83,9 @@ public class ProdutoCtrl {
     }
     
     public int altProduto(Produto produto) throws SQLException, ClassNotFoundException{
-        String sql = "UPDATE produto SET pro_nome = ? "
-                + "pro_perecivel = ? "
-                + "pro_quant_estoque = ? "
+        String sql = "UPDATE produto SET pro_nome = ?, "
+                + "pro_perecivel = ?, "
+                + "pro_quant_estoque = ?, "
                 + "pro_preco = ? "
                 + "WHERE pro_id = ?";
         
@@ -103,7 +103,7 @@ public class ProdutoCtrl {
         }
     }
     
-    public int delProduto(Produto produto) throws Exception{
+    public int delProduto(Produto produto) throws SQLException, ClassNotFoundException{
         int retorno = 0;
         String sqlDelPonte = "DELETE FROM plano_produto WHERE"
                              + " pro_id IN (SELECT p.pro_id FROM produto p"
@@ -113,28 +113,26 @@ public class ProdutoCtrl {
                               calc.calcularValor(produto.getPreco()) + " WHERE"
                             + " pla_id IN (SELECT p_p.pla_id FROM plano_produto p_p"
                             + " WHERE p_p.pro_id = " + produto.getId() + ")";
-        Connection con = null;
-        Statement st = null;
         
+        Connection con = null;        
         try{
             con = BancoCtrl.getInstancia().getConexao();
-            st = con.createStatement();
+            try(Statement st = con.createStatement()){
         
-            con.setAutoCommit(false);
-            
-            retorno += st.executeUpdate(sqlUpPlano);
-            retorno += st.executeUpdate(sqlDelPonte);
-            retorno += st.executeUpdate(sqlDelProd);
-            
-            con.commit();
-            
-        } catch(SQLException sqle){
-            con.rollback();
-        } finally{
-            con.close();
-            st.close();
-            
-            return retorno;
+                con.setAutoCommit(false);
+
+                retorno += st.executeUpdate(sqlUpPlano);
+                retorno += st.executeUpdate(sqlDelPonte);
+                retorno += st.executeUpdate(sqlDelProd);
+
+                con.commit();
+                return retorno;
+            }
+        }catch(SQLException e){
+            if(con!=null) try{con.rollback();} catch(SQLException ex){}
+            throw e;
+        }finally{
+            if(con!=null) try{con.close();} catch(SQLException ex){}            
         }
     }
 }

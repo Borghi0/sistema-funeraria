@@ -423,14 +423,17 @@ public class JCadRelatServico extends javax.swing.JFrame {
         if(linSelec<0) return;
                 
         
-        Servico servicoSelec = new Servico(
-                null,
-                (String) tbServicos.getValueAt(linSelec, 3),
-                (Double) tbServicos.getValueAt(linSelec, 2),
-                (String) tbServicos.getValueAt(linSelec, 1),
-                (Integer) tbServicos.getValueAt(linSelec, 0)
-        );
-        
+        Servico servicoSelec = new Servico();        
+                
+        try{
+            servicoSelec = ServicoCtrl.getInstancia().lerServico((Integer) tbServicos.getValueAt(linSelec, 0));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(
+                    null, "Erro na busca:\n" + e,
+                    "Erro!", JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
                         
         int o = JOptionPane.showOptionDialog(
                 null,
@@ -527,7 +530,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
                 );
             }catch(ClassNotFoundException | SQLException e){
                 JOptionPane.showMessageDialog(
-                    null, "Erro ao cadastrar serviço:\n" + e,
+                    null, "Erro ao programar serviço:\n" + e,
                     "Erro!", JOptionPane.ERROR_MESSAGE
                 );
             }

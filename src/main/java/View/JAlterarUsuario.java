@@ -418,8 +418,8 @@ public class JAlterarUsuario extends javax.swing.JFrame {
                 usuario.isAdmin(),
                 endereco,
                 usuario.getPlano(),
-                cxNome.getText().isBlank() ? usuario.getNome() : cxNome.getText(),
                 usuario.getCpf(),
+                cxNome.getText().isBlank() ? usuario.getNome() : cxNome.getText(),                
                 data_natalidade
         );
         

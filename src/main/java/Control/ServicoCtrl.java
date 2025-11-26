@@ -145,13 +145,13 @@ public class ServicoCtrl {
     
     public int delServico(Servico servico) throws SQLException, ClassNotFoundException{
         int retorno = 0;
-        String sql_del_ponte = "DELETE FROM plano_servico p_s WHERE "
-                             + " p_s.ser_id IN (SELECT s.ser_id FROM servico s"
-                             + " WHERE s.ser_id = " + servico.getId(),
+        String sqlDelPonte = "DELETE FROM plano_servico WHERE "
+                             + " ser_id IN (SELECT s.ser_id FROM servico s"
+                             + " WHERE s.ser_id = " + servico.getId() + ")",
                 
-               sql_del_ser = "DELETE FROM servico WHERE ser_id = " + servico.getId(),
+               sqlDelSer = "DELETE FROM servico WHERE ser_id = " + servico.getId(),
                
-               sql_up_plano = "UPDATE FROM plano SET pla_preco = pla_preco - " +
+               sqlUpPlano = "UPDATE plano SET pla_preco = pla_preco - " +
                               calc.calcularValor(servico.getPreco()) + " WHERE"
                             + " pla_id IN (SELECT p_s.pla_id FROM plano_servico p_s"
                             + " WHERE p_s.ser_id = " + servico.getId() + ")";
@@ -163,9 +163,9 @@ public class ServicoCtrl {
         
                 con.setAutoCommit(false);
 
-                retorno += st.executeUpdate(sql_up_plano);
-                retorno += st.executeUpdate(sql_del_ponte);
-                retorno += st.executeUpdate(sql_del_ser);
+                retorno += st.executeUpdate(sqlUpPlano);
+                retorno += st.executeUpdate(sqlDelPonte);
+                retorno += st.executeUpdate(sqlDelSer);
 
                 con.commit();
                 return retorno;

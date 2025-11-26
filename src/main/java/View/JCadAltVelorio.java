@@ -30,7 +30,7 @@ public class JCadAltVelorio extends javax.swing.JFrame {
         cbMes.setModel(modelMes);
         
         DefaultComboBoxModel<String> modelAno = new DefaultComboBoxModel<>();
-        for(int i=1900; i<=2025; i++) modelAno.addElement(String.valueOf(i));
+        for(int i=1900; i<=2050; i++) modelAno.addElement(String.valueOf(i));
         cbAno.setModel(modelAno);
         
         DefaultComboBoxModel<String> modelHora = new DefaultComboBoxModel<>();
