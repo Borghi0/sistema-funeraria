@@ -1,27 +1,28 @@
 package Control;
 
+
 import Model.Produto;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Produto_Ctrl {
-    private static Produto_Ctrl instancia;
+public class ProdutoCtrl {
+    private static ProdutoCtrl instancia;
     private Calculadora calc;
     
-    private Produto_Ctrl(){
+    private ProdutoCtrl(){
         calc = new Calculadora(new DescontoProduto());
     }
     
-    public static Produto_Ctrl getInstancia(){
-        if(instancia == null) instancia = new Produto_Ctrl();
+    public static ProdutoCtrl getInstancia(){
+        if(instancia == null) instancia = new ProdutoCtrl();
         
         return instancia;
     }
     
-    public void cad_Produto(Produto produto) throws SQLException, ClassNotFoundException{
-        try(Connection con = Banco_Ctrl.getInstancia().getConexao()){
+    public void cadProduto(Produto produto) throws SQLException, ClassNotFoundException{
+        try(Connection con = BancoCtrl.getInstancia().getConexao()){
             
             String sql = "INSERT INTO produto (pro_nome, pro_perecivel, pro_quant_estoque, pro_preco) "
                     + "VALUES (?, ?, ?, ?)";
@@ -37,11 +38,11 @@ public class Produto_Ctrl {
         }
     }
     
-    public List<Produto> ler_Produto() throws SQLException, ClassNotFoundException{
+    public List<Produto> lerProduto() throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM produto";
         List<Produto> produtos = new ArrayList();
                 
-        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+        try(Connection con = BancoCtrl.getInstancia().getConexao();
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery()){
         
@@ -58,12 +59,11 @@ public class Produto_Ctrl {
         return produtos;                                         
     }
     
-    public Produto ler_Produto(int id) throws SQLException, ClassNotFoundException{
+    public Produto lerProduto(int id) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM produto WHERE pro_id = ?";
                 
-        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
-                PreparedStatement ps = con.prepareStatement(sql)){
-            
+        try(Connection con = BancoCtrl.getInstancia().getConexao();
+        PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, id);
             
             try(ResultSet rs = ps.executeQuery()){                
@@ -82,15 +82,15 @@ public class Produto_Ctrl {
         }
     }
     
-    public int alt_Produto(Produto produto) throws SQLException, ClassNotFoundException{
-        String sql = "UPDATE produto SET pro_nome = ? "
-                + "pro_perecivel = ? "
-                + "pro_quant_estoque = ? "
+    public int altProduto(Produto produto) throws SQLException, ClassNotFoundException{
+        String sql = "UPDATE produto SET pro_nome = ?, "
+                + "pro_perecivel = ?, "
+                + "pro_quant_estoque = ?, "
                 + "pro_preco = ? "
                 + "WHERE pro_id = ?";
         
         try(
-            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            Connection con = BancoCtrl.getInstancia().getConexao();
             PreparedStatement ps = con.prepareStatement(sql)
         ){
             ps.setString(1, produto.getNome());
@@ -103,27 +103,27 @@ public class Produto_Ctrl {
         }
     }
     
-    public int del_Produto(Produto produto) throws SQLException, ClassNotFoundException{
+    public int delProduto(Produto produto) throws SQLException, ClassNotFoundException{
         int retorno = 0;
-        String sql_del_ponte = "DELETE FROM plano_produto WHERE"
+        String sqlDelPonte = "DELETE FROM plano_produto WHERE"
                              + " pro_id IN (SELECT p.pro_id FROM produto p"
                              + " WHERE p.pro_id = " + produto.getId() + ")",
-               sql_del_prod = "DELETE FROM produto WHERE pro_id = " + produto.getId(),
-               sql_up_plano = "UPDATE plano SET pla_preco = pla_preco - " +
+               sqlDelProd = "DELETE FROM produto WHERE pro_id = " + produto.getId(),
+               sqlUpPlano = "UPDATE plano SET pla_preco = pla_preco - " +
                               calc.calcularValor(produto.getPreco()) + " WHERE"
                             + " pla_id IN (SELECT p_p.pla_id FROM plano_produto p_p"
-                            + " WHERE p_p.pro_id = " + produto.getId() + ")";        
-                
+                            + " WHERE p_p.pro_id = " + produto.getId() + ")";
+        
         Connection con = null;        
         try{
-            con = Banco_Ctrl.getInstancia().getConexao();
+            con = BancoCtrl.getInstancia().getConexao();
             try(Statement st = con.createStatement()){
         
                 con.setAutoCommit(false);
 
-                retorno += st.executeUpdate(sql_up_plano);
-                retorno += st.executeUpdate(sql_del_ponte);
-                retorno += st.executeUpdate(sql_del_prod);
+                retorno += st.executeUpdate(sqlUpPlano);
+                retorno += st.executeUpdate(sqlDelPonte);
+                retorno += st.executeUpdate(sqlDelProd);
 
                 con.commit();
                 return retorno;

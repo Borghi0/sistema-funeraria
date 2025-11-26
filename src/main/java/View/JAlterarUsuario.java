@@ -1,6 +1,6 @@
 package View;
 
-import Control.Usuario_Ctrl;
+import Control.UsuarioCtrl;
 import Model.Endereco;
 import Model.Usuario;
 import java.time.LocalDate;
@@ -61,6 +61,7 @@ public class JAlterarUsuario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Atualizar usuário");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -417,13 +418,13 @@ public class JAlterarUsuario extends javax.swing.JFrame {
                 usuario.isAdmin(),
                 endereco,
                 usuario.getPlano(),
-                cxNome.getText().isBlank() ? usuario.getNome() : cxNome.getText(),
                 usuario.getCpf(),
+                cxNome.getText().isBlank() ? usuario.getNome() : cxNome.getText(),                
                 data_natalidade
         );
         
         try{
-            Usuario_Ctrl.getInstancia().alt_User(usuarioAlt);
+            UsuarioCtrl.getInstancia().altUser(usuarioAlt);
             JOptionPane.showMessageDialog(
                 null,
                 "Usuário atualizado com sucesso!",

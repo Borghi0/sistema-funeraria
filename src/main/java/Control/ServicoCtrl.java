@@ -1,28 +1,28 @@
 package Control;
 
+
 import Model.Servico;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class Servico_Ctrl {
-    private static Servico_Ctrl instancia;
+public class ServicoCtrl {
+    private static ServicoCtrl instancia;
     private Calculadora calc;
     
-    private Servico_Ctrl(){
+    private ServicoCtrl(){
         calc = new Calculadora(new DescontoServico());
     }
     
-    public static Servico_Ctrl getInstancia(){
-        if(instancia == null) instancia = new Servico_Ctrl();
+    public static ServicoCtrl getInstancia(){
+        if(instancia == null) instancia = new ServicoCtrl();
         
         return instancia;
     }
     
-    public void cad_Servico(Servico servico) throws SQLException, ClassNotFoundException{
+    public void cadServico(Servico servico) throws SQLException, ClassNotFoundException{
         
-        try(Connection con = Banco_Ctrl.getInstancia().getConexao()){
+        try(Connection con = BancoCtrl.getInstancia().getConexao()){
             
             String sql = "INSERT INTO servico (ser_nome, ser_prestacao, ser_preco, ser_tipo) "
                     + "VALUES (?, ?, ?, ?)";
@@ -41,11 +41,11 @@ public class Servico_Ctrl {
         }
     }
     
-    public List<Servico> ler_Servico() throws SQLException, ClassNotFoundException{
+    public List<Servico> lerServico() throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM servico";
         List<Servico> servicos = new ArrayList();
                 
-        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+        try(Connection con = BancoCtrl.getInstancia().getConexao();
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery()){
         
@@ -62,10 +62,10 @@ public class Servico_Ctrl {
         return servicos;                            
     }
     
-    public Servico ler_Servico(int id) throws SQLException, ClassNotFoundException{
+    public Servico lerServico(int id) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM servico WHERE ser_id = ?";
                 
-        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+        try(Connection con = BancoCtrl.getInstancia().getConexao();
             PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, id);
             
@@ -85,11 +85,11 @@ public class Servico_Ctrl {
         }
     }
     
-    public List<Servico> ler_ServicoGenerico() throws SQLException, ClassNotFoundException{        
+    public List<Servico> lerServicoGenerico() throws SQLException, ClassNotFoundException{        
         String sql = "SELECT * FROM servico WHERE ser_prestacao IS NULL";
         List<Servico> servicos = new ArrayList();
                 
-        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+        try(Connection con = BancoCtrl.getInstancia().getConexao();
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery()){
         
@@ -106,11 +106,11 @@ public class Servico_Ctrl {
         return servicos;                            
     }
     
-    public List<Servico> ler_ServicoProgramado() throws SQLException, ClassNotFoundException{        
+    public List<Servico> lerServicoProgramado() throws SQLException, ClassNotFoundException{        
         String sql = "SELECT * FROM servico WHERE ser_prestacao IS NOT NULL";
         List<Servico> servicos = new ArrayList();
                 
-        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+        try(Connection con = BancoCtrl.getInstancia().getConexao();
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery()){
         
@@ -127,50 +127,45 @@ public class Servico_Ctrl {
         return servicos;
     }
     
-    public int alt_Servico(Servico servico) throws SQLException, ClassNotFoundException{
-        String sql = "UPDATE servico SET ser_nome = ? "
-                + "ser_preco = ? "
-                + "ser_tipo = ? "
-                + "ser_prestacao = ? "
-                + "WHERE ser_id = ?";
+    public int altServico(Servico servico) throws SQLException, ClassNotFoundException{
+        String sql = "UPDRATE servico SET ser_tipo = ?, ser_prestacao = ?"
+                + " WHERE ser_id = ?";
         
         try(
-            Connection con = Banco_Ctrl.getInstancia().getConexao();
-            PreparedStatement ps = con.prepareStatement(sql)
+            Connection con = BancoCtrl.getInstancia().getConexao();
+            PreparedStatement ps = con.prepareStatement(sql);
         ){
-            ps.setString(1, servico.getNome());
-            ps.setDouble(2, servico.getPreco());
-            ps.setString(3, servico.getTipo());
-            ps.setDate(4, Date.valueOf(servico.getPrestacao()));
-            ps.setInt(5, servico.getId());
+            ps.setString(1, servico.getTipo());
+            ps.setDate(2, Date.valueOf(servico.getPrestacao()));
+            ps.setInt(3, servico.getId());
             
             return ps.executeUpdate();
         }
     }
     
-    public int del_Servico(Servico servico) throws SQLException, ClassNotFoundException{
+    public int delServico(Servico servico) throws SQLException, ClassNotFoundException{
         int retorno = 0;
-        String sql_del_ponte = "DELETE FROM plano_servico p_s WHERE "
-                             + " p_s.ser_id IN (SELECT s.ser_id FROM servico s"
-                             + " WHERE s.ser_id = " + servico.getId(),
+        String sqlDelPonte = "DELETE FROM plano_servico WHERE "
+                             + " ser_id IN (SELECT s.ser_id FROM servico s"
+                             + " WHERE s.ser_id = " + servico.getId() + ")",
                 
-               sql_del_ser = "DELETE FROM servico WHERE ser_id = " + servico.getId(),
+               sqlDelSer = "DELETE FROM servico WHERE ser_id = " + servico.getId(),
                
-               sql_up_plano = "UPDATE FROM plano SET pla_preco = pla_preco - " +
+               sqlUpPlano = "UPDATE plano SET pla_preco = pla_preco - " +
                               calc.calcularValor(servico.getPreco()) + " WHERE"
                             + " pla_id IN (SELECT p_s.pla_id FROM plano_servico p_s"
                             + " WHERE p_s.ser_id = " + servico.getId() + ")";
         
         Connection con = null;        
         try{
-            con = Banco_Ctrl.getInstancia().getConexao();
+            con = BancoCtrl.getInstancia().getConexao();
             try(Statement st = con.createStatement()){
         
                 con.setAutoCommit(false);
 
-                retorno += st.executeUpdate(sql_up_plano);
-                retorno += st.executeUpdate(sql_del_ponte);
-                retorno += st.executeUpdate(sql_del_ser);
+                retorno += st.executeUpdate(sqlUpPlano);
+                retorno += st.executeUpdate(sqlDelPonte);
+                retorno += st.executeUpdate(sqlDelSer);
 
                 con.commit();
                 return retorno;

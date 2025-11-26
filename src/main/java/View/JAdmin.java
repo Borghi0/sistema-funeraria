@@ -2,7 +2,7 @@ package View;
 
 
 import Control.NavegadorUI;
-import Control.Velorio_Ctrl;
+import Control.VelorioCtrl;
 import Model.Defunto;
 import Model.Sala;
 import Model.Usuario;
@@ -331,7 +331,7 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
     }//GEN-LAST:event_miAltInfoActionPerformed
 
     private void miRelatSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatSalasActionPerformed
-        // TODO add your handling code here:
+        navegador.mostarJSala();
     }//GEN-LAST:event_miRelatSalasActionPerformed
 
     private void miCadVelorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadVelorioActionPerformed
@@ -339,7 +339,7 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
     }//GEN-LAST:event_miCadVelorioActionPerformed
 
     private void miCadSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadSalaActionPerformed
-        // TODO add your handling code here:
+        navegador.mostarJSala();
     }//GEN-LAST:event_miCadSalaActionPerformed
 
     private void miRelatPlanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatPlanosActionPerformed
@@ -428,7 +428,7 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
         int lin = 0;
         modelo.setRowCount(lin);
                 
-        for(Velorio velorio : Velorio_Ctrl.getInstancia().ler_Velorio()){
+        for(Velorio velorio : VelorioCtrl.getInstancia().lerVelorio()){
             modelo.insertRow(lin, new Object[]{                    
                 velorio.getData(),
                 velorio.getSala().getNumero(),
@@ -476,7 +476,7 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
                 );
         if(o==0){
             try {
-                if(Velorio_Ctrl.getInstancia().del_Velorio(velorio) > 0)
+                if(VelorioCtrl.getInstancia().delVelorio(velorio) > 0)
                     JOptionPane.showMessageDialog(
                             null, "Velorio deletado!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE

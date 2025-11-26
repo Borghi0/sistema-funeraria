@@ -4,32 +4,32 @@ import Model.Banco;
 import java.sql.*;
 import Interfaces.InicializadorBD;
 
-public class Banco_Ctrl {
-    private static Banco_Ctrl instancia;
+public class BancoCtrl {
+    private static BancoCtrl instancia;
     private Banco banco;
     private InicializadorBD inicializadorBD;
     
-    private Banco_Ctrl(){
+    private BancoCtrl(){
         banco = null;
         inicializadorBD = null;
     }
     
-    public static Banco_Ctrl getInstancia(){
-        if(instancia == null) instancia = new Banco_Ctrl();        
+    public static BancoCtrl getInstancia(){
+        if(instancia == null) instancia = new BancoCtrl();        
         return instancia;
     }        
     
-    public void testarConexao() throws SQLException, ClassNotFoundException{
+    public void testarConexao() throws ClassNotFoundException, SQLException{
         Class.forName(banco.getDriver());
         Connection con = DriverManager.getConnection(banco.getUrl(), banco.getUser(), banco.getSenha());        
         con.close();
     }
     
-    public void criarTabelas() throws SQLException, ClassNotFoundException{
+    public void criarTabelas() throws ClassNotFoundException, SQLException{
         inicializadorBD.criarTabelas();
     }
     
-    public Connection getConexao() throws SQLException, ClassNotFoundException{
+    public Connection getConexao() throws ClassNotFoundException, SQLException{
         Class.forName(banco.getDriver());
         return DriverManager.getConnection(banco.getUrl(), banco.getUser(), banco.getSenha());
     }

@@ -1,8 +1,8 @@
 package View;
 
-import Control.NavegadorUI;
-import Control.Defunto_Ctrl;
+import Control.DefuntoCtrl;
 import Model.Defunto;
+import Control.NavegadorUI;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -177,7 +177,7 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
 
         try {
             int id = Integer.parseInt(codigo);
-            Defunto altDef = Defunto_Ctrl.getInstancia().ler_Defunto(id); 
+            Defunto altDef = DefuntoCtrl.getInstancia().lerDefunto(id); 
 
             if (altDef != null) {
                 navegador.mostrarJAlterarDefunto(altDef);
@@ -232,7 +232,7 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
             );
 
             if (confirmacao == JOptionPane.YES_OPTION) {
-                int linhasAfetadas = Defunto_Ctrl.getInstancia().del_Defunto(delDef);
+                int linhasAfetadas = DefuntoCtrl.getInstancia().delDefunto(delDef);
 
                 if (linhasAfetadas > 0) {
                     JOptionPane.showMessageDialog(
@@ -276,7 +276,7 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
         modelo.setRowCount(linha);
         
         try{
-            for(Defunto d : Defunto_Ctrl.getInstancia().ler_Defunto()){
+            for(Defunto d : DefuntoCtrl.getInstancia().lerDefunto()){
                 modelo.insertRow(linha, new Object[]{
                     d.getId(), d.getNome(), d.getCemiterio(), d.getDataNatalidade(), d.getDataObito(), d.getTipoObito()
                 });
@@ -294,6 +294,46 @@ public class JRelatorioDefunto extends javax.swing.JFrame{
         }
     }
     
+    private void selecTab(){
+        int linSelec = tbDef.getSelectedRow();
+
+        if(linSelec<0) return;
+                
+        
+        Defunto defSelec = new Defunto();       
+        defSelec.setId((Integer) tbDef.getValueAt(linSelec, 0));                                                
+        
+        deletar(defSelec);   
+        
+    }
+    
+    private void deletar(Defunto def){
+        int o = JOptionPane.showOptionDialog(null, "Deseja deletar o defunto?", "Id do defunto: "+def.getId(),
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, 
+                        null, new Object[]{"Sim...", "Não"}, "Não"
+                );
+        if(o==0){
+            try {
+                if(DefuntoCtrl.getInstancia().delDefunto(def)>0)
+                    JOptionPane.showMessageDialog(
+                            null, "Defunto deletado!",
+                            "Sucesso!", JOptionPane.INFORMATION_MESSAGE
+                    );
+                else{
+                    JOptionPane.showMessageDialog(
+                            null, "Defunto não encontrado!",
+                            "Erro!", JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(
+                    null, "Erro na busca:\n" + e,
+                    "Erro!", JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
+    }
+        
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

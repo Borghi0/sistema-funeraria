@@ -4,16 +4,15 @@ package View;
 import Control.Calculadora;
 import Control.DescontoProduto;
 import Control.DescontoServico;
-import Control.Plano_Ctrl;
-import Control.Produto_Ctrl;
-import Control.Servico_Ctrl;
+import Control.PlanoCtrl;
+import Control.ProdutoCtrl;
+import Control.ServicoCtrl;
 import Model.Ofertavel;
 import Model.Plano;
 import Model.Produto;
 import Model.Servico;
 import java.awt.Component;
 import java.awt.Font;
-import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -74,6 +73,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         miFechar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Plano");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -423,7 +423,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         );
         
         try{
-            Plano_Ctrl.getInstancia().alt_Plano(planoAlt);
+            PlanoCtrl.getInstancia().altPlano(planoAlt);
             
             JOptionPane.showMessageDialog(
                 null,
@@ -447,7 +447,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         plano.setNome(cxNome.getText());        
         
         try{
-            Plano_Ctrl.getInstancia().cad_Plano(plano);
+            PlanoCtrl.getInstancia().cadPlano(plano);
             
             JOptionPane.showMessageDialog(
                 null,
@@ -502,7 +502,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         modeloSer.setRowCount(lin);
         
         if(plano.getListaServicos()==null){
-            for(Servico servico : Servico_Ctrl.getInstancia().ler_ServicoGenerico()){                
+            for(Servico servico : ServicoCtrl.getInstancia().lerServicoGenerico()){                
                 modeloSer.insertRow(lin, new Object[]{                    
                     servico.getId(),
                     servico.getNome(),
@@ -512,7 +512,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
                 lin++;
             }
         } else{
-            for(Servico servico : Servico_Ctrl.getInstancia().ler_ServicoGenerico()){
+            for(Servico servico : ServicoCtrl.getInstancia().lerServicoGenerico()){
                 if(!plano.getListaServicos().contains(servico)){
                     modeloSer.insertRow(lin, new Object[]{                    
                         servico.getId(),
@@ -531,7 +531,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         modeloPro.setRowCount(lin);
         
         if(plano.getListaServicos()==null){
-            for(Produto produto : Produto_Ctrl.getInstancia().ler_Produto()){                
+            for(Produto produto : ProdutoCtrl.getInstancia().lerProduto()){                
                 modeloPro.insertRow(lin, new Object[]{                    
                     produto.getId(),
                     produto.getNome(),
@@ -541,7 +541,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
                 lin++;                
             }
         } else{
-            for(Produto produto : Produto_Ctrl.getInstancia().ler_Produto()){
+            for(Produto produto : ProdutoCtrl.getInstancia().lerProduto()){
                 if(!plano.getListaProdutos().contains(produto)){
                     modeloPro.insertRow(lin, new Object[]{                    
                         produto.getId(),
@@ -618,7 +618,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         
         Servico servicoSelec;
         try {
-            servicoSelec = Servico_Ctrl.getInstancia().ler_Servico((Integer) tbServicos.getValueAt(linSelec, 0));
+            servicoSelec = ServicoCtrl.getInstancia().lerServico((Integer) tbServicos.getValueAt(linSelec, 0));
             
             if(servicoSelec!=null){
                 if(!plano.getListaServicos().contains(servicoSelec)){
@@ -663,7 +663,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         
         Produto produtoSelec;
         try {
-            produtoSelec = Produto_Ctrl.getInstancia().ler_Produto((Integer) tbProdutos.getValueAt(linSelec, 0));
+            produtoSelec = ProdutoCtrl.getInstancia().lerProduto((Integer) tbProdutos.getValueAt(linSelec, 0));
             
             if(produtoSelec!=null){
                 if(!plano.getListaProdutos().contains(produtoSelec)){

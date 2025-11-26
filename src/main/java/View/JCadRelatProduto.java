@@ -1,6 +1,6 @@
 package View;
 
-import Control.Produto_Ctrl;
+import Control.ProdutoCtrl;
 import Model.Produto;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -36,6 +36,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
         miFechar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Produtos");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -274,7 +275,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
         );
         
         try{
-            Produto_Ctrl.getInstancia().cad_Produto(produto);
+            ProdutoCtrl.getInstancia().cadProduto(produto);
             
             JOptionPane.showMessageDialog(
                 null,
@@ -301,7 +302,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
         int lin = 0;
         modelo.setRowCount(lin);
                 
-        for(Produto produto : Produto_Ctrl.getInstancia().ler_Produto()){
+        for(Produto produto : ProdutoCtrl.getInstancia().lerProduto()){
             modelo.insertRow(lin, new Object[]{                    
                 produto.getId(),
                 produto.getNome(),
@@ -318,14 +319,18 @@ public class JCadRelatProduto extends javax.swing.JFrame {
 
         if(linSelec<0) return;
                 
-        Produto produtoSelec = new Produto(
-                tbProdutos.getValueAt(linSelec, 3).toString().equals("Sim"),
-                (Integer) tbProdutos.getValueAt(linSelec, 4),
-                (Double) tbProdutos.getValueAt(linSelec, 2),
-                (String) tbProdutos.getValueAt(linSelec, 1),
-                (Integer) tbProdutos.getValueAt(linSelec, 0)
-        );        
-                        
+        Produto produtoSelec = new Produto();        
+        
+        try{
+            produtoSelec = ProdutoCtrl.getInstancia().lerProduto((Integer) tbProdutos.getValueAt(linSelec, 0));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(
+                    null, "Erro na busca:\n" + e,
+                    "Erro!", JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+        
         int o = JOptionPane.showOptionDialog(
                 null,
                 "O que gostaria de fazer?",
@@ -348,7 +353,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
                 );
         if(o==0){
             try {
-                if(Produto_Ctrl.getInstancia().del_Produto(produto)>0)
+                if(ProdutoCtrl.getInstancia().delProduto(produto)>0)
                     JOptionPane.showMessageDialog(
                             null, "Produto deletado!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE
@@ -383,7 +388,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
         if(o==0){            
             try{
                 produto.setQuantEstoque(Integer.parseInt(cxQuantE.getText()));                
-                if(Produto_Ctrl.getInstancia().alt_Produto(produto)>0)
+                if(ProdutoCtrl.getInstancia().altProduto(produto)>0)
                     JOptionPane.showMessageDialog(
                                 null, "Estoque atualizado!",
                                 "Sucesso!", JOptionPane.INFORMATION_MESSAGE

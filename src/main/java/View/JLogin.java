@@ -1,7 +1,7 @@
 package View;
 
 import Control.NavegadorUI;
-import Control.Usuario_Ctrl;
+import Control.UsuarioCtrl;
 import Model.Usuario;
 import com.github.weisj.darklaf.LafManager;
 import javax.swing.JOptionPane;
@@ -234,7 +234,7 @@ public final class JLogin extends javax.swing.JFrame {
     public void entrar(){
         cxEmail.setText(cxEmail.getText().replaceAll("\\s+", ""));
         try {
-            Usuario usuario = Usuario_Ctrl.getInstancia().ler_User_Login(cxEmail.getText());            
+            Usuario usuario = UsuarioCtrl.getInstancia().lerUserLogin(cxEmail.getText());            
             
             if(usuario!=null && usuario.getSenha().equals(String.valueOf(csSenha.getPassword()))){
                 dispose();

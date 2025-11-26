@@ -1,6 +1,6 @@
 package View;
 
-import Control.Defunto_Ctrl;
+import Control.DefuntoCtrl;
 import Model.Defunto;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
@@ -219,7 +219,7 @@ public class JAlterarDefunto extends javax.swing.JFrame {
         );
         
         try{
-            Defunto_Ctrl.getInstancia().alt_Defunto(defuntoAlt);
+            DefuntoCtrl.getInstancia().altDefunto(defuntoAlt);
             JOptionPane.showMessageDialog(
                 null,
                 "Defunto atualizado com sucesso!",

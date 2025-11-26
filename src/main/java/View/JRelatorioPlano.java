@@ -2,8 +2,8 @@ package View;
 
 
 import Control.NavegadorUI;
-import Control.Plano_Ctrl;
-import Control.Usuario_Ctrl;
+import Control.PlanoCtrl;
+import Control.UsuarioCtrl;
 import Model.Plano;
 import Model.Servico;
 import Model.Produto;
@@ -27,8 +27,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         this.navegador = navegador;
         this.usuario = usuario;
         initComponents();        
-        setLocationRelativeTo(null);
-        setExtendedState(MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);        
         
         if(!usuario.isAdmin()){
             btDelAdq.setText("Adquirir...");
@@ -292,7 +291,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
                         .addComponent(btDelAdq)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btAtualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
                         .addComponent(btRestaurar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -393,7 +392,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         int lin = 0;
         modelo.setRowCount(lin);
                 
-        for(Plano plano : Plano_Ctrl.getInstancia().ler_Plano()){                
+        for(Plano plano : PlanoCtrl.getInstancia().lerPlano()){                
                 modelo.insertRow(lin, new Object[]{
                     plano.getId(),
                     plano.getNome(),
@@ -430,7 +429,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         modelo.setRowCount(lin);
         
         try {
-            for(Servico servico : Plano_Ctrl.getInstancia().getServicos(id)){                
+            for(Servico servico : PlanoCtrl.getInstancia().getServicos(id)){                
                 modelo.insertRow(lin, new Object[]{
                     servico.getNome(),
                     String.format("R$ %.2f", servico.getPreco()),
@@ -453,7 +452,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         modelo.setRowCount(lin);
         
         try {
-            for(Produto produto : Plano_Ctrl.getInstancia().getProdutos(id)){                
+            for(Produto produto : PlanoCtrl.getInstancia().getProdutos(id)){                
                 modelo.insertRow(lin, new Object[]{
                     produto.getNome(),
                     String.format("R$ %.2f", produto.getPreco()),
@@ -477,7 +476,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         
         Plano planoSelec = null;
         try {
-            planoSelec = Plano_Ctrl.getInstancia().ler_Plano(
+            planoSelec = PlanoCtrl.getInstancia().lerPlano(
                     Integer.parseInt(tbPlanos.getValueAt(linSelec, 0).toString())
             );
         } catch (Exception e) {
@@ -512,7 +511,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         try{
             cod = Integer.parseInt(cxCodigo.getText());        
            
-            Plano plano = Plano_Ctrl.getInstancia().ler_Plano(cod);
+            Plano plano = PlanoCtrl.getInstancia().lerPlano(cod);
             if(plano==null)
                 JOptionPane.showMessageDialog(
                     null, "Plano não encontrado",
@@ -543,7 +542,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
                 );
         if(o==0){
             try {
-                if(Plano_Ctrl.getInstancia().del_Plano(plano))
+                if(PlanoCtrl.getInstancia().delPlano(plano))
                     JOptionPane.showMessageDialog(
                             null, "Plano deletado!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE
@@ -576,7 +575,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
                 );
         if(o==0){
             try {
-                if(Usuario_Ctrl.getInstancia().adquirir_plano(usuario, plano)>0){
+                if(UsuarioCtrl.getInstancia().adquirirPlano(usuario, plano)>0){
                     JOptionPane.showMessageDialog(
                             null, "Plano adquirido!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE

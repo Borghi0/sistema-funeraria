@@ -7,19 +7,18 @@ import java.sql.*;
 import java.util.List;
 import java.util.LinkedList;
 
-
-public class Usuario_Ctrl {
-    private static Usuario_Ctrl instancia;    
+public class UsuarioCtrl {
+    private static UsuarioCtrl instancia;    
     
-    private Usuario_Ctrl(){}
+    private UsuarioCtrl(){}
     
-    public static Usuario_Ctrl getInstancia(){
-        if(instancia == null) instancia = new Usuario_Ctrl();
+    public static UsuarioCtrl getInstancia(){
+        if(instancia == null) instancia = new UsuarioCtrl();
         
         return instancia;
     }
     
-    private void cad_User(Usuario user, Connection con) throws SQLException, ClassNotFoundException{
+    private void cadUser(Usuario user, Connection con) throws SQLException, ClassNotFoundException{
         String sql = "INSERT INTO usuario VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL)";
         
         try(PreparedStatement ps = con.prepareStatement(sql)){
@@ -39,63 +38,55 @@ public class Usuario_Ctrl {
         }
     }
     
-    public void cad_User(Usuario user, Endereco ender) throws SQLException, ClassNotFoundException{
+    public void cadUser(Usuario user, Endereco ender) throws SQLException, ClassNotFoundException{
         Connection con = null;
         try{
-            con = Banco_Ctrl.getInstancia().getConexao();
+            con = BancoCtrl.getInstancia().getConexao();
             con.setAutoCommit(false);
             
-            Endereco_Ctrl.getInstancia().cad_Endereco(ender, con);
-            cad_User(user, con);
+            EnderecoCtrl.getInstancia().cadEndereco(ender, con);
+            cadUser(user, con);
             
             con.commit();
-        }catch(SQLException e){
-            if(con!=null) try{con.rollback();} catch(SQLException ex){}
+        }catch(Exception e){
+            if(con!=null) con.rollback();
             throw e;
         }finally{
-            if(con!=null) try{con.close();} catch(SQLException ex){}            
+            if(con!=null) con.close();
         }
     }
     
-    public List<Usuario> ler_User() throws SQLException, ClassNotFoundException{        
-        String sql = "SELECT * FROM usuario NATURAL JOIN plano";
-        Endereco intermediarioE = new Endereco();
-        Plano intermediarioP = new Plano();
+    public List<Usuario> lerUser() throws SQLException, ClassNotFoundException{        
+        String sql = "SELECT * FROM usuario";                
         List<Usuario> retorno = new LinkedList<>();
         
         try(
-            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            Connection con = BancoCtrl.getInstancia().getConexao();
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
         ){
             while(rs.next()){
-                intermediarioE.setNumero(rs.getInt("end_numero"));
-                intermediarioE.setCep(rs.getString("end_cep"));
-                intermediarioE.setRua(rs.getString("end_rua"));
-                
-                intermediarioP = Plano_Ctrl.getInstancia().ler_Plano(rs.getInt("pla_id"));
-                
                 retorno.add(new Usuario(
-                                    rs.getString("usu_login"),
-                                    rs.getString("usu_senha"),
-                                    rs.getString("usu_numero_telefone"),
-                                    rs.getBoolean("usu_admin"),
-                                    intermediarioE,
-                                    intermediarioP,
-                                    rs.getString("usu_cpf"),
-                                    rs.getString("usu_nome"),
-                                    rs.getDate("usu_data_natalidade").toLocalDate()));
-            }
-            
+                        rs.getString("usu_login"),
+                        rs.getString("usu_senha"),
+                        rs.getString("usu_numero_telefone"),
+                        rs.getBoolean("usu_admin"),
+                        new Endereco(rs.getInt("end_numero"), rs.getString("end_rua"), rs.getString("end_cep")),
+                        PlanoCtrl.getInstancia().lerPlano(rs.getInt("pla_id")),
+                        rs.getString("usu_cpf"),
+                        rs.getString("usu_nome"),
+                        rs.getDate("usu_data_natalidade").toLocalDate())
+                );
+            }            
             return retorno;
         }
     }
     
-    public Usuario ler_User(String cpf) throws SQLException, ClassNotFoundException{
+    public Usuario lerUser(String cpf) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM usuario WHERE usu_cpf = " + cpf;
         
         try(
-            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            Connection con = BancoCtrl.getInstancia().getConexao();
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
         ){
@@ -108,7 +99,7 @@ public class Usuario_Ctrl {
                             rs.getString("usu_numero_telefone"),
                             rs.getBoolean("usu_admin"),
                             new Endereco(rs.getInt("end_numero"), rs.getString("end_rua"), rs.getString("end_cep")),
-                            Plano_Ctrl.getInstancia().ler_Plano(rs.getInt("pla_id")),
+                            PlanoCtrl.getInstancia().lerPlano(rs.getInt("pla_id")),
                             rs.getString("usu_cpf"),
                             rs.getString("usu_nome"),
                             rs.getDate("usu_data_natalidade").toLocalDate()
@@ -118,10 +109,10 @@ public class Usuario_Ctrl {
         }       
     }
     
-    public Usuario ler_User_Login(String email) throws SQLException, ClassNotFoundException{
+    public Usuario lerUserLogin(String email) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM usuario WHERE usu_login = ?";
         
-        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+        try(Connection con = BancoCtrl.getInstancia().getConexao();
                 PreparedStatement ps = con.prepareStatement(sql)){
             
             ps.setString(1, email);
@@ -135,7 +126,7 @@ public class Usuario_Ctrl {
                                 rs.getString("usu_numero_telefone"),
                                 rs.getBoolean("usu_admin"),
                                 new Endereco(rs.getInt("end_numero"), rs.getString("end_rua"), rs.getString("end_cep")),
-                                Plano_Ctrl.getInstancia().ler_Plano(rs.getInt("pla_id")),
+                                PlanoCtrl.getInstancia().lerPlano(rs.getInt("pla_id")),
                                 rs.getString("usu_cpf"),
                                 rs.getString("usu_nome"),
                                 rs.getDate("usu_data_natalidade").toLocalDate()
@@ -146,66 +137,69 @@ public class Usuario_Ctrl {
         }       
     }
     
-    public int alt_User(Usuario user) throws SQLException, ClassNotFoundException{
+    public int altUser(Usuario user) throws SQLException, ClassNotFoundException{
         int retorno = 0;
-        String sql_updt_us = "UPDATE usuario SET usu_nome = " + user.getNome()
-                           + " usu_data_natalidade = " + Date.valueOf(user.getDataNatalidade())
-                            + " usu_login = " + user.getEmail()
-                            + " usu_senha = " + user.getSenha()
-                            + " usu_numero_telefone = " + user.getNumeroTelefone()
-                            + " usu_admin = " + (user.isAdmin() ? "TRUE" : "FALSE")
-                            + " pla_id = " + (user.getPlano()==null ? null : user.getPlano().getId())
-                            + " WHERE usu_cpf = " + user.getCpf(),
-                sql_updt_end = "UPDATE endereco SET end_numero = " + user.getEndereco().getNumero()
-                             + ", end_rua = " + user.getEndereco().getRua()
-                             + ", end_cep = " + user.getEndereco().getCep()
-                             + " WHERE (end_numero, end_rua, end_cep) IN "
-                             + "(SELECT end_numero, end_rua, end_cep FROM usuario"
-                             + " WHERE usu_cpf = " + user.getCpf() + ")";
+        String sqlUpdtUs = "UPDATE usuario SET "
+                        + "usu_nome='" + user.getNome() + "',"
+                        + "usu_data_natalidade='" + Date.valueOf(user.getDataNatalidade()) + "',"
+                        + "usu_login='" + user.getEmail() + "',"
+                        + "usu_senha='" + user.getSenha() + "',"
+                        + "usu_numero_telefone='" + user.getNumeroTelefone() + "',"
+                        + "usu_admin=" + (user.isAdmin() ? "TRUE" : "FALSE") + ","
+                        + "pla_id=" + (user.getPlano()==null ? "NULL" : user.getPlano().getId()) 
+                        + " WHERE usu_cpf='" + user.getCpf() + "'",
+
+                sqlUpdtEnd = "UPDATE endereco SET "
+                        + "end_numero=" + user.getEndereco().getNumero() + ","
+                        + "end_rua='" + user.getEndereco().getRua() + "',"
+                        + "end_cep='" + user.getEndereco().getCep() + "'"
+                        + " WHERE (end_numero,end_rua,end_cep) IN "
+                        + "(SELECT end_numero,end_rua,end_cep FROM usuario WHERE usu_cpf='" + user.getCpf() + "')";
         
         Connection con = null;
         try{ 
-            con = Banco_Ctrl.getInstancia().getConexao();            
+            con = BancoCtrl.getInstancia().getConexao();            
             
             try(Statement st = con.createStatement()){   
                 con.setAutoCommit(false);
                 
-                retorno += st.executeUpdate(sql_updt_end);
-                retorno += st.executeUpdate(sql_updt_us);
+                retorno += st.executeUpdate(sqlUpdtEnd);
+                retorno += st.executeUpdate(sqlUpdtUs);
                 
                 con.commit();
             }
             return retorno;
-        }catch(SQLException e){
-            if(con!=null) try{con.rollback();} catch(SQLException ex){}
+        } catch(Exception e){
+            if(con!=null) con.rollback();
             throw e;
-        }finally{
-            if(con!=null) try{con.close();} catch(SQLException ex){}            
+        } finally{
+            if(con!=null) con.close();
         }
     }
     
-    public int alt_User_setAdmin(Usuario user) throws SQLException, ClassNotFoundException{        
+    public int altUserSetAdmin(Usuario user) throws SQLException, ClassNotFoundException{        
         String sql = "UPDATE usuario SET usu_admin = " + (user.isAdmin() ? "TRUE" : "FALSE")                            
                             + " WHERE usu_cpf = " + user.getCpf();                
         
         try(
-            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            Connection con = BancoCtrl.getInstancia().getConexao();
             Statement st = con.createStatement();
         ){                        
             return st.executeUpdate(sql);                        
         }
     }
 
-    public int del_User(Usuario user) throws SQLException, ClassNotFoundException{
+    public int delUser(Usuario user) throws SQLException, ClassNotFoundException{
         int retorno = 0;
-        String sql_del_us = "DELETE FROM usuario WHERE usu_cpf = " + user.getCpf(),
+        String cpf = user.getCpf(),
+               sql_del_us = "DELETE FROM usuario WHERE usu_cpf = " + user.getCpf(),
                sql_del_end = "DELETE FROM endereco WHERE end_numero = " +
                 user.getEndereco().getNumero() + " AND end_rua = " + user.getEndereco().getRua()
                 + " AND end_cep = " + user.getEndereco().getCep();
         
         Connection con = null;
         try{
-            con = Banco_Ctrl.getInstancia().getConexao();
+            con = BancoCtrl.getInstancia().getConexao();
             
             try(Statement st = con.createStatement()){
                 con.setAutoCommit(false);
@@ -216,19 +210,19 @@ public class Usuario_Ctrl {
                 con.commit();
             }
             return retorno;            
-        }catch(SQLException e){
-            if(con!=null) try{con.rollback();} catch(SQLException ex){}
+        } catch(Exception e){
+            if(con!=null) con.rollback();
             throw e;
-        }finally{
-            if(con!=null) try{con.close();} catch(SQLException ex){}            
+        } finally{
+            if(con!=null) con.close();
         }
     }
     
-    public int adquirir_plano(Usuario user, Plano plano) throws SQLException, ClassNotFoundException{
+    public int adquirirPlano(Usuario user, Plano plano) throws SQLException, ClassNotFoundException{
         String sql = "UPDATE usuario SET pla_id = ? WHERE usu_cpf = ?";
         
         try(
-            Connection con = Banco_Ctrl.getInstancia().getConexao();
+            Connection con = BancoCtrl.getInstancia().getConexao();
             PreparedStatement ps = con.prepareStatement(sql)
         ){
             ps.setInt(1, plano.getId());

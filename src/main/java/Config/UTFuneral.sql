@@ -68,50 +68,14 @@ CREATE TABLE IF NOT EXISTS `UTFuneral`.`plano_servico` (
     FOREIGN KEY (`ser_id`)
     REFERENCES `UTFuneral`.`servico` (`ser_id`));
 
-CREATE TABLE IF NOT EXISTS `UTFuneral`.`sala` (
-  `sal_numero` INT NOT NULL AUTO_INCREMENT,
-  `sal_capacidade` INT NULL DEFAULT '0',
-  PRIMARY KEY (`sal_numero`));
-
-CREATE TABLE IF NOT EXISTS `UTFuneral`.`usuario` (
-  `usu_cpf` VARCHAR(50) NOT NULL,
-  `usu_nome` VARCHAR(255) NOT NULL,
-  `usu_data_natalidade` DATE NOT NULL,
-  `usu_login` VARCHAR(100) NOT NULL,
-  `usu_senha` VARCHAR(255) NOT NULL,
-  `usu_numero_telefone` VARCHAR(50) NULL DEFAULT NULL,
-  `usu_admin` TINYINT(1) NOT NULL DEFAULT '0',
-  `end_numero` INT NULL,
-  `end_rua` VARCHAR(255) NULL,
-  `end_cep` VARCHAR(20) NULL,
-  `pla_id` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`usu_cpf`),
-  UNIQUE INDEX `usu_login` (`usu_login` ASC) VISIBLE,
-  INDEX `fk_usuario_plano` (`pla_id` ASC) VISIBLE,
-  INDEX `fk_usuario_endereco` (`end_numero` ASC, `end_rua` ASC, `end_cep` ASC) VISIBLE,
-  CONSTRAINT `fk_usuario_endereco`
-    FOREIGN KEY (`end_numero` , `end_rua` , `end_cep`)
-    REFERENCES `UTFuneral`.`endereco` (`end_numero` , `end_rua` , `end_cep`),
-  CONSTRAINT `fk_usuario_plano`
-    FOREIGN KEY (`pla_id`)
-    REFERENCES `UTFuneral`.`plano` (`pla_id`));
-
-CREATE TABLE IF NOT EXISTS `UTFuneral`.`velorio` (
-  `sal_numero` INT NOT NULL,
-  `vel_data_horario` DATETIME NOT NULL,
-  `def_id` INT NOT NULL,
-  PRIMARY KEY (`sal_numero`, `vel_data_horario`),
-  INDEX `fk_velorio_defunto` (`def_id` ASC) VISIBLE,
-  CONSTRAINT `fk_velorio_defunto`
-    FOREIGN KEY (`def_id`)
-    REFERENCES `UTFuneral`.`defunto` (`def_id`)
-    ON DELETE RESTRICT
-    ON UPDATE RESTRICT,
-  CONSTRAINT `fk_velorio_sala`
-    FOREIGN KEY (`sal_numero`)
-    REFERENCES `UTFuneral`.`sala` (`sal_numero`));
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+CREATE TABLE IF NOT EXISTS velorio(
+                sal_numero INT,
+                vel_data_horario DATETIME,
+                def_id INT NOT NULL,
+                PRIMARY KEY (sal_numero, vel_data_horario),
+                CONSTRAINT fk_velorio_sala 
+					FOREIGN KEY (sal_numero) REFERENCES sala(sal_numero)
+                                        ON DELETE CASCADE,
+                CONSTRAINT fk_velorio_defunto
+					FOREIGN KEY (def_id) REFERENCES defunto(def_id)
+);

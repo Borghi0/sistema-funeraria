@@ -8,21 +8,21 @@ import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class Plano_Ctrl {
-    private static Plano_Ctrl instancia;    
+public class PlanoCtrl {
+    private static PlanoCtrl instancia;    
     
-    private Plano_Ctrl(){}
+    private PlanoCtrl(){}
     
-    public static Plano_Ctrl getInstancia(){
-        if(instancia == null) instancia = new Plano_Ctrl();
+    public static PlanoCtrl getInstancia(){
+        if(instancia == null) instancia = new PlanoCtrl();
         
         return instancia;
     }
     
-    public void cad_Plano(Plano plano) throws SQLException, ClassNotFoundException{
+    public void cadPlano(Plano plano) throws SQLException, ClassNotFoundException{
         Connection con = null;
         try{
-            con = Banco_Ctrl.getInstancia().getConexao();
+            con = BancoCtrl.getInstancia().getConexao();
             con.setAutoCommit(false);                        
             
             String sql = "INSERT INTO plano VALUES (NULL, ?, ?)";
@@ -38,7 +38,7 @@ public class Plano_Ctrl {
                 }
             }
             
-            cad_Relacionamentos(plano, con);
+            cadRelacionamentos(plano, con);
             
             con.commit();
             
@@ -50,11 +50,11 @@ public class Plano_Ctrl {
         }
     }
     
-    public List<Plano> ler_Plano() throws SQLException, ClassNotFoundException{        
+    public List<Plano> lerPlano() throws SQLException, ClassNotFoundException{        
         String sql = "SELECT * FROM plano";
         List<Plano> planos = new ArrayList();
         
-        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+        try(Connection con = BancoCtrl.getInstancia().getConexao();
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery()){                                                    
                 
@@ -71,10 +71,10 @@ public class Plano_Ctrl {
         return planos;        
     }
     
-    public Plano ler_Plano(int id) throws SQLException, ClassNotFoundException{
+    public Plano lerPlano(int id) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM plano WHERE pla_id = ?";
                 
-        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+        try(Connection con = BancoCtrl.getInstancia().getConexao();
                 PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, id);
             
@@ -94,13 +94,13 @@ public class Plano_Ctrl {
         }
     }
     
-    public void alt_Plano(Plano plano) throws SQLException, ClassNotFoundException{
+    public void altPlano(Plano plano) throws SQLException, ClassNotFoundException{
         Connection con = null;
         try{
-            con = Banco_Ctrl.getInstancia().getConexao();
+            con = BancoCtrl.getInstancia().getConexao();
             con.setAutoCommit(false);
             
-            String sql = "UPDATE plano SET pla_nome = ?, pla_preco = ? WHERE pla_id = ?";
+            String sql = "UPDATE plano SET pla_nome = ?, pla_preco = ?";
             
             try(PreparedStatement ps = con.prepareStatement(sql)){            
                 ps.setString(1, plano.getNome());
@@ -109,8 +109,8 @@ public class Plano_Ctrl {
                 ps.executeUpdate();                
             }
             
-            del_Relacionamentos(plano, con);
-            cad_Relacionamentos(plano, con);
+            delRelacionamentos(plano, con);
+            cadRelacionamentos(plano, con);
             
             con.commit();
         }catch(Exception e){            
@@ -121,13 +121,13 @@ public class Plano_Ctrl {
         }
     }
     
-    public boolean del_Plano(Plano plano) throws SQLException, ClassNotFoundException{
+    public boolean delPlano(Plano plano) throws SQLException, ClassNotFoundException{
         Connection con = null;
         try{
-            con = Banco_Ctrl.getInstancia().getConexao();
+            con = BancoCtrl.getInstancia().getConexao();
             con.setAutoCommit(false);
             
-            del_Relacionamentos(plano, con);
+            delRelacionamentos(plano, con);
             
             String sql = "DELETE FROM plano WHERE pla_id = ?";
             
@@ -156,13 +156,13 @@ public class Plano_Ctrl {
         
         String sql = "SELECT * FROM plano_servico WHERE pla_id = ?";
              
-        try(Connection con = Banco_Ctrl.getInstancia().getConexao();
+        try(Connection con = BancoCtrl.getInstancia().getConexao();
                 PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, id);
             
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){            
-                    Servicos.add(Servico_Ctrl.getInstancia().ler_Servico(rs.getInt("ser_id")));
+                    Servicos.add(ServicoCtrl.getInstancia().lerServico(rs.getInt("ser_id")));
                 }
                 return Servicos;
             }
@@ -174,20 +174,20 @@ public class Plano_Ctrl {
         
         String sql = "SELECT * FROM plano_produto WHERE pla_id = ?";
              
-        try(Connection con = Banco_Ctrl.getInstancia().getConexao();                
+        try(Connection con = BancoCtrl.getInstancia().getConexao();                
                 PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, id);
             
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){            
-                    Produtos.add(Produto_Ctrl.getInstancia().ler_Produto(rs.getInt("pro_id")));
+                    Produtos.add(ProdutoCtrl.getInstancia().lerProduto(rs.getInt("pro_id")));
                 }
             }
             return Produtos;
         }
     }
 
-    private void cad_Relacionamentos(Plano plano, Connection con) throws SQLException, ClassNotFoundException{
+    private void cadRelacionamentos(Plano plano, Connection con) throws SQLException, ClassNotFoundException{
         if(plano.getListaServicos()!=null){        
             String sqlSer = "INSERT INTO plano_servico (pla_id, ser_id) VALUES (?, ?)";
                 
@@ -217,7 +217,7 @@ public class Plano_Ctrl {
         }
     }
 
-    private void del_Relacionamentos(Plano plano, Connection con) throws SQLException, ClassNotFoundException{
+    private void delRelacionamentos(Plano plano, Connection con) throws SQLException, ClassNotFoundException{
         String sqlSer = "DELETE FROM plano_servico WHERE pla_id = ?";
         
         try(PreparedStatement ps = con.prepareStatement(sqlSer)){
