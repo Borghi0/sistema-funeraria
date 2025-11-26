@@ -24,7 +24,7 @@ public class JRelatorioUsuario extends javax.swing.JFrame implements Relatorio{
         this.navegador = navegador;
         this.usuario = usuario;
         initComponents();       
-        tbUsers.getColumnModel().removeColumn(tbUsers.getColumnModel().getColumn(8));
+        tbUsers.getColumnModel().removeColumn(tbUsers.getColumnModel().getColumn(7));
     }
 
     

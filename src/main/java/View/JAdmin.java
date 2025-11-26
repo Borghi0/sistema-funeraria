@@ -40,6 +40,7 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tbVelorio = new javax.swing.JTable();
+        rtPlano = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
         mnOpcoes = new javax.swing.JMenu();
         mnRelatorios = new javax.swing.JMenu();
@@ -56,13 +57,14 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
         miCadPlano = new javax.swing.JMenuItem();
         miCadServico = new javax.swing.JMenuItem();
         miCadProduto = new javax.swing.JMenuItem();
+        miCadDefunto = new javax.swing.JMenuItem();
         miCadVelorio = new javax.swing.JMenuItem();
         miCadSala = new javax.swing.JMenuItem();
         miRestaurar1 = new javax.swing.JMenuItem();
         miAltInfo = new javax.swing.JMenuItem();
         miSair = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Admin");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -122,6 +124,9 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
         tbVelorio.getColumnModel().getColumn(0).setHeaderRenderer(centerHeaderRenderer);
         tbVelorio.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
         //fim
+
+        rtPlano.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        rtPlano.setText("Velórios programados:");
 
         mnOpcoes.setText("Opções");
         mnOpcoes.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -230,6 +235,15 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
 
         mnCadastrar.add(mnCadOfertavel);
 
+        miCadDefunto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        miCadDefunto.setText("Defunto...");
+        miCadDefunto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCadDefuntoActionPerformed(evt);
+            }
+        });
+        mnCadastrar.add(miCadDefunto);
+
         miCadVelorio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         miCadVelorio.setText("Velório...");
         miCadVelorio.addActionListener(new java.awt.event.ActionListener() {
@@ -287,13 +301,20 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(80, 80, 80)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1043, Short.MAX_VALUE)
-                .addGap(80, 80, 80))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(rtPlano)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1043, Short.MAX_VALUE)
+                        .addGap(80, 80, 80))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(148, 148, 148)
+                .addGap(110, 110, 110)
+                .addComponent(rtPlano)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
                 .addGap(50, 50, 50))
         );
@@ -364,6 +385,10 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
     private void miCadProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadProdutoActionPerformed
         navegador.mostrarJCadRelatProduto();
     }//GEN-LAST:event_miCadProdutoActionPerformed
+
+    private void miCadDefuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadDefuntoActionPerformed
+        navegador.mostrarJCadastroDefunto();
+    }//GEN-LAST:event_miCadDefuntoActionPerformed
     
     private void jAlterarUsuario(){        
         setVisible(false);
@@ -508,6 +533,7 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem miAltInfo;
+    private javax.swing.JMenuItem miCadDefunto;
     private javax.swing.JMenuItem miCadPlano;
     private javax.swing.JMenuItem miCadProduto;
     private javax.swing.JMenuItem miCadSala;
@@ -527,6 +553,7 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
     private javax.swing.JMenu mnRelatOfertaveis;
     private javax.swing.JMenu mnRelatPessoa;
     private javax.swing.JMenu mnRelatorios;
+    private javax.swing.JLabel rtPlano;
     private javax.swing.JTable tbVelorio;
     // End of variables declaration//GEN-END:variables
 

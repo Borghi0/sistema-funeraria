@@ -36,9 +36,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         tbSerProIn.getColumnModel().removeColumn(tbSerProIn.getColumnModel().getColumn(3));                
         
         if(modoCadastro){
-            this.plano = new Plano();
-            this.plano.setListaServicos(new ArrayList<>());
-            this.plano.setListaProdutos(new ArrayList<>());
+            this.plano = new Plano();            
             rtTitulo.setText("Cadastrar plano");
             this.setTitle("Cadastrar plano");
             atualizarInfo();
@@ -478,7 +476,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
                     modelo.insertRow(lin, new Object[]{                    
                         servico.getId(),
                         servico.getNome(),
-                        servico.getPreco(),
+                        String.format("R$ %.2f", servico.getPreco()),
                         servico
                     });
                     lin++;
@@ -489,7 +487,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
                     modelo.insertRow(lin, new Object[]{
                         produto.getId(),
                         produto.getNome(),
-                        produto.getPreco(),
+                        String.format("R$ %.2f", produto.getPreco()),
                         produto
                     });
                     lin++;
@@ -508,7 +506,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
                 modeloSer.insertRow(lin, new Object[]{                    
                     servico.getId(),
                     servico.getNome(),
-                    servico.getPreco(),
+                    String.format("R$ %.2f", servico.getPreco()),
                     servico.getTipo()
                 });
                 lin++;
@@ -519,7 +517,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
                     modeloSer.insertRow(lin, new Object[]{                    
                         servico.getId(),
                         servico.getNome(),
-                        servico.getPreco(),
+                        String.format("R$ %.2f", servico.getPreco()),
                         servico.getTipo()
                     });
                     lin++;
@@ -537,7 +535,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
                 modeloPro.insertRow(lin, new Object[]{                    
                     produto.getId(),
                     produto.getNome(),
-                    produto.getPreco(),
+                    String.format("R$ %.2f", produto.getPreco()),
                     produto.isPerecivel()
                 });
                 lin++;                
@@ -548,7 +546,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
                     modeloPro.insertRow(lin, new Object[]{                    
                         produto.getId(),
                         produto.getNome(),
-                        produto.getPreco(),
+                        String.format("R$ %.2f", produto.getPreco()),
                         produto.isPerecivel()
                     });
                     lin++;

@@ -8,6 +8,7 @@ import Model.Endereco;
 import com.github.weisj.darklaf.*;
 import java.awt.Color;
 import java.time.LocalDate;
+import java.util.Arrays;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -35,26 +36,8 @@ public class JCadastro extends javax.swing.JFrame {
         DefaultComboBoxModel<String> modelAno = new DefaultComboBoxModel<>();
         for(int i=1900; i<=2025; i++) modelAno.addElement(String.valueOf(i));
         cbAno.setModel(modelAno);
-        
-        rtCadInfo.setVisible(false);        
-        setLocationRelativeTo(null);
-        
-        cxEmail.getDocument().addDocumentListener(new DocumentListener(){
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                rtErroEmail.setText("");
-                cxEmail.setForeground(UIManager.getColor("TextField.foreground"));
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                rtErroEmail.setText("");
-                cxEmail.setForeground(UIManager.getColor("TextField.foreground"));
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-            }
-        });                
+                        
+        setLocationRelativeTo(null);                               
     }
     
     
@@ -76,8 +59,6 @@ public class JCadastro extends javax.swing.JFrame {
         csCSenha = new javax.swing.JPasswordField();
         btVoltar = new javax.swing.JButton();
         btConfirmar = new javax.swing.JButton();
-        rtErroEmail = new javax.swing.JLabel();
-        rtCadInfo = new javax.swing.JLabel();
         cbDia = new javax.swing.JComboBox<>();
         rtData = new javax.swing.JLabel();
         rtRua = new javax.swing.JLabel();
@@ -204,15 +185,6 @@ public class JCadastro extends javax.swing.JFrame {
             }
         });
 
-        rtErroEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        rtErroEmail.setForeground(new java.awt.Color(255, 0, 0));
-        rtErroEmail.setMinimumSize(new java.awt.Dimension(120, 0));
-
-        rtCadInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        rtCadInfo.setForeground(new java.awt.Color(255, 0, 0));
-        rtCadInfo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rtCadInfo.setText("Preencha todos os campos");
-
         cbDia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         rtData.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -288,7 +260,6 @@ public class JCadastro extends javax.swing.JFrame {
                             .addComponent(rtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(rtCadInfo)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(csCSenha, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(csSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -322,19 +293,15 @@ public class JCadastro extends javax.swing.JFrame {
                             .addComponent(cxNome)
                             .addComponent(cxTelefone)
                             .addComponent(cxCpf))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rtErroEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(244, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(87, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rtErroEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(rtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cxEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cxEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -374,9 +341,7 @@ public class JCadastro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rtCSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(csCSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rtCadInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(48, 48, 48)
                 .addComponent(btConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -488,8 +453,16 @@ public class JCadastro extends javax.swing.JFrame {
         LocalDate data_natalidade = validarData();
         if(data_natalidade == null) return;
         
-        // criar classes de verificação para usar aqui ou no metodo cad_User,
-        // por exemplo: senha = confirma senha; CPF é válido...
+        if(!Arrays.equals(csSenha.getPassword(), csCSenha.getPassword())){
+            JOptionPane.showMessageDialog(
+                null,
+                "Senhas diferentes",
+                "Erro",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+        
         Endereco endereco = new Endereco(
                 cxNumero.getText().isBlank() ? 0 : Integer.parseInt(cxNumero.getText()),
                 cxRua.getText(),
@@ -524,31 +497,7 @@ public class JCadastro extends javax.swing.JFrame {
                 "Erro",
                 JOptionPane.ERROR_MESSAGE
             );
-        }
-            /*       Codigo de referencia
-            
-            boolean c = false;
-            try{
-            UsuarioControle.cadastrar(cxNome.getText(), cxCPF.getText(), cxEmail.getText(),
-            String.valueOf(csSenha.getPassword()), String.valueOf(csCSenha.getPassword()),
-            cxUser.getText(), false, false);
-            }
-            catch(IllegalArgumentException iae){
-            c = true;
-            rtCadInfo.setForeground(Color.red);
-            rtCadInfo.setVisible(true);
-            rtCadInfo.setText(iae.getMessage());
-            if(iae.getMessage().equals("Email")) rtErro(1);
-            else if(iae.getMessage().equals("User")) rtErro(2);
-            else if(iae.getMessage().equals("UserEmail")) rtErro(3);
-            }
-            if(!c){
-            limpar();
-            rtCadInfo.setForeground(UIManager.getColor("TextField.foreground"));
-            rtCadInfo.setText("Cadastrado com sucesso!");
-            rtCadInfo.setVisible(true);
-            }
-            */        
+        }                  
     }
     public void cadastrar(java.awt.event.KeyEvent evt){
         if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) cadastrar();
@@ -588,20 +537,7 @@ public class JCadastro extends javax.swing.JFrame {
         cbMes.setSelectedIndex(0);
         cbAno.setSelectedIndex(0);
         cxEmail.requestFocus();
-    }
-    
-    public void rtErro(){
-        rtCadInfo.setVisible(false);
-        rtErroEmail.setText("Email já cadastrado");
-        cxEmail.setForeground(Color.red);            
-    }
-    
-    public void msgErro(String msg){
-        rtCadInfo.setForeground(Color.red);
-        rtCadInfo.setText(msg);
-        rtCadInfo.setVisible(true);
-    }
-    
+    }        
     
     
     public static void main(String args[]) {
@@ -645,12 +581,10 @@ public class JCadastro extends javax.swing.JFrame {
     private javax.swing.JTextField cxRua;
     private javax.swing.JTextField cxTelefone;
     private javax.swing.JLabel rtCSenha;
-    private javax.swing.JLabel rtCadInfo;
     private javax.swing.JLabel rtCep;
     private javax.swing.JLabel rtCpf;
     private javax.swing.JLabel rtData;
     private javax.swing.JLabel rtEmail;
-    private javax.swing.JLabel rtErroEmail;
     private javax.swing.JLabel rtNome;
     private javax.swing.JLabel rtNumero;
     private javax.swing.JLabel rtRua;

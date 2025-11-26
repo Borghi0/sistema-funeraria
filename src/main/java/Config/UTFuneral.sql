@@ -1,88 +1,72 @@
-CREATE DATABASE IF NOT EXISTS UTFuneral;
-USE UTFuneral;
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-CREATE TABLE IF NOT EXISTS endereco(
-                end_numero INT,
-                end_rua VARCHAR(255),
-                end_cep VARCHAR(20),
-                PRIMARY KEY (end_numero, end_rua, end_cep)
-);
+CREATE SCHEMA IF NOT EXISTS `UTFuneral`;
+USE `UTFuneral` ;
 
-CREATE TABLE IF NOT EXISTS servico(
-                ser_id INT AUTO_INCREMENT PRIMARY KEY,
-                ser_nome VARCHAR(255),
-                ser_prestacao DATE,
-                ser_preco DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-                ser_tipo VARCHAR(100)
-);
+CREATE TABLE IF NOT EXISTS `UTFuneral`.`defunto` (
+  `def_id` INT NOT NULL AUTO_INCREMENT,
+  `def_nome` VARCHAR(255) NULL DEFAULT NULL,
+  `def_data_natalidade` DATE NULL DEFAULT NULL,
+  `def_data_obito` DATE NULL DEFAULT NULL,
+  `def_tipo_obito` VARCHAR(100) NULL DEFAULT NULL,
+  `def_cemiterio` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`def_id`));
 
-CREATE TABLE IF NOT EXISTS produto(
-                pro_id INT AUTO_INCREMENT PRIMARY KEY,
-                pro_nome VARCHAR(255),
-                pro_perecivel BOOLEAN NOT NULL DEFAULT false,
-                pro_quant_estoque INT NOT NULL DEFAULT 0,
-                pro_preco DECIMAL(10,2) NOT NULL DEFAULT 0.00
-);
-                
-CREATE TABLE IF NOT EXISTS plano(
-                pla_id INT AUTO_INCREMENT PRIMARY KEY,
-                pla_nome VARCHAR(255),
-                pla_preco DECIMAL(10,2) NOT NULL DEFAULT 0.00
-);
+CREATE TABLE IF NOT EXISTS `UTFuneral`.`endereco` (
+  `end_numero` INT NOT NULL,
+  `end_rua` VARCHAR(255) NOT NULL,
+  `end_cep` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`end_numero`, `end_rua`, `end_cep`));
 
-CREATE TABLE IF NOT EXISTS plano_produto(                
-                pla_id INT,
-                pro_id INT,
-                PRIMARY KEY (pla_id, pro_id),
-                CONSTRAINT fk_pp_plano 
-					FOREIGN KEY (pla_id) REFERENCES plano(pla_id),
-                CONSTRAINT fk_pp_produto
-					FOREIGN KEY (pro_id) REFERENCES produto(pro_id) 
-);
+CREATE TABLE IF NOT EXISTS `UTFuneral`.`plano` (
+  `pla_id` INT NOT NULL AUTO_INCREMENT,
+  `pla_nome` VARCHAR(255) NULL DEFAULT NULL,
+  `pla_preco` DOUBLE NOT NULL DEFAULT '0',  
+  PRIMARY KEY (`pla_id`));
 
-CREATE TABLE IF NOT EXISTS plano_servico(                
-                pla_id INT,
-                ser_id INT,
-                PRIMARY KEY (pla_id, ser_id),
-                CONSTRAINT fk_ps_plano 
-					FOREIGN KEY (pla_id) REFERENCES plano(pla_id),
-                CONSTRAINT fk_ps_servico
-					FOREIGN KEY (ser_id) REFERENCES servico(ser_id)                
-);
+CREATE TABLE IF NOT EXISTS `UTFuneral`.`produto` (
+  `pro_id` INT NOT NULL AUTO_INCREMENT,
+  `pro_nome` VARCHAR(255) NULL DEFAULT NULL,
+  `pro_perecivel` TINYINT(1) NOT NULL DEFAULT '0',
+  `pro_quant_estoque` INT NOT NULL DEFAULT '0',
+  `pro_preco` DOUBLE NOT NULL DEFAULT '0',  
+  PRIMARY KEY (`pro_id`));
 
-CREATE TABLE IF NOT EXISTS sala(
-                sal_numero INT AUTO_INCREMENT PRIMARY KEY,
-                sal_capacidade INT DEFAULT 0
-);
+CREATE TABLE IF NOT EXISTS `UTFuneral`.`plano_produto` (
+  `pla_id` INT NOT NULL,
+  `pro_id` INT NOT NULL,
+  PRIMARY KEY (`pla_id`, `pro_id`),
+  INDEX `pla_id` (`pla_id` ASC) VISIBLE,
+  INDEX `pro_id` (`pro_id` ASC) VISIBLE,
+  CONSTRAINT `plano_produto_ibfk_1`
+    FOREIGN KEY (`pla_id`)
+    REFERENCES `UTFuneral`.`plano` (`pla_id`),
+  CONSTRAINT `plano_produto_ibfk_2`
+    FOREIGN KEY (`pro_id`)
+    REFERENCES `UTFuneral`.`produto` (`pro_id`));
 
-CREATE TABLE IF NOT EXISTS defunto(
-                def_id INT AUTO_INCREMENT PRIMARY KEY,
-                def_nome VARCHAR(255),
-                def_data_natalidade DATE,
-                def_data_obito DATE,
-                def_tipo_obito VARCHAR(100),
-                def_cemiterio VARCHAR(255) NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `UTFuneral`.`servico` (
+  `ser_id` INT NOT NULL AUTO_INCREMENT,
+  `ser_nome` VARCHAR(255) NULL DEFAULT NULL,
+  `ser_prestacao` DATE NULL DEFAULT NULL,
+  `ser_preco` DOUBLE NOT NULL DEFAULT '0',
+  `ser_tipo` VARCHAR(100) NULL DEFAULT NULL,
+  PRIMARY KEY (`ser_id`));
 
-CREATE TABLE IF NOT EXISTS usuario(
-                usu_cpf VARCHAR(50) PRIMARY KEY,
-                usu_nome VARCHAR(255) NOT NULL,
-                usu_data_natalidade DATE NOT NULL,
-                usu_login VARCHAR(100) UNIQUE NOT NULL,
-                usu_senha VARCHAR(255) NOT NULL,
-                usu_numero_telefone VARCHAR(50) DEFAULT NULL,
-                usu_admin BOOLEAN NOT NULL DEFAULT false,
-                end_numero INT NOT NULL,
-                end_rua VARCHAR(255) NOT NULL,
-                end_cep VARCHAR(20) NOT NULL,
-                pla_id INT DEFAULT NULL,
-                CONSTRAINT fk_usuario_plano
-					FOREIGN KEY (pla_id)
-                    REFERENCES plano (pla_id),
-				CONSTRAINT fk_usuario_endereco
-					FOREIGN KEY (end_numero, end_rua, end_cep)
-                    REFERENCES endereco (end_numero, end_rua, end_cep)
-);
+CREATE TABLE IF NOT EXISTS `UTFuneral`.`plano_servico` (
+  `pla_id` INT NOT NULL,
+  `ser_id` INT NOT NULL,
+  PRIMARY KEY (`pla_id`, `ser_id`),
+  INDEX `pla_id` (`pla_id` ASC) VISIBLE,
+  INDEX `ser_id` (`ser_id` ASC) VISIBLE,
+  CONSTRAINT `plano_servico_ibfk_1`
+    FOREIGN KEY (`pla_id`)
+    REFERENCES `UTFuneral`.`plano` (`pla_id`),
+  CONSTRAINT `plano_servico_ibfk_2`
+    FOREIGN KEY (`ser_id`)
+    REFERENCES `UTFuneral`.`servico` (`ser_id`));
 
 CREATE TABLE IF NOT EXISTS velorio(
                 sal_numero INT,

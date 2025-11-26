@@ -3,7 +3,6 @@ package View;
 import Control.ProdutoCtrl;
 import Control.ServicoCtrl;
 import Model.Produto;
-import Model.Servico;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -37,7 +36,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
         miRestaurar = new javax.swing.JMenuItem();
         miFechar = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -102,7 +101,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nome", "Preço", "Perecível", "Estoque"
+                "Id", "Produto", "Preço", "Perecível", "Estoque"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -307,7 +306,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
             modelo.insertRow(lin, new Object[]{                    
                 produto.getId(),
                 produto.getNome(),
-                produto.getPreco(),
+                String.format("R$ %.2f", produto.getPreco()),
                 produto.isPerecivel() ? "Sim" : "Não",
                 produto.getQuantEstoque()
             });

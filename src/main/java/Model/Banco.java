@@ -1,7 +1,5 @@
 package Model;
 
-import java.sql.*;
-
 
 public class Banco {
     private final String driver;

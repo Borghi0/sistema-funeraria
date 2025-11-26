@@ -397,7 +397,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
                 modelo.insertRow(lin, new Object[]{
                     plano.getId(),
                     plano.getNome(),
-                    plano.getPreco()
+                    String.format("R$ %.2f", plano.getPreco())
                 });
                 lin++;                
         }                                        
@@ -416,7 +416,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
             modelo.insertRow(lin, new Object[]{
                     plano.getId(),
                     plano.getNome(),
-                    plano.getPreco()
+                    String.format("R$ %.2f", plano.getPreco())
             });
             listarTabServicos(plano.getId());
             listarTabProdutos(plano.getId());
@@ -433,7 +433,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
             for(Servico servico : PlanoCtrl.getInstancia().getServicos(id)){                
                 modelo.insertRow(lin, new Object[]{
                     servico.getNome(),
-                    servico.getPreco(),
+                    String.format("R$ %.2f", servico.getPreco()),
                     servico.getTipo()
                 });
                 lin++;                
@@ -456,7 +456,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
             for(Produto produto : PlanoCtrl.getInstancia().getProdutos(id)){                
                 modelo.insertRow(lin, new Object[]{
                     produto.getNome(),
-                    produto.getPreco(),
+                    String.format("R$ %.2f", produto.getPreco()),
                     produto.isPerecivel()
                 });
                 lin++;                
