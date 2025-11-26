@@ -1,7 +1,7 @@
 package View;
 
-import Control.Produto_Ctrl;
-import Control.Servico_Ctrl;
+import Control.ProdutoCtrl;
+import Control.ServicoCtrl;
 import Model.Produto;
 import Model.Servico;
 import java.sql.SQLException;
@@ -276,7 +276,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
         );
         
         try{
-            Produto_Ctrl.getInstancia().cad_Produto(produto);
+            ProdutoCtrl.getInstancia().cadProduto(produto);
             
             JOptionPane.showMessageDialog(
                 null,
@@ -303,7 +303,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
         int lin = 0;
         modelo.setRowCount(lin);
                 
-        for(Produto produto : Produto_Ctrl.getInstancia().ler_Produto()){
+        for(Produto produto : ProdutoCtrl.getInstancia().lerProduto()){
             modelo.insertRow(lin, new Object[]{                    
                 produto.getId(),
                 produto.getNome(),
@@ -350,7 +350,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
                 );
         if(o==0){
             try {
-                if(Produto_Ctrl.getInstancia().del_Produto(produto)>0)
+                if(ProdutoCtrl.getInstancia().delProduto(produto)>0)
                     JOptionPane.showMessageDialog(
                             null, "Produto deletado!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE
@@ -385,7 +385,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
         if(o==0){            
             try{
                 produto.setQuantEstoque(Integer.parseInt(cxQuantE.getText()));                
-                if(Produto_Ctrl.getInstancia().alt_Produto(produto)>0)
+                if(ProdutoCtrl.getInstancia().altProduto(produto)>0)
                     JOptionPane.showMessageDialog(
                                 null, "Estoque atualizado!",
                                 "Sucesso!", JOptionPane.INFORMATION_MESSAGE

@@ -22,7 +22,8 @@ public class NavegadorUI {
     private JRelatorioUsuario jRelatorioUsuario;
     private JRelatorioDefunto jRelatorioDefunto;
     private JCadRelatProduto jCadRelatProduto;
-    
+    private JSala jSala;
+    private JRelatorioDefunto jrelatorioDefunto;
     // janelas do usuario
     
     
@@ -139,6 +140,14 @@ public class NavegadorUI {
             jCadRelatProduto.dispose();
             jCadRelatProduto = null;
         }
+        if(jSala != null){
+            jSala.dispose();
+            jSala = null;
+        }
+        if(jRelatorioDefunto != null){
+            jRelatorioDefunto.dispose();
+            jRelatorioDefunto = null;
+        }
     }
     
     public void mostrarJRelatorioPlano(Usuario usuario){
@@ -198,10 +207,10 @@ public class NavegadorUI {
     }
     
     public void mostrarJRelatorioDefunto(){
-        //if(jRelatorioUsuario == null) jRelatorioUsuario = new JRelatorioUsuario(this);
+        if(jRelatorioDefunto == null) jRelatorioDefunto = new JRelatorioDefunto();
         
-        //jRelatorioUsuario.setVisible(true);
-        //jRelatorioUsuario.toFront();
+        jRelatorioDefunto.setVisible(true);
+        jRelatorioDefunto.toFront();
     }
     public void mostrarJCadRelatProduto(){
         if(jCadRelatProduto == null) jCadRelatProduto = new JCadRelatProduto();
@@ -212,5 +221,12 @@ public class NavegadorUI {
     
     public void atualizarMenuUsuario(Usuario usuario){
         jMenuUsuario.setUsuario(usuario);
+    }
+    
+    public void mostarJSala(){
+        if(jSala == null) jSala = new JSala();
+        
+        jSala.setVisible(true);
+        jSala.toFront();
     }
 }

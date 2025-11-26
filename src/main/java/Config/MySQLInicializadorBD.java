@@ -1,6 +1,6 @@
 package Config;
 
-import Control.Banco_Ctrl;
+import Control.BancoCtrl;
 import java.sql.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,7 +19,7 @@ public class MySQLInicializadorBD implements InicializadorBD{
     
     @Override
     public void criarTabelas() throws Exception{
-        Connection con = Banco_Ctrl.getInstancia().getConexao();
+        Connection con = BancoCtrl.getInstancia().getConexao();
         Statement st = con.createStatement();
         
         File script = new File("src\\main\\java\\Config\\UTFuneral.sql");        

@@ -1,6 +1,6 @@
 package View;
 
-import Control.Velorio_Ctrl;
+import Control.VelorioCtrl;
 import Model.Defunto;
 import Model.Sala;
 import Model.Velorio;
@@ -281,7 +281,7 @@ public class JCadAltVelorio extends javax.swing.JFrame {
         );
         
         try {            
-            Velorio_Ctrl.getInstancia().cad_Velorio(v);
+            VelorioCtrl.getInstancia().cadVelorio(v);
             JOptionPane.showMessageDialog(
                 null,
                 "Velório cadastrado com sucesso!",
@@ -314,7 +314,7 @@ public class JCadAltVelorio extends javax.swing.JFrame {
         );
         
         try {            
-            Velorio_Ctrl.getInstancia().alt_Velorio(velorioAlt);
+            VelorioCtrl.getInstancia().altVelorio(velorioAlt);
             JOptionPane.showMessageDialog(
                 null,
                 "Velório alterado com sucesso!",

@@ -1,6 +1,6 @@
 package View;
 
-import Control.Banco_Ctrl;
+import Control.BancoCtrl;
 import Control.NavegadorUI;
 import com.github.weisj.darklaf.DarkLaf;
 import com.github.weisj.darklaf.LafManager;
@@ -164,10 +164,10 @@ public class JConexaoBD extends javax.swing.JFrame {
                 String.valueOf(csSenha.getPassword()), 
                 cxUser.getText()
         );
-        Banco_Ctrl.getInstancia().setBanco(banco);
+        BancoCtrl.getInstancia().setBanco(banco);
         
         try {
-            Banco_Ctrl.getInstancia().testarConexao();            
+            BancoCtrl.getInstancia().testarConexao();            
             JOptionPane.showMessageDialog(
                 null,
                 "Conexão bem-sucedida!",
@@ -184,9 +184,9 @@ public class JConexaoBD extends javax.swing.JFrame {
             return;
         }
         
-        Banco_Ctrl.getInstancia().setInicializadorBD(Config.MySQLInicializadorBD.getInstancia());
+        BancoCtrl.getInstancia().setInicializadorBD(Config.MySQLInicializadorBD.getInstancia());
         try {            
-            Banco_Ctrl.getInstancia().criarTabelas();            
+            BancoCtrl.getInstancia().criarTabelas();            
             dispose();
             navegador.mostrarJLogin();
         } catch (Exception e) {

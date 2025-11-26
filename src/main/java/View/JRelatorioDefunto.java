@@ -1,6 +1,6 @@
 package View;
 
-import Control.Defunto_Ctrl;
+import Control.DefuntoCtrl;
 import Model.Defunto;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -127,7 +127,7 @@ public class JRelatorioDefunto extends javax.swing.JFrame {
         tbDefuntos.setDefaultEditor(Object.class, null);
         
         try{
-            for(Defunto d : Defunto_Ctrl.getInstancia().ler_Defunto()){
+            for(Defunto d : DefuntoCtrl.getInstancia().lerDefunto()){
                 modelo.insertRow(linha, new Object[]{
                     d.getId(), d.getNome(), d.getDataNatalidade(), d.getDataObito(),
                     d.getTipoObito(), d.getCemiterio()                    
@@ -162,7 +162,7 @@ public class JRelatorioDefunto extends javax.swing.JFrame {
                 );
         if(o==0){
             try {
-                if(Defunto_Ctrl.getInstancia().del_Defunto(def)>0)
+                if(DefuntoCtrl.getInstancia().delDefunto(def)>0)
                     JOptionPane.showMessageDialog(
                             null, "Defunto deletado!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE

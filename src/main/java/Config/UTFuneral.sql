@@ -90,7 +90,8 @@ CREATE TABLE IF NOT EXISTS velorio(
                 def_id INT NOT NULL,
                 PRIMARY KEY (sal_numero, vel_data_horario),
                 CONSTRAINT fk_velorio_sala 
-					FOREIGN KEY (sal_numero) REFERENCES sala(sal_numero),
+					FOREIGN KEY (sal_numero) REFERENCES sala(sal_numero)
+                                        ON DELETE CASCADE,
                 CONSTRAINT fk_velorio_defunto
 					FOREIGN KEY (def_id) REFERENCES defunto(def_id)
 );

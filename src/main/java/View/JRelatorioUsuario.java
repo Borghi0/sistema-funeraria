@@ -1,15 +1,17 @@
 package View;
 
 import Control.NavegadorUI;
-import Control.Usuario_Ctrl;
+import Control.UsuarioCtrl;
+import Interfaces.Relatorio;
 import Model.Endereco;
 import Model.Usuario;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class JRelatorioUsuario extends javax.swing.JFrame {
+public class JRelatorioUsuario extends javax.swing.JFrame implements Relatorio{
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JRelatorioUsuario.class.getName());
     private NavegadorUI navegador;
     private Usuario usuario;
@@ -34,8 +36,7 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         tbUsers = new javax.swing.JTable();
         barraMenu = new javax.swing.JMenuBar();
         mbOpcoes1 = new javax.swing.JMenu();
-        miRestaurar1 = new javax.swing.JMenuItem();
-        miFechar1 = new javax.swing.JMenuItem();
+        miFechar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -46,17 +47,17 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
 
         tbUsers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nome", "CPF", "email", "Telefone", "Admin", "Logradouro", "Numero", "Plano"
+                "Nome", "CPF", "email", "Telefone", "Admin", "CEP", "Logradouro", "Numero", "Plano"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -73,15 +74,10 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         mbOpcoes1.setText("Opções");
         mbOpcoes1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
 
-        miRestaurar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miRestaurar1.setText("Restaurar Tabela");
-        miRestaurar1.addActionListener(this::miRestaurar1ActionPerformed);
-        mbOpcoes1.add(miRestaurar1);
-
-        miFechar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        miFechar1.setText("Fechar");
-        miFechar1.addActionListener(this::miFechar1ActionPerformed);
-        mbOpcoes1.add(miFechar1);
+        miFechar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        miFechar.setText("Fechar");
+        miFechar.addActionListener(this::miFecharActionPerformed);
+        mbOpcoes1.add(miFechar);
 
         barraMenu.add(mbOpcoes1);
 
@@ -104,10 +100,16 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        listar_tabela();
+        listarTabela();
     }//GEN-LAST:event_formWindowActivated
 
     private void tbUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbUsersMouseClicked
+        if(evt.getButton() == java.awt.event.MouseEvent.BUTTON1){
+            int linha = tbUsers.rowAtPoint(evt.getPoint());
+            
+            if(linha >= 0 && linha < tbUsers.getRowCount()) tbUsers.setRowSelectionInterval(linha, linha);
+            else tbUsers.clearSelection();
+        }
         selecTab();
     }//GEN-LAST:event_tbUsersMouseClicked
 
@@ -115,18 +117,20 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     
-    private void listar_tabela(){
+    @Override
+    public void listarTabela(){
         int linha = 0;
         DefaultTableModel modelo = (DefaultTableModel) tbUsers.getModel();
         
         tbUsers.setDefaultEditor(Object.class, null);
         
         try{
-            for(Usuario u : Usuario_Ctrl.getInstancia().ler_User()){
+            for(Usuario u : UsuarioCtrl.getInstancia().lerUser()){
                 modelo.insertRow(linha, new Object[]{
                     u.getNome(), u.getCpf(), u.getEmail(), u.getNumeroTelefone(),
-                    (u.isAdmin() ? "Sim" : "Não"), u.getEndereco().getRua(),
-                    u.getEndereco().getNumero(), u.getPlano().getId(), u.getEndereco()
+                    (u.isAdmin() ? "Sim" : "Não"), u.getEndereco().getCep(),
+                    u.getEndereco().getRua(), u.getEndereco().getNumero(), 
+                    u.getPlano().getId()
                 });
 
                 linha++;
@@ -148,7 +152,10 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
         
         userSelec.setAdmin(tbUsers.getValueAt(linSelec, 4).toString().equals("Sim"));
         userSelec.setCpf((String) tbUsers.getValueAt(linSelec, 1));                
-        userSelec.setEndereco((Endereco) tbUsers.getValueAt(linSelec, 8));
+        userSelec.setEndereco(new Endereco(
+                (int) tbUsers.getValueAt(linSelec, 7),
+                (String) tbUsers.getValueAt(linSelec, 6),
+                (String) tbUsers.getValueAt(linSelec, 5)));
                         
         int o = JOptionPane.showOptionDialog(
                 null,
@@ -157,7 +164,7 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,
-                new Object[]{"Deletar", "Tornar admin", "Cancelar"},
+                new Object[]{"Deletar", "Mudar permissão", "Cancelar"},
                 "Cancelar"
         );
         
@@ -173,7 +180,7 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
                 );
         if(o==0){
             try {
-                if(Usuario_Ctrl.getInstancia().del_User(user)>0)
+                if(UsuarioCtrl.getInstancia().delUser(user)>0)
                     JOptionPane.showMessageDialog(
                             null, "Usuário deletado!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE
@@ -194,7 +201,12 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
     }
     
     void tornarAdmin(Usuario user){
-        //Não implementado ainda
+        try{
+            UsuarioCtrl.getInstancia().altUserSetAdmin(user);
+        } catch(SQLException | ClassNotFoundException sql_cnf_e){
+            JOptionPane.showMessageDialog(null, "Erro: " + sql_cnf_e.toString(),
+                    "Erro de operação", JOptionPane.ERROR_MESSAGE);
+        }
     }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -222,16 +234,11 @@ public class JRelatorioUsuario extends javax.swing.JFrame {
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu mbOpcoes1;
-    private javax.swing.JMenuItem miFechar1;
-    private javax.swing.JMenuItem miRestaurar1;
+    private javax.swing.JMenuItem miFechar;
     private javax.swing.JTable tbUsers;
     // End of variables declaration//GEN-END:variables
 
-    private void miRestaurar1ActionPerformed(ActionEvent e) {
-        listar_tabela();
-    }
-
-    private void miFechar1ActionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private void miFecharActionPerformed(ActionEvent e) {
+        dispose();
     }
 }

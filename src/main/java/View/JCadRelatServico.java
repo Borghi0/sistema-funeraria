@@ -1,6 +1,6 @@
 package View;
 
-import Control.Servico_Ctrl;
+import Control.ServicoCtrl;
 import Model.Servico;
 import java.awt.Component;
 import java.awt.Font;
@@ -346,7 +346,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
         );
         
         try{
-            Servico_Ctrl.getInstancia().cad_Servico(servico);
+            ServicoCtrl.getInstancia().cadServico(servico);
             
             JOptionPane.showMessageDialog(
                 null,
@@ -381,7 +381,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
         int lin = 0;
         modelo.setRowCount(lin);
                 
-        for(Servico servico : Servico_Ctrl.getInstancia().ler_ServicoGenerico()){
+        for(Servico servico : ServicoCtrl.getInstancia().lerServicoGenerico()){
             modelo.insertRow(lin, new Object[]{                    
                 servico.getId(),
                 servico.getNome(),
@@ -400,7 +400,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
         int lin = 0;
         modelo.setRowCount(lin);
                 
-        for(Servico servico : Servico_Ctrl.getInstancia().ler_ServicoProgramado()){
+        for(Servico servico : ServicoCtrl.getInstancia().lerServicoProgramado()){
             modelo.insertRow(lin, new Object[]{                    
                 servico.getId(),
                 servico.getNome(),
@@ -466,7 +466,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
                 );
         if(o==0){
             try {
-                if(Servico_Ctrl.getInstancia().del_Servico(servico)>0)
+                if(ServicoCtrl.getInstancia().delServico(servico)>0)
                     JOptionPane.showMessageDialog(
                             null, "Serviço deletado!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE
@@ -515,7 +515,7 @@ public class JCadRelatServico extends javax.swing.JFrame {
                         (Integer) cbDia.getSelectedItem()
                     )
                 );
-                Servico_Ctrl.getInstancia().cad_Servico(servico);                
+                ServicoCtrl.getInstancia().cadServico(servico);                
                 JOptionPane.showMessageDialog(
                             null, "Serviço programado!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE

@@ -1,6 +1,6 @@
 package View;
 
-import Control.Defunto_Ctrl;
+import Control.DefuntoCtrl;
 import Model.Defunto;
 import java.awt.Color;
 import java.time.LocalDate;
@@ -322,7 +322,7 @@ public class JCadastroDefunto extends javax.swing.JFrame {
         );
         
         try {
-            Defunto_Ctrl.getInstancia().cad_Defunto(defunto);
+            DefuntoCtrl.getInstancia().cadDefunto(defunto);
             JOptionPane.showMessageDialog(
                 null,
                 "Defunto cadastrado com sucesso!",

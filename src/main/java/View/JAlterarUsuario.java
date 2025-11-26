@@ -1,6 +1,6 @@
 package View;
 
-import Control.Usuario_Ctrl;
+import Control.UsuarioCtrl;
 import Model.Endereco;
 import Model.Usuario;
 import java.time.LocalDate;
@@ -423,7 +423,7 @@ public class JAlterarUsuario extends javax.swing.JFrame {
         );
         
         try{
-            Usuario_Ctrl.getInstancia().alt_User(usuarioAlt);
+            UsuarioCtrl.getInstancia().altUser(usuarioAlt);
             JOptionPane.showMessageDialog(
                 null,
                 "Usuário atualizado com sucesso!",

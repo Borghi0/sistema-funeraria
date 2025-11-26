@@ -2,7 +2,7 @@ package View;
 
 
 import Control.NavegadorUI;
-import Control.Usuario_Ctrl;
+import Control.UsuarioCtrl;
 import Model.Usuario;
 import Model.Endereco;
 import com.github.weisj.darklaf.*;
@@ -509,7 +509,7 @@ public class JCadastro extends javax.swing.JFrame {
         );
         
         try {            
-            Usuario_Ctrl.getInstancia().cad_User(usuario, endereco);
+            UsuarioCtrl.getInstancia().cadUser(usuario, endereco);
             JOptionPane.showMessageDialog(
                 null,
                 "Usuário cadastrado com sucesso!",
