@@ -8,8 +8,11 @@ import java.util.List;
 
 public class ServicoCtrl {
     private static ServicoCtrl instancia;
+    private Calculadora calc;
     
-    private ServicoCtrl(){}
+    private ServicoCtrl(){
+        calc = new Calculadora(new DescontoServico());
+    }
     
     public static ServicoCtrl getInstancia(){
         if(instancia == null) instancia = new ServicoCtrl();
@@ -124,7 +127,7 @@ public class ServicoCtrl {
         return servicos;
     }
     
-    public int alt_Servico(Servico servico) throws SQLException, ClassNotFoundException{
+    public int altServico(Servico servico) throws SQLException, ClassNotFoundException{
         String sql = "UPDRATE servico SET ser_tipo = ?, ser_prestacao = ?"
                 + " WHERE ser_id = ?";
         
@@ -141,13 +144,37 @@ public class ServicoCtrl {
     }
     
     public int delServico(Servico servico) throws SQLException, ClassNotFoundException{
-        String sql = "DELETE FROM servico WHERE ser_id = ?";
+        int retorno = 0;
+        String sql_del_ponte = "DELETE FROM plano_servico p_s WHERE "
+                             + " p_s.ser_id IN (SELECT s.ser_id FROM servico s"
+                             + " WHERE s.ser_id = " + servico.getId(),
+                
+               sql_del_ser = "DELETE FROM servico WHERE ser_id = " + servico.getId(),
+               
+               sql_up_plano = "UPDATE FROM plano SET pla_preco = pla_preco - " +
+                              calc.calcularValor(servico.getPreco()) + " WHERE"
+                            + " pla_id IN (SELECT p_s.pla_id FROM plano_servico p_s"
+                            + " WHERE p_s.ser_id = " + servico.getId() + ")";
         
-        try(Connection con = BancoCtrl.getInstancia().getConexao();
-                PreparedStatement ps = con.prepareStatement(sql)){
-            
-            ps.setInt(1, servico.getId());
-            return ps.executeUpdate();
+        Connection con = null;        
+        try{
+            con = BancoCtrl.getInstancia().getConexao();
+            try(Statement st = con.createStatement()){
+        
+                con.setAutoCommit(false);
+
+                retorno += st.executeUpdate(sql_up_plano);
+                retorno += st.executeUpdate(sql_del_ponte);
+                retorno += st.executeUpdate(sql_del_ser);
+
+                con.commit();
+                return retorno;
+            }
+        }catch(SQLException e){
+            if(con!=null) try{con.rollback();} catch(SQLException ex){}
+            throw e;
+        }finally{
+            if(con!=null) try{con.close();} catch(SQLException ex){}            
         }
     }
 }
