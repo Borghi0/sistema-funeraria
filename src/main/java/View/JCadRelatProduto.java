@@ -1,7 +1,6 @@
 package View;
 
 import Control.ProdutoCtrl;
-import Control.ServicoCtrl;
 import Model.Produto;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -37,6 +36,7 @@ public class JCadRelatProduto extends javax.swing.JFrame {
         miFechar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Produtos");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);

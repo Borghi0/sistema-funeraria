@@ -339,7 +339,7 @@ public class JAdmin extends javax.swing.JFrame implements JanelaRaiz{
     }//GEN-LAST:event_miCadVelorioActionPerformed
 
     private void miCadSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadSalaActionPerformed
-        // TODO add your handling code here:
+        navegador.mostarJSala();
     }//GEN-LAST:event_miCadSalaActionPerformed
 
     private void miRelatPlanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRelatPlanosActionPerformed

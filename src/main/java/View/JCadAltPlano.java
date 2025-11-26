@@ -13,7 +13,6 @@ import Model.Produto;
 import Model.Servico;
 import java.awt.Component;
 import java.awt.Font;
-import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -74,6 +73,7 @@ public class JCadAltPlano extends javax.swing.JFrame {
         miFechar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Plano");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);

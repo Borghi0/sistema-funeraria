@@ -27,8 +27,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
         this.navegador = navegador;
         this.usuario = usuario;
         initComponents();        
-        setLocationRelativeTo(null);
-        setExtendedState(MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);        
         
         if(!usuario.isAdmin()){
             btDelAdq.setText("Adquirir...");
@@ -292,7 +291,7 @@ public class JRelatorioPlano extends javax.swing.JFrame {
                         .addComponent(btDelAdq)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btAtualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
                         .addComponent(btRestaurar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()

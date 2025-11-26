@@ -8,25 +8,17 @@ import Model.Usuario;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class JRelatorioUsuario extends javax.swing.JFrame implements Relatorio{
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JRelatorioUsuario.class.getName());
-    private NavegadorUI navegador;
+public class JRelatorioUsuario extends javax.swing.JFrame implements Relatorio{    
     private Usuario usuario;
     
-    public JRelatorioUsuario(){
+    public JRelatorioUsuario(Usuario usuario){
+        this.usuario = usuario;
         initComponents();
+        setLocationRelativeTo(null);
     }
     
-    public JRelatorioUsuario(NavegadorUI navegador, Usuario usuario) {
-        this.navegador = navegador;
-        this.usuario = usuario;
-        initComponents();       
-        tbUsers.getColumnModel().removeColumn(tbUsers.getColumnModel().getColumn(7));
-    }
-
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -38,7 +30,8 @@ public class JRelatorioUsuario extends javax.swing.JFrame implements Relatorio{
         mbOpcoes1 = new javax.swing.JMenu();
         miFechar = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Usuários");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -47,10 +40,7 @@ public class JRelatorioUsuario extends javax.swing.JFrame implements Relatorio{
 
         tbUsers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Nome", "CPF", "email", "Telefone", "Admin", "CEP", "Logradouro", "Numero", "Plano"
@@ -64,6 +54,7 @@ public class JRelatorioUsuario extends javax.swing.JFrame implements Relatorio{
                 return canEdit [columnIndex];
             }
         });
+        tbUsers.getTableHeader().setReorderingAllowed(false);
         tbUsers.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbUsersMouseClicked(evt);
@@ -112,25 +103,21 @@ public class JRelatorioUsuario extends javax.swing.JFrame implements Relatorio{
         }
         selecTab();
     }//GEN-LAST:event_tbUsersMouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    
+   
     @Override
     public void listarTabela(){
         int linha = 0;
         DefaultTableModel modelo = (DefaultTableModel) tbUsers.getModel();
         
-        tbUsers.setDefaultEditor(Object.class, null);
+        modelo.setRowCount(linha);
         
-        try{
+        try{            
             for(Usuario u : UsuarioCtrl.getInstancia().lerUser()){
                 modelo.insertRow(linha, new Object[]{
                     u.getNome(), u.getCpf(), u.getEmail(), u.getNumeroTelefone(),
                     (u.isAdmin() ? "Sim" : "Não"), u.getEndereco().getCep(),
                     u.getEndereco().getRua(), u.getEndereco().getNumero(), 
-                    u.getPlano().getId()
+                    u.getPlano()==null? "Não" : u.getPlano().getId()
                 });
 
                 linha++;
@@ -173,6 +160,14 @@ public class JRelatorioUsuario extends javax.swing.JFrame implements Relatorio{
     }
     
     private void deletar(Usuario user){
+        if(user.getCpf().equals(this.usuario.getCpf())){
+            JOptionPane.showMessageDialog(
+                            null, "Não se pode excluir o próprio usuário.",
+                            "Atenção!", JOptionPane.WARNING_MESSAGE
+                    );
+            return;
+        }
+        
         int o = JOptionPane.showOptionDialog(
                         null, "Deseja realmente deletar o usuário?", "CPF do usuário: "+user.getCpf(),
                         JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, 
@@ -200,8 +195,17 @@ public class JRelatorioUsuario extends javax.swing.JFrame implements Relatorio{
         }
     }
     
-    void tornarAdmin(Usuario user){
+    void tornarAdmin(Usuario user){        
+        if(user.getCpf().equals(this.usuario.getCpf())){
+            JOptionPane.showMessageDialog(
+                            null, "Não se pode alterar o próprio usuário.",
+                            "Atenção!", JOptionPane.WARNING_MESSAGE
+                    );
+            return;
+        }
+        
         try{
+            user.setAdmin(!user.isAdmin());
             UsuarioCtrl.getInstancia().altUserSetAdmin(user);
         } catch(SQLException | ClassNotFoundException sql_cnf_e){
             JOptionPane.showMessageDialog(null, "Erro: " + sql_cnf_e.toString(),
@@ -214,20 +218,11 @@ public class JRelatorioUsuario extends javax.swing.JFrame implements Relatorio{
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new JRelatorioUsuario().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new JRelatorioUsuario(new Usuario()).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -57,9 +57,7 @@ public class UsuarioCtrl {
     }
     
     public List<Usuario> lerUser() throws Exception{        
-        String sql = "SELECT * FROM usuario NATURAL JOIN plano";
-        Endereco intermediarioE = new Endereco();
-        Plano intermediarioP = new Plano();
+        String sql = "SELECT * FROM usuario";                
         List<Usuario> retorno = new LinkedList<>();
         
         try(
@@ -68,24 +66,18 @@ public class UsuarioCtrl {
             ResultSet rs = ps.executeQuery();
         ){
             while(rs.next()){
-                intermediarioE.setNumero(rs.getInt("end_numero"));
-                intermediarioE.setCep(rs.getString("end_cep"));
-                intermediarioE.setRua(rs.getString("end_rua"));
-                
-                intermediarioP = PlanoCtrl.getInstancia().lerPlano(rs.getInt("pla_id"));
-                
                 retorno.add(new Usuario(
-                                    rs.getString("usu_login"),
-                                    rs.getString("usu_senha"),
-                                    rs.getString("usu_numero_telefone"),
-                                    rs.getBoolean("usu_admin"),
-                                    intermediarioE,
-                                    intermediarioP,
-                                    rs.getString("usu_cpf"),
-                                    rs.getString("usu_nome"),
-                                    rs.getDate("usu_data_natalidade").toLocalDate()));
-            }
-            
+                        rs.getString("usu_login"),
+                        rs.getString("usu_senha"),
+                        rs.getString("usu_numero_telefone"),
+                        rs.getBoolean("usu_admin"),
+                        new Endereco(rs.getInt("end_numero"), rs.getString("end_rua"), rs.getString("end_cep")),
+                        PlanoCtrl.getInstancia().lerPlano(rs.getInt("pla_id")),
+                        rs.getString("usu_cpf"),
+                        rs.getString("usu_nome"),
+                        rs.getDate("usu_data_natalidade").toLocalDate())
+                );
+            }            
             return retorno;
         }
     }

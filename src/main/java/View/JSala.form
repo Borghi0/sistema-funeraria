@@ -33,7 +33,7 @@
       <SubComponents>
         <MenuItem class="javax.swing.JMenuItem" name="pmiEditar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+            <Property name="text" type="java.lang.String" value="Editar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pmiEditarActionPerformed"/>
@@ -41,7 +41,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="pmiDeletar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+            <Property name="text" type="java.lang.String" value="Deletar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pmiDeletarActionPerformed"/>
@@ -73,7 +73,8 @@
     </Menu>
   </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="title" type="java.lang.String" value="Salas"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="mnBar"/>
@@ -127,7 +128,7 @@
                   <Component id="rtCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cxCod" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="113" max="32767" attributes="0"/>
+              <EmptySpace pref="62" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btConfirmar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btConsultar" alignment="3" min="-2" max="-2" attributes="0"/>
