@@ -91,15 +91,15 @@ public class EnderecoCtrl {
     }
     
     public boolean delEndereco(Endereco endereco) throws SQLException, ClassNotFoundException{
-        String sql_del = "DELETE FROM endereco WHERE end_numero = ?"
+        String sqlDel = "DELETE FROM endereco WHERE end_numero = ?"
                        + " AND end_rua = ?"
                        + " AND end_cep = ?",
-                sql_busca = "SELECT * FROM endereco WHERE end_numero = ? AND"
+                sqlBusca = "SELECT * FROM endereco WHERE end_numero = ? AND"
                           + " end_rua = ? AND"
                           + " end_cep = ?";
         
         try(Connection con = BancoCtrl.getInstancia().getConexao();
-                PreparedStatement ps_busca = con.prepareStatement(sql_busca)){            
+                PreparedStatement ps_busca = con.prepareStatement(sqlBusca)){            
             
             ps_busca.setInt(1, endereco.getNumero());
             ps_busca.setString(2, endereco.getRua());
@@ -109,7 +109,7 @@ public class EnderecoCtrl {
             
                 if(!rs.next()) return false;
                 else{
-                    try(PreparedStatement ps_del = con.prepareStatement(sql_del)){
+                    try(PreparedStatement ps_del = con.prepareStatement(sqlDel)){
                         ps_del.setInt(1, endereco.getNumero());
                         ps_del.setString(2, endereco.getRua());
                         ps_del.setString(3, endereco.getCep());

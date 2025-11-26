@@ -105,8 +105,8 @@ public class DefuntoCtrl {
     public int delDefunto(Defunto defunto) throws SQLException, ClassNotFoundException{
         int id = defunto.getId(),
             retorno = 0;
-        String sql_del_def = "DELETE FROM defunto WHERE def_id = " + id,
-               sql_del_vel = "DELETE FROM velorio WHERE def_id = " + id;
+        String sqlDelDef = "DELETE FROM defunto WHERE def_id = " + id,
+               sqlDelVel = "DELETE FROM velorio WHERE def_id = " + id;
         
         Connection con = null;
         try{
@@ -115,8 +115,8 @@ public class DefuntoCtrl {
             
                 con.setAutoCommit(false);
 
-                retorno += st.executeUpdate(sql_del_vel);
-                retorno += st.executeUpdate(sql_del_def);
+                retorno += st.executeUpdate(sqlDelVel);
+                retorno += st.executeUpdate(sqlDelDef);
 
                 con.commit();
                 return retorno;
