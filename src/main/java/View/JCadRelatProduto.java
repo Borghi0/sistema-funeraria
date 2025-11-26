@@ -319,14 +319,18 @@ public class JCadRelatProduto extends javax.swing.JFrame {
 
         if(linSelec<0) return;
                 
-        Produto produtoSelec = new Produto(
-                tbProdutos.getValueAt(linSelec, 3).toString().equals("Sim"),
-                (Integer) tbProdutos.getValueAt(linSelec, 4),
-                (Double) tbProdutos.getValueAt(linSelec, 2),
-                (String) tbProdutos.getValueAt(linSelec, 1),
-                (Integer) tbProdutos.getValueAt(linSelec, 0)
-        );        
-                        
+        Produto produtoSelec = new Produto();        
+        
+        try{
+            produtoSelec = ProdutoCtrl.getInstancia().lerProduto((Integer) tbProdutos.getValueAt(linSelec, 0));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(
+                    null, "Erro na busca:\n" + e,
+                    "Erro!", JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+        
         int o = JOptionPane.showOptionDialog(
                 null,
                 "O que gostaria de fazer?",

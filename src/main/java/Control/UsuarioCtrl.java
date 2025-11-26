@@ -18,7 +18,7 @@ public class UsuarioCtrl {
         return instancia;
     }
     
-    private void cadUser(Usuario user, Connection con) throws Exception{
+    private void cadUser(Usuario user, Connection con) throws SQLException, ClassNotFoundException{
         String sql = "INSERT INTO usuario VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL)";
         
         try(PreparedStatement ps = con.prepareStatement(sql)){
@@ -38,7 +38,7 @@ public class UsuarioCtrl {
         }
     }
     
-    public void cadUser(Usuario user, Endereco ender) throws Exception{
+    public void cadUser(Usuario user, Endereco ender) throws SQLException, ClassNotFoundException{
         Connection con = null;
         try{
             con = BancoCtrl.getInstancia().getConexao();
@@ -56,7 +56,7 @@ public class UsuarioCtrl {
         }
     }
     
-    public List<Usuario> lerUser() throws Exception{        
+    public List<Usuario> lerUser() throws SQLException, ClassNotFoundException{        
         String sql = "SELECT * FROM usuario";                
         List<Usuario> retorno = new LinkedList<>();
         
@@ -82,7 +82,7 @@ public class UsuarioCtrl {
         }
     }
     
-    public Usuario lerUser(String cpf) throws Exception{
+    public Usuario lerUser(String cpf) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM usuario WHERE usu_cpf = " + cpf;
         
         try(
@@ -109,7 +109,7 @@ public class UsuarioCtrl {
         }       
     }
     
-    public Usuario lerUserLogin(String email) throws Exception{
+    public Usuario lerUserLogin(String email) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM usuario WHERE usu_login = ?";
         
         try(Connection con = BancoCtrl.getInstancia().getConexao();
@@ -137,22 +137,24 @@ public class UsuarioCtrl {
         }       
     }
     
-    public int altUser(Usuario user) throws Exception{
+    public int altUser(Usuario user) throws SQLException, ClassNotFoundException{
         int retorno = 0;
-        String sqlUpdtUs = "UPDATE usuario SET usu_nome = " + user.getNome()
-                           + " usu_data_natalidade = " + Date.valueOf(user.getDataNatalidade())
-                            + " usu_login = " + user.getEmail()
-                            + " usu_senha = " + user.getSenha()
-                            + " usu_numero_telefone = " + user.getNumeroTelefone()
-                            + " usu_admin = " + (user.isAdmin() ? "TRUE" : "FALSE")
-                            + " pla_id = " + (user.getPlano()==null ? null : user.getPlano().getId())
-                            + " WHERE usu_cpf = " + user.getCpf(),
-                sqlUpdtEnd = "UPDATE endereco SET end_numero = " + user.getEndereco().getNumero()
-                             + ", end_rua = " + user.getEndereco().getRua()
-                             + ", end_cep = " + user.getEndereco().getCep()
-                             + " WHERE (end_numero, end_rua, end_cep) IN "
-                             + "(SELECT end_numero, end_rua, end_cep FROM usuario"
-                             + " WHERE usu_cpf = " + user.getCpf() + ")";
+        String sqlUpdtUs = "UPDATE usuario SET "
+                        + "usu_nome='" + user.getNome() + "',"
+                        + "usu_data_natalidade='" + Date.valueOf(user.getDataNatalidade()) + "',"
+                        + "usu_login='" + user.getEmail() + "',"
+                        + "usu_senha='" + user.getSenha() + "',"
+                        + "usu_numero_telefone='" + user.getNumeroTelefone() + "',"
+                        + "usu_admin=" + (user.isAdmin() ? "TRUE" : "FALSE") + ","
+                        + "pla_id=" + (user.getPlano()==null ? "NULL" : user.getPlano().getId()) 
+                        + " WHERE usu_cpf='" + user.getCpf() + "'",
+
+                sqlUpdtEnd = "UPDATE endereco SET "
+                        + "end_numero=" + user.getEndereco().getNumero() + ","
+                        + "end_rua='" + user.getEndereco().getRua() + "',"
+                        + "end_cep='" + user.getEndereco().getCep() + "'"
+                        + " WHERE (end_numero,end_rua,end_cep) IN "
+                        + "(SELECT end_numero,end_rua,end_cep FROM usuario WHERE usu_cpf='" + user.getCpf() + "')";
         
         Connection con = null;
         try{ 
@@ -187,7 +189,7 @@ public class UsuarioCtrl {
         }
     }
 
-    public int delUser(Usuario user) throws Exception{
+    public int delUser(Usuario user) throws SQLException, ClassNotFoundException{
         int retorno = 0;
         String cpf = user.getCpf(),
                sql_del_us = "DELETE FROM usuario WHERE usu_cpf = " + user.getCpf(),
@@ -216,7 +218,7 @@ public class UsuarioCtrl {
         }
     }
     
-    public int adquirirPlano(Usuario user, Plano plano) throws Exception{
+    public int adquirirPlano(Usuario user, Plano plano) throws SQLException, ClassNotFoundException{
         String sql = "UPDATE usuario SET pla_id = ? WHERE usu_cpf = ?";
         
         try(

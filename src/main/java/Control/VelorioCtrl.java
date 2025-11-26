@@ -19,7 +19,7 @@ public class VelorioCtrl {
         return instancia;
     }
     
-    public int cadVelorio(Velorio velorio) throws Exception{
+    public int cadVelorio(Velorio velorio) throws SQLException, ClassNotFoundException{
         String sql = "INSERT INTO velorio VALUES ((SELECT sal_numero FROM sala s"
                 + " WHERE s.sal_numero = ?), ?, (SELECT def_id FROM "
                 + "defunto d WHERE d.def_id = ?))";
@@ -36,7 +36,7 @@ public class VelorioCtrl {
         }
     }
     
-    public Velorio lerVelorio(int numero, LocalDateTime data) throws Exception{
+    public Velorio lerVelorio(int numero, LocalDateTime data) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM velorio AS ve NATURAL JOIN sala  "
                    + "NATURAL JOIN defunto WHERE "
                    + "ve.sal_numero = ? AND "
@@ -71,7 +71,7 @@ public class VelorioCtrl {
         return null;
     }
     
-    public List<Velorio> lerVelorio() throws Exception{
+    public List<Velorio> lerVelorio() throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM velorio NATURAL JOIN sala NATURAL JOIN defunto";
         Sala intermediarioS = null;
         Defunto intermediarioD = null;
@@ -100,7 +100,7 @@ public class VelorioCtrl {
         }
     }
     
-    public int altVelorio(Velorio velorio) throws Exception{
+    public int altVelorio(Velorio velorio) throws SQLException, ClassNotFoundException{
         String sql = "UPDATE velorio SET sal_numero = (SELECT sal_numero"
                 + " FROM sala s WHERE s.sal_numero = ?), "
                 + "vel_data_horario = ? WHERE def_id = ?";
@@ -115,10 +115,9 @@ public class VelorioCtrl {
             
             return ps.executeUpdate();
         }
-    }
-    
+    }    
 
-    public int delVelorio(Velorio velorio) throws Exception{
+    public int delVelorio(Velorio velorio) throws SQLException, ClassNotFoundException{
         String sql = "DELETE FROM velorio WHERE sal_numero = ? AND vel_data_horario = ?";
         
         try(
@@ -132,7 +131,7 @@ public class VelorioCtrl {
         }
     }
     
-    public int delVelorio(int numero, LocalDateTime data) throws Exception{
+    public int delVelorio(int numero, LocalDateTime data) throws SQLException, ClassNotFoundException{
         String sql = "DELETE FROM velorio WHERE sal_numero = ? AND vel_data_horario = ?";
         
         try(

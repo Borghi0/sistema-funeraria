@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import Interfaces.JanelaRaiz;
 
 
-public class JSala extends javax.swing.JFrame implements Relatorio, RelatorioIndividual, JanelaRaiz{
+public class JSala extends javax.swing.JFrame implements Relatorio, RelatorioIndividual{
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JSala.class.getName());
 
@@ -184,7 +184,7 @@ public class JSala extends javax.swing.JFrame implements Relatorio, RelatorioInd
     }// </editor-fold>//GEN-END:initComponents
 
     private void mni_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mni_voltarActionPerformed
-        voltar(null);
+        dispose();
     }//GEN-LAST:event_mni_voltarActionPerformed
 
     private void btConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarActionPerformed
@@ -382,12 +382,7 @@ public class JSala extends javax.swing.JFrame implements Relatorio, RelatorioInd
                     "Erro na operação", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    @Override
-    public void voltar(Object object){
-        dispose();
-    }
-    
+           
             
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
