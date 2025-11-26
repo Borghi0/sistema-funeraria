@@ -191,11 +191,10 @@ public class UsuarioCtrl {
 
     public int delUser(Usuario user) throws SQLException, ClassNotFoundException{
         int retorno = 0;
-        String cpf = user.getCpf(),
-               sql_del_us = "DELETE FROM usuario WHERE usu_cpf = " + user.getCpf(),
-               sql_del_end = "DELETE FROM endereco WHERE end_numero = " +
-                user.getEndereco().getNumero() + " AND end_rua = " + user.getEndereco().getRua()
-                + " AND end_cep = " + user.getEndereco().getCep();
+        String sqlDelUs = "DELETE FROM usuario WHERE usu_cpf = '" + user.getCpf() + "'",                
+                sqlDelEnd = "DELETE FROM endereco WHERE end_numero = " +
+                    user.getEndereco().getNumero() + " AND end_rua = '" + user.getEndereco().getRua()
+                    + "' AND end_cep = '" + user.getEndereco().getCep() + "'";
         
         Connection con = null;
         try{
@@ -204,8 +203,8 @@ public class UsuarioCtrl {
             try(Statement st = con.createStatement()){
                 con.setAutoCommit(false);
 
-                retorno += st.executeUpdate(sql_del_us);
-                retorno += st.executeUpdate(sql_del_end);
+                retorno += st.executeUpdate(sqlDelUs);
+                retorno += st.executeUpdate(sqlDelEnd);
 
                 con.commit();
             }

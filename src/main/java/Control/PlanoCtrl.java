@@ -1,12 +1,12 @@
 package Control;
 
-
 import Model.Plano;
 import Model.Produto;
 import Model.Servico;
 import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
+
 
 public class PlanoCtrl {
     private static PlanoCtrl instancia;    
@@ -100,11 +100,12 @@ public class PlanoCtrl {
             con = BancoCtrl.getInstancia().getConexao();
             con.setAutoCommit(false);
             
-            String sql = "UPDATE plano SET pla_nome = ?, pla_preco = ?";
+            String sql = "UPDATE plano SET pla_nome = ?, pla_preco = ? WHERE pla_id = ?";
             
             try(PreparedStatement ps = con.prepareStatement(sql)){            
                 ps.setString(1, plano.getNome());
                 ps.setDouble(2, plano.getPreco());
+                ps.setInt(3, plano.getId());
                 
                 ps.executeUpdate();                
             }

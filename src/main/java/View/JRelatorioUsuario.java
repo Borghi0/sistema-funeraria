@@ -1,6 +1,5 @@
 package View;
 
-import Control.NavegadorUI;
 import Control.UsuarioCtrl;
 import Interfaces.Relatorio;
 import Model.Endereco;
@@ -137,12 +136,15 @@ public class JRelatorioUsuario extends javax.swing.JFrame implements Relatorio{
         
         Usuario userSelec = new Usuario();
         
-        userSelec.setAdmin(tbUsers.getValueAt(linSelec, 4).toString().equals("Sim"));
-        userSelec.setCpf((String) tbUsers.getValueAt(linSelec, 1));                
-        userSelec.setEndereco(new Endereco(
-                (int) tbUsers.getValueAt(linSelec, 7),
-                (String) tbUsers.getValueAt(linSelec, 6),
-                (String) tbUsers.getValueAt(linSelec, 5)));
+        try{
+            userSelec = UsuarioCtrl.getInstancia().lerUser((String) tbUsers.getValueAt(linSelec, 1));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(
+                    null, "Erro na busca:\n" + e,
+                    "Erro!", JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }                
                         
         int o = JOptionPane.showOptionDialog(
                 null,

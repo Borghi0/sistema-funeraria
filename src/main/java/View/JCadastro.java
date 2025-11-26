@@ -6,15 +6,12 @@ import Control.UsuarioCtrl;
 import Model.Usuario;
 import Model.Endereco;
 import com.github.weisj.darklaf.*;
-import java.awt.Color;
 import java.time.LocalDate;
 import java.util.Arrays;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 
 public class JCadastro extends javax.swing.JFrame {
@@ -440,28 +437,10 @@ public class JCadastro extends javax.swing.JFrame {
     }
     
     public void cadastrar(){
-
-        // ver se segue boas praticas (claramente n):        
-        cxEmail.setText(cxEmail.getText().replaceAll("\\s+", ""));
-        cxNome.setText(cxNome.getText().trim());
-        cxTelefone.setText(cxTelefone.getText().replaceAll("[^0-9]", ""));        
-        cxCpf.setText(cxCpf.getText().replaceAll("[^0-9]", ""));
-        cxRua.setText(cxRua.getText().trim());
-        cxNumero.setText(cxNumero.getText().replaceAll("[^0-9]", ""));
-        cxCep.setText(cxCep.getText().replaceAll("[^0-9]", ""));
+        if(!validarCampos()) return;                
         
         LocalDate data_natalidade = validarData();
-        if(data_natalidade == null) return;
-        
-        if(!Arrays.equals(csSenha.getPassword(), csCSenha.getPassword())){
-            JOptionPane.showMessageDialog(
-                null,
-                "Senhas diferentes",
-                "Erro",
-                JOptionPane.ERROR_MESSAGE
-            );
-            return;
-        }
+        if(data_natalidade == null) return;                
         
         Endereco endereco = new Endereco(
                 cxNumero.getText().isBlank() ? 0 : Integer.parseInt(cxNumero.getText()),
@@ -502,6 +481,47 @@ public class JCadastro extends javax.swing.JFrame {
     public void cadastrar(java.awt.event.KeyEvent evt){
         if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) cadastrar();
     }  
+    
+    private boolean validarCampos(){
+        cxEmail.setText(cxEmail.getText().replaceAll("\\s+", ""));
+        cxNome.setText(cxNome.getText().trim());
+        cxTelefone.setText(cxTelefone.getText().replaceAll("[^0-9]", ""));        
+        cxCpf.setText(cxCpf.getText().replaceAll("[^0-9]", ""));
+        cxRua.setText(cxRua.getText().trim());
+        cxNumero.setText(cxNumero.getText().replaceAll("[^0-9]", ""));
+        cxCep.setText(cxCep.getText().replaceAll("[^0-9]", ""));
+        
+        if(
+            cxNome.getText().isEmpty() ||
+            cxCpf.getText().isEmpty() ||
+            cxEmail.getText().isEmpty() ||
+            cxTelefone.getText().isEmpty() ||
+            cxRua.getText().isEmpty() ||
+            cxNumero.getText().isEmpty() ||
+            cxCep.getText().isEmpty() ||
+            csSenha.getPassword().length == 0 ||
+            csCSenha.getPassword().length == 0
+        ){
+             JOptionPane.showMessageDialog(
+                null,
+                "Nenhum campo pode ser vazio",
+                "Erro",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return false;   
+        }        
+        if(!Arrays.equals(csSenha.getPassword(), csCSenha.getPassword())){
+            JOptionPane.showMessageDialog(
+                null,
+                "Senhas diferentes",
+                "Erro",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return false;
+        }
+        
+        return true;
+    }
     
     private LocalDate validarData(){
         LocalDate data_natalidade;
