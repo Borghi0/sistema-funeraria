@@ -68,6 +68,12 @@ CREATE TABLE IF NOT EXISTS `UTFuneral`.`plano_servico` (
     FOREIGN KEY (`ser_id`)
     REFERENCES `UTFuneral`.`servico` (`ser_id`));
 
+CREATE TABLE IF NOT EXISTS sala(
+				sal_numero INT NOT NULL AUTO_INCREMENT,
+                sal_capacidade INT NOT NULL,
+                PRIMARY KEY (sal_numero)
+);
+
 CREATE TABLE IF NOT EXISTS velorio(
                 sal_numero INT,
                 vel_data_horario DATETIME,
