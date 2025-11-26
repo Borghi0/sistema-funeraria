@@ -22,16 +22,16 @@ CREATE TABLE IF NOT EXISTS `UTFuneral`.`endereco` (
 
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`plano` (
   `pla_id` INT NOT NULL AUTO_INCREMENT,
-  `pla_preco` DOUBLE NOT NULL DEFAULT '0',
   `pla_nome` VARCHAR(255) NOT NULL,
+  `pla_preco` DOUBLE NOT NULL DEFAULT '0',  
   PRIMARY KEY (`pla_id`));
 
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`produto` (
   `pro_id` INT NOT NULL AUTO_INCREMENT,
+  `pro_nome` VARCHAR(255) NOT NULL,
   `pro_perecivel` TINYINT(1) NOT NULL DEFAULT '0',
   `pro_quant_estoque` INT NOT NULL DEFAULT '0',
-  `pro_preco` DOUBLE NOT NULL DEFAULT '0',
-  `pro_nome` VARCHAR(255) NOT NULL,
+  `pro_preco` DOUBLE NOT NULL DEFAULT '0',  
   PRIMARY KEY (`pro_id`));
 
 CREATE TABLE IF NOT EXISTS `UTFuneral`.`plano_produto` (
