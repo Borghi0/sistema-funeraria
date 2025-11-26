@@ -104,6 +104,12 @@ public class JSala extends javax.swing.JFrame implements Relatorio, RelatorioInd
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbInfoSalaMouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbInfoSalaMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbInfoSalaMouseReleased(evt);
+            }
         });
         spInfoSala.setViewportView(tbInfoSala);
 
@@ -199,7 +205,7 @@ public class JSala extends javax.swing.JFrame implements Relatorio, RelatorioInd
     }//GEN-LAST:event_btConsultarActionPerformed
 
     private void tbInfoSalaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbInfoSalaMouseClicked
-        if(evt.getButton() == java.awt.event.MouseEvent.BUTTON1){
+        if(evt.getButton() == java.awt.event.MouseEvent.BUTTON3){
             int linha = tbInfoSala.rowAtPoint(evt.getPoint());
             
             if(linha >= 0 && linha < tbInfoSala.getRowCount()) tbInfoSala.setRowSelectionInterval(linha, linha);
@@ -228,6 +234,24 @@ public class JSala extends javax.swing.JFrame implements Relatorio, RelatorioInd
            cxCod.requestFocus();
        }
     }//GEN-LAST:event_cxCodKeyPressed
+
+    private void tbInfoSalaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbInfoSalaMousePressed
+        if(evt.getButton() == java.awt.event.MouseEvent.BUTTON3){
+            int linha = tbInfoSala.rowAtPoint(evt.getPoint());
+            
+            if(linha >= 0 && linha < tbInfoSala.getRowCount()) tbInfoSala.setRowSelectionInterval(linha, linha);
+            else tbInfoSala.clearSelection();
+        }
+    }//GEN-LAST:event_tbInfoSalaMousePressed
+
+    private void tbInfoSalaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbInfoSalaMouseReleased
+        if(evt.getButton() == java.awt.event.MouseEvent.BUTTON3){
+            int linha = tbInfoSala.rowAtPoint(evt.getPoint());
+            
+            if(linha >= 0 && linha < tbInfoSala.getRowCount()) tbInfoSala.setRowSelectionInterval(linha, linha);
+            else tbInfoSala.clearSelection();
+        }
+    }//GEN-LAST:event_tbInfoSalaMouseReleased
     
     @Override
     public void listarTabela(){
@@ -266,8 +290,10 @@ public class JSala extends javax.swing.JFrame implements Relatorio, RelatorioInd
             
             num = (int) tbInfoSala.getValueAt(linha, 0);
             opt = JOptionPane.showInputDialog("Nova capacidade: ");
-            s.setNumero(num);
-            s.setCapacidade(Integer.parseInt(opt));
+            if(opt != null){
+                s.setNumero(num);
+                s.setCapacidade(Integer.parseInt(opt));
+            }
 
             SalaCtrl.getInstancia().altSala(s);
         } catch(NumberFormatException nfe){
