@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `UTFuneral`.`usuario` (
   INDEX `fk_usuario_endereco` (`end_numero` ASC, `end_rua` ASC, `end_cep` ASC) VISIBLE,
   CONSTRAINT `fk_usuario_endereco`
     FOREIGN KEY (`end_numero` , `end_rua` , `end_cep`)
-    REFERENCES `UTFuneral`.`endereco` (`end_numero` , `end_rua` , `end_cep`),
+    REFERENCES `UTFuneral`.`endereco` (`end_numero` , `end_rua` , `end_cep`) ON UPDATE CASCADE,
   CONSTRAINT `fk_usuario_plano`
     FOREIGN KEY (`pla_id`)
     REFERENCES `UTFuneral`.`plano` (`pla_id`));
