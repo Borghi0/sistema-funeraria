@@ -248,11 +248,10 @@ public class NavegadorUI {
     }
     
     public void mostrarJAlterarDefunto(Defunto defunto){
-        if(jAlterarDefunto == null) jAlterarDefunto = new JAlterarDefunto(defunto);
+        if(jAlterarDefunto != null) jAlterarDefunto.dispose();
         
-        jAlterarDefunto.setVisible(true);
-        jAlterarDefunto.setState(java.awt.Frame.NORMAL);
-        jAlterarDefunto.toFront();
+        jAlterarDefunto = new JAlterarDefunto(defunto);
+        jAlterarDefunto.setVisible(true);        
     }            
     
     public void mostarJSala(){
