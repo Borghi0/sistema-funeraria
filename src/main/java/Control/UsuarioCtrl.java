@@ -147,7 +147,15 @@ public class UsuarioCtrl {
                         + "usu_numero_telefone='" + user.getNumeroTelefone() + "',"
                         + "usu_admin=" + (user.isAdmin() ? "TRUE" : "FALSE") + ","
                         + "pla_id=" + (user.getPlano()==null ? "NULL" : user.getPlano().getId()) 
-                        + " WHERE usu_cpf='" + user.getCpf() + "'";
+                        + " WHERE usu_cpf='" + user.getCpf() + "'",
+
+                sqlUpdtEnd = "UPDATE endereco SET "
+                        + "end_numero=" + user.getEndereco().getNumero() + ","
+                        + "end_rua='" + user.getEndereco().getRua() + "',"
+                        + "end_cep='" + user.getEndereco().getCep() + "'"
+                        + " WHERE (end_numero,end_rua,end_cep) IN "
+                        + "(SELECT end_numero,end_rua,end_cep FROM usuario WHERE usu_cpf='" + user.getCpf() + "')";
+        
         Connection con = null;
         try{ 
             con = BancoCtrl.getInstancia().getConexao();            
@@ -155,6 +163,7 @@ public class UsuarioCtrl {
             try(Statement st = con.createStatement()){   
                 con.setAutoCommit(false);
                 
+                retorno += st.executeUpdate(sqlUpdtEnd);
                 retorno += st.executeUpdate(sqlUpdtUs);
                 
                 con.commit();
